@@ -4,14 +4,21 @@ require '../database.php';
 
 $output = '   
             <div class="centered-div">
-                <form action="userlogin.php" method="POST">
-                    <label class="formtitle">log in</label>
+
+                <form action="userregister.php" method="POST">
+                    <label class="formtitle">Register</label>
                     <label>Username</label>
                     <input type="text" name="username" />
+                    <label>Email</label>
+                    <input type="email" name="email" />
                     <label>Password</label>
                     <input type="password" name="password" />
-                    <a href="#">forgot password?</a>
-                    <input type="submit" value="Login" name="login" />
+                    <label>Confirm Password</label>
+                    <input type="password" name="password" />
+                    
+                    
+                    <input type="submit" value="Sign Up" name="signup" />
+                    <a href="userlogin.php">Or login here</a>
                 </form>
             </div>
             ';

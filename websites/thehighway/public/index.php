@@ -13,19 +13,19 @@
         <nav>
             <img src="images/logo.png" alt="logo" class="logo">
             <ul id="nav">
-                <li><a href="#">Home</a></li>
+                <li><a href="./index.php">Home</a></li>
                 <li><a href="#menu">Menu</a></li>
-                <li><a href="userlogin.php">Register</a></li>
+                <li><a href="userregister.php">Register</a></li>
                 <li><a href="userlogin.php">Login</a></li>
             </ul>
             <i class="fa-solid fa-cart-shopping cart" id="cart"> £0.00</i>
-            <i class="fa-solid fa-bars menuicon" onclick="toggleNav()"></i>
+            <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
         </nav>
         
         <div class="main-header">
             <div class="header">
                 <h1>The Highway</h1>
-                <p>Take your tastebuds to the next level with delicious meals prepared by world class chefs.</p>
+                <p>Take your tastebuds to the next level with our delicious meals prepared by world class chefs.</p>
                 <button><a href="#menu" class="order">Order now</a></button>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     <option value="q">1</option>
                 </select>
                 <p>Subtotal {price}</p>
-                <button>Continue to Checkout</button>
+                <button onclick="location.href='checkout.php'">Continue to Checkout</button>
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
                     $stmt = $categoryTable->findAll();
 
                     echo '<li onclick="selectMenuItem(1)" class="selected">
-                            <a href="#menu">All</a>
+                            <a href="menu.php">All</a>
                         </li>';
 
                     
@@ -89,7 +89,7 @@
                         echo '
                             <div class="menu-item">
                                 <div class="image">
-                                    <img src="images/menuitem.jpeg" alt="menu-item">
+                                    <img src="images/randombanner.php" alt="menu-item">
                                 </div>
                                 <i class="fa-solid fa-circle-info iteminfo"></i>
                                 <div class="description">

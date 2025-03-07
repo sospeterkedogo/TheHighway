@@ -48,7 +48,7 @@ if (isset($_SESSION['loggedin'])) {
 }
 else {
 	$output = '
-	<h3>Please Provide Your Credentials To Log In</h3>	
+	<h3 style="text-align:center;margin: auto;">Please Provide Your Credentials To Log In</h3>	
 	<form action="index.php" method="POST">
 		<label>Username</label>                                              
 		<input type="text" name="username" /> 

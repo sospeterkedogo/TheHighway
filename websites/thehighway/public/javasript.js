@@ -7,10 +7,6 @@ function selectMenuItem(itemnumber) {
     }
 }
 
-function toggleNav(){
-    const nav = document.getElementById("nav");
-    nav.style.left = -250;
-}
 
 document.addEventListener('DOMContentLoaded', function(){
     const popupOverlay = document.getElementById('popupOverlay');
@@ -18,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const closePopup = document.getElementById('closePopup');
     const cartIcon = document.getElementById('cart');
     const iteminfo = document.getElementsByClassName("iteminfo");
+    const nav = document.getElementById("nav");
+    const navbtn = document.getElementById("navbtn");
 
     function openPopup() {
         popupOverlay.style.display = 'block';
@@ -37,10 +35,23 @@ document.addEventListener('DOMContentLoaded', function(){
 
     cartIcon.addEventListener('click', openPopup);
 
+    function toggleNav(){
+        
+        if (nav.style.left == "-250px"){
+            nav.style.left = "0px"; 
+            console.log("opened")
+        } else {
+            nav.style.left = "-250px"; 
+        }
+    
+        console.log("clicked")
+    }
+
+    navbtn.addEventListener('click', toggleNav);
+
     for (let index = 0; index < iteminfo.length; index++) {
         iteminfo[index].addEventListener('click', openPopup);
     }
     
-
 });
 

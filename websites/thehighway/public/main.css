@@ -9,9 +9,13 @@ html {
     scroll-behavior: smooth;
 }
 
+a {
+    text-decoration: none;
+}
+
 .hero{
-    background-image: url(../images/banner-img.jpg);
-    height: 100vh;
+    background-image: url(../images/banner-img.jpeg);
+    min-height: 100vh;
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -262,6 +266,58 @@ footer {
     text-decoration: none;
 }
 
+form {
+    background:rgba(0, 0, 0, 0.5);
+    width: 400px;
+    padding: 28px;
+    border-radius: 3px;
+    margin: 50px auto;
+    outline: none;
+    font-size: 20px;
+    box-shadow: 5px 10px 5px #000;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input {
+    border: none;
+    border-radius: 3px;
+    padding: 12px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+form input[type=submit] {
+    background-color: rgb(56, 56, 255);
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.formtitle {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+form a {
+    color:rgb(56, 56, 255);
+    font-size: 15px;
+}
+
+.centered-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 97vw;
+    height: 95%;
+    
+    margin-top: 15px;
+}
+
 @media only screen and (max-width: 600px) {
 
     body {
@@ -281,14 +337,16 @@ footer {
         font-size: 25px;
     }
 
+
     #nav{
         background-color: #02142A;
         flex-direction: column;
         position: absolute;
         top: 0;
-        left: 0;
+        left: -250px;
         width: 250px;
         height: 60%;
+        transition: 2s;
     }
 
     #nav li{

@@ -10,3 +10,12 @@ Images
 Features
 1. the menu page stood out
 2. The overall website layout
+
+Functionality To Add
+1. Google auth
+
+
+
+1.erd diagram
+2.site map 
+3.list of security tools used
