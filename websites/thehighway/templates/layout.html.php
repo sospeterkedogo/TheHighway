@@ -31,11 +31,12 @@
         <div class="main-footer">
             <div>
                 <h1>About Us</h1>
-                <p>Our vision, purpose and values</p>
-                <p>Blog</p>
-                <p>Contacts</p>
-                <p>Allergens and nutrition</p>
-                <p>Working for us</p>
+                <a href="#">Our vision, purpose and values</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacts</a>
+                <a href="#">Allergens and nutrition</a>
+                <a href="#">Working for us</a>
+                <a href="#">FAQs</a>
             </div>
 
             <div>
@@ -49,16 +50,26 @@
                     <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
 
                 </ul>
-                <img src="" alt="logo here">
-            </div>
+                    <img src="images/logo.png" alt="logo" class="logo">
+                </div>
 
             <div>
                 <h1>Explore</h1>
-                <p>Menu</p>
-                <p>News</p>
+                <a href="#menu">Menu</a>
+                <a href="#">News</a>
             </div>
         </div>
-        <p class="copyrights">Student discount | The Highway's Deals | Terms of use | Terms and Conditions | Privacy policy | Copyright and legal | Marketing Prefrences | Cookie policy </br> &copy; 2025 The Highway UK Limited</p>
+        <div class="otherlinks">
+            <a href="#">Student discount</a> | 
+            <a href="#">The Highway's Deals</a> | 
+            <a href="#">Terms of use </a> | 
+            <a href="#">Terms and Conditions</a> | 
+            <a href="#">Privacy policy</a> | 
+            <a href="#">Copyright and legal</a> | 
+            <a href="#">Marketing Prefrences</a> | 
+            <a href="#">Cookie policy</a> </br> 
+            &copy; 2025 The Highway UK Limited
+        </div>
     </footer>
 </body>
 </html>

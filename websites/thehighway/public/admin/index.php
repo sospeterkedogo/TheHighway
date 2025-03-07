@@ -35,27 +35,32 @@ if (isset($_SESSION['loggedin'])) {
 	// Admin specific functionality to add and remove users
 	if ($_SESSION['username'] === 'admin'){
 		$output .= '
-			<a href="products.php">View Products</a></br>
-			<a href="addproduct.php">Add Product</a></br>
-			<a href="categories.php">View Categories</a></br>
-			<a href="addcategory.php">Add Category</a></br>
-			<a href="adduser.php">Add User</a></br>
-			<a href="removeuser.php">Remove User</a></br>
-			<a href="#">Communication</a></br>
-			<a href="#">Reply</a>
+			<div class="centered-div">
+				<a href="products.php">View Products</a></br>
+				<a href="addproduct.php">Add Product</a></br>
+				<a href="categories.php">View Categories</a></br>
+				<a href="addcategory.php">Add Category</a></br>
+				<a href="adduser.php">Add User</a></br>
+				<a href="removeuser.php">Remove User</a></br>
+				<a href="#">Communication</a></br>
+				<a href="#">Reply</a>
+			</div>
 		';
 	}
 }
 else {
 	$output = '
 	<h3 style="text-align:center;margin: auto;">Please Provide Your Credentials To Log In</h3>	
-	<form action="index.php" method="POST">
-		<label>Username</label>                                              
-		<input type="text" name="username" /> 
-		<label>Password</label>
-		<input type="password" name="password" />
-		<input type="submit" name="submit" value="submit" />
-	</form>
+	<div class="centered-div">
+		<form action="index.php" method="POST">
+			<label class="formtitle">log in</label>
+			<label>Username</label>                                              
+			<input type="text" name="username" /> 
+			<label>Password</label>
+			<input type="password" name="password" />
+			<input type="submit" name="submit" value="submit" />
+		</form>
+	</div>
 	';
 }
 	
