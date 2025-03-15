@@ -1,5 +1,29 @@
+<div class="menu-nav" id="menu">
+        <h2>Menu.</h2>
+        <ul id="menuitems">
+            <?php 
+                if (!isset($pdo)) {
+                    require '../database.php';
+                }
+
+                $categoryTable = new DataBaseTable($pdo, 'categories', 'category_id');
+                $stmt = $categoryTable->findAll();
+
+                echo '<li onclick="selectMenuItem(1)" class="selected">
+                        <a href="menu.php">All</a>
+                    </li>';
+
+                foreach ($stmt as $category) {
+                    echo '<li onclick="selectMenuItem(i)">
+                            <a href="listproducts.php?id=' . $category['category_id'] . '">' . $category['name'] . '</a>
+                          </li>';
+                }
+            ?>
+        </ul>
+    </div>
+
 <?php
-require '../database.php';
+
 
 if(isset($_GET['id'])){
 	// list products by categoryId 

@@ -189,23 +189,7 @@ i:hover {
     background-color: #02142A !important; 
 }
 
-.menu-items {
-    background-color: #fffaf4;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 17px;
-    gap: 17px;
-    max-width: 100%;
-}
-
-.menu-item {
-    position: relative;
-    background-color: #ebebeb;
-}
-
-.menu-item img{
-    max-width: 25vw;
-}
+x
 
 .iteminfo {
     position: absolute;

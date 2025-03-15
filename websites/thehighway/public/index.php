@@ -25,7 +25,7 @@
         <div class="main-header">
             <div class="header">
                 <h1>The Highway</h1>
-                <p>Take your tastebuds to the next level with our delicious meals prepared by world class chefs.</p>
+                <p>Take your tastebuds to the next level with our delicious meals prepared by world-class chefs.</p>
                 <button><a href="#menu" class="order">Order now</a></button>
             </div>
         </div>
@@ -47,64 +47,72 @@
             </div>
         </div>
     </div>
-        
 
     <div class="menu-nav" id="menu">
         <h2>Menu.</h2>
         <ul id="menuitems">
-
             <?php 
-                if(!isset($pdo)){
+                if (!isset($pdo)) {
                     require '../database.php';
                 }
-                    $categoryTable = new DataBaseTable($pdo, 'categories', 'category_id');
-                    $stmt = $categoryTable->findAll();
 
-                    echo '<li onclick="selectMenuItem(1)" class="selected">
-                            <a href="menu.php">All</a>
+                $categoryTable = new DataBaseTable($pdo, 'categories', 'category_id');
+                $stmt = $categoryTable->findAll();
+
+                echo '<li>
+                        <a href="index.php#menu">All</a>
+                    </li>';
+
+                foreach ($stmt as $category) {
+                    echo '<li>
+                            <a href="index.php?category_id=' . $category['category_id'] . '#menu' .'">' . $category['name'] . '</a>
                         </li>';
-
-                    
-                    foreach ($stmt as $category) {
-                        echo '<li onclick="selectMenuItem(i)">
-                                <a href="listproducts.php?id='. $category['category_id'] .'">' . $category['name'] . '</a>
-                            </li>';
-                    }
+                }
             ?>
-					
         </ul>
     </div>
-    
+
+
     <section class="menu">
         <div class="menu-items">
             <?php 
-                if(!isset($pdo)){
+                if (!isset($pdo)) {
                     require '../database.php';
                 }
-                    // list all products
-                    $productsTable = new DataBaseTable($pdo, 'products', 'productid');
-                    $products = $productsTable->findAll();
+
+                $productsTable = new DataBaseTable($pdo, 'products', 'productid');
+
+                // Check if a category has been selected
+                if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
+                    $category_id = $_GET['category_id'];
+                    $products = $productsTable->findAllFrom('category_id', $category_id);
                     
-                    foreach ($products as $product) {
-                        echo '
-                            <div class="menu-item">
-                                <div class="image">
-                                    <img src="images/randombanner.php" alt="menu-item">
-                                </div>
-                                <i class="fa-solid fa-circle-info iteminfo"></i>
-                                <div class="description">
-                                    <h3>'. $product['name'] .'</h3>
-                                    <p>£'. $product['price'] .'</p>
-                                </div>
-                                
-                                <i class="fa-solid fa-plus addtocart"></i>
+
+                } else {
+                    // If no category selected, show all products
+                    $products = $productsTable->findAll();
+                }
+
+                foreach ($products as $product) {
+                    
+                    echo '
+                        <div class="menu-item">
+                            <div class="image">
+                                <img src="images/' . $product['image'] . '" alt="menu-item">
                             </div>
-                        ';
-                    }
+                            <i class="fa-solid fa-circle-info iteminfo"></i>
+                            <div class="description">
+                                <h3>' . $product['name'] . '</h3>
+                                <p>£' . $product['price'] . '</p>
+                            </div>
+                            <i class="fa-solid fa-plus addtocart"></i>
+                        </div>
+                    ';
+                }
             ?>
-            
         </div>
     </section>
+
 
     <footer>
         <div class="main-footer">
@@ -121,16 +129,14 @@
             <div>
                 <h1>Follow us</h1>
                 <ul>
-
                     <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
-
                 </ul>
-                    <img src="images/logo.png" alt="logo" class="logo">
-                </div>
+                <img src="images/logo.png" alt="logo" class="logo">
+            </div>
 
             <div>
                 <h1>Explore</h1>
@@ -141,12 +147,12 @@
         <div class="otherlinks">
             <a href="#">Student discount</a> | 
             <a href="#">The Highway's Deals</a> | 
-            <a href="#">Terms of use </a> | 
+            <a href="#">Terms of use</a> | 
             <a href="#">Terms and Conditions</a> | 
             <a href="#">Privacy policy</a> | 
             <a href="#">Copyright and legal</a> | 
-            <a href="#">Marketing Prefrences</a> | 
-            <a href="#">Cookie policy</a> </br> 
+            <a href="#">Marketing Preferences</a> | 
+            <a href="#">Cookie policy</a> <br> 
             &copy; 2025 The Highway UK Limited
         </div>
     </footer>
