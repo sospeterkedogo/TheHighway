@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin at The Highway</title>
+    <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../main.css">
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
 </head>
@@ -14,10 +15,8 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Menu</a></li>
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Login</a></li>
             </ul>
-            <i class="fa-solid fa-cart-shopping cart"> £0.00</i>
+            <i class="fa-solid fa-user-tie"></i>
         </nav>
         
         <div class="main-header">

@@ -2,7 +2,7 @@
 --
 -- Host: mysql    Database: thehighway
 -- ------------------------------------------------------
--- Server version	11.5.2-MariaDB-ubu2404
+-- Server version	11.7.2-MariaDB-ubu2404
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -194,10 +194,12 @@ CREATE TABLE `products` (
   `description` varchar(1000) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `quantity` int(11) NOT NULL,
   PRIMARY KEY (`productid`),
   KEY `category_id_idx` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +208,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (4,'Greek Salad with caesar dressing','A fresh bowl of goat cheese and healthy dressing',5.76,7),(5,'Chicken Tikka Masala','Home made spicy chicken',10.99,4);
+INSERT INTO `products` VALUES (8,'Chicken Tikka Masala','Spicy Chicken',5.99,4,'../images/chichen.jpg',70),(9,'Italian Pasta','Italian pasta',4.99,5,'../images/pasta.jpg',6),(10,'Greek Salad with caesar dressing','Greek salad',2.99,7,'../images/menuitem.jpg',5),(11,'Garlic Chicken','Garlic chicken',4.55,4,'../images/garlic chicken.png',2);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,4 +335,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-15  1:57:41
+-- Dump completed on 2025-03-16 21:27:30

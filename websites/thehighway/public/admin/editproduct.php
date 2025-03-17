@@ -3,7 +3,7 @@ session_start();
 
 require '../../database.php';
 
-$output = '<h2>Edit Product</h2>';
+$output = '<h2 style="text-align: center">Edit Product</h2>';
 
 if (isset($_SESSION['loggedin'])) {
     if (isset($_POST['submit'])) {
@@ -12,6 +12,7 @@ if (isset($_SESSION['loggedin'])) {
             'name' => $_POST['name'],
             'description' => $_POST['description'],
             'category_id' => $_POST['categoryId'],
+            'quantity' => $_POST['quantity'],
             'productid' => $_POST['id']
         ];
 
@@ -28,6 +29,7 @@ if (isset($_SESSION['loggedin'])) {
         $categories = $categoriesTable->findAll();
 
         $output .= '
+                <div class="centered-div">
                 <form action="editproduct.php?id="'.$_GET['id'].'" method="POST">
                     <label>Category</label>
                     <select name="categoryId"> 
@@ -45,11 +47,13 @@ if (isset($_SESSION['loggedin'])) {
                     $output .= '
                     <label>Product name:</label>
                     <input type="hidden" name="id" value="' .$product['productid'] .'">
-                    <input type="text" name="name" value=" ' . $product['name'] . '" />
+                    <input type="text" name="name" value="'.$product['name'].'" />
+                    <label>Quantity:</label>
+                    <input type="text" name="quantity" value="'.$product['quantity'] .'">
                     <label>Product description:</label>
                     <textarea name="description">' . $product['description'] . '</textarea>
                     <input type="submit" value="Submit" name="submit" />
-                </form>';
+                </form></div>';
     }
 }
 else {

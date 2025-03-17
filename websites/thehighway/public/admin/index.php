@@ -25,26 +25,24 @@ if (isset($_SESSION['loggedin'])) {
 		header('Location: index.php');
 	}
 
-	$output = 'Welcome back. Please choose an option to begin
-	
-		<form action="index.php" method="POST">
-			<input type="submit" name="logout" value="Logout" />
-		</form>
-	';
+	$output = '<h3 style="text-align: center">Welcome back. Please choose an option to begin</h3>';
 
 	// Admin specific functionality to add and remove users
 	if ($_SESSION['username'] === 'admin'){
 		$output .= '
 			<div class="centered-div">
-				<a href="products.php">View Products</a></br>
-				<a href="addproduct.php">Add Product</a></br>
-				<a href="categories.php">View Categories</a></br>
-				<a href="addcategory.php">Add Category</a></br>
-				<a href="adduser.php">Add User</a></br>
-				<a href="removeuser.php">Remove User</a></br>
-				<a href="#">Communication</a></br>
+				<a href="products.php">View Products</a>
+				<a href="addproduct.php">Add Product</a>
+				<a href="categories.php">View Categories</a>
+				<a href="addcategory.php">Add Category</a>
+				<a href="adduser.php">Add User</a>
+				<a href="removeuser.php">Remove User</a>
+				<a href="#">Communication</a>
 				<a href="#">Reply</a>
 			</div>
+			<form action="index.php" method="POST" style="margin: 0">
+			<input type="submit" name="logout" value="Logout" />
+		</form>
 		';
 	}
 }

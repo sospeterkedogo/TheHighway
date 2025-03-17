@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
 
-    cartIcon.addEventListener('click', openPopup);
+    cartIcon.addEventListener('click', function (event) {
+        openPopup()
+    });
+
+    
 
     function toggleNav(){
         
@@ -54,4 +58,5 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     
 });
+
 

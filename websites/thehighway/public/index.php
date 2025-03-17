@@ -1,9 +1,43 @@
+<?php 
+session_start();
+
+if (isset($_POST['addtocart'])) {
+    if (isset($_SESSION['cart'])) {
+
+        $session_array_id = array_column($_SESSION['cart'], 'id');
+
+        if (!in_array($_GET['id'], $session_array_id)) {
+            $session_array = array(
+                'id' => $_GET['id'],
+                'name' => $_POST['name'],
+                'price' => $_POST['price'],
+                'image' => $_POST['image']
+            );
+    
+            $_SESSION['cart'][] = $session_array;
+        }
+
+    } else {
+        $session_array = array(
+            'id' => $_GET['id'],
+            'name' => $_POST['name'],
+            'price' => $_POST['price'],
+            'image' => $_POST['image']
+        );
+
+        $_SESSION['cart'][] = $session_array;
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Highway</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="main.css">
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
     <script src="javasript.js"></script>
@@ -18,7 +52,12 @@
                 <li><a href="userregister.php">Register</a></li>
                 <li><a href="userlogin.php">Login</a></li>
             </ul>
-            <i class="fa-solid fa-cart-shopping cart" id="cart"> £0.00</i>
+            <i class="fa-regular fa-user"></i>
+            <div class="cart" id="cart">
+                <i class="fa-solid fa-cart-shopping" ></i>
+                <span>2</span>
+            </div>
+            
             <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
         </nav>
         
@@ -36,13 +75,46 @@
             <span class="close" id="closePopup">&times;</span>
             <div class="popup-content">
                 <h3>Your Cart</h3>
-                <img src="" alt="item image">
-                <p>Item Name</p>
-                <p>price</p>
-                <select name="quantity" id="quantity">
-                    <option value="q">1</option>
-                </select>
-                <p>Subtotal {price}</p>
+                <div class="listCart">
+
+                    <?php 
+                        if (!empty($_SESSION['cart'])) {
+                            $total = 0;
+                            foreach ($_SESSION['cart'] as $key => $value) {
+                                echo '
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="images/'.$value['image'].'" alt="" style="width: 50px">
+                                    </div>
+                                    <div class="name">
+                                        '.$value['name'].'
+                                    </div>
+                                    <div class="totalPrice">
+                                        £'.$value['price'].'
+                                    </div>
+                                    <div class="quantity">
+                                        <span class="minus"><</span>
+                                        <span>1</span>
+                                        <span class="minus">></span>
+                                    </div>
+                                </div>
+
+                                ';
+                                $total = $total + $value['price'];
+                            }
+                        } else {
+                            echo '<p>No items in your cart yet.</p>';
+                        }
+
+                    ?>
+                    
+                    
+                </div>
+                <div>
+                    <?php 
+                        echo '<p>Total: '.$total.'</p>'
+                    ?>
+                </div>
                 <button onclick="location.href='checkout.php'">Continue to Checkout</button>
             </div>
         </div>
@@ -97,15 +169,20 @@
                     
                     echo '
                         <div class="menu-item">
-                            <div class="image">
-                                <img src="images/' . $product['image'] . '" alt="menu-item">
-                            </div>
-                            <i class="fa-solid fa-circle-info iteminfo"></i>
-                            <div class="description">
-                                <h3>' . $product['name'] . '</h3>
-                                <p>£' . $product['price'] . '</p>
-                            </div>
-                            <i class="fa-solid fa-plus addtocart"></i>
+                            <form method="POST" action="index.php?id='. $product['productid'] .'#menu" style="all: revert">
+                                <div class="image">
+                                    <img src="images/' . $product['image'] . '" alt="menu-item">
+                                </div>
+                                <i class="fa-solid fa-circle-info iteminfo"></i>
+                                <div class="description">
+                                    <h3>' . $product['name'] . '</h3>
+                                    <p>£' . $product['price'] . '</p>
+                                </div>
+                                <input type="hidden" name="name" value="'. $product['name'] .'">
+                                <input type="hidden" name="price" value="'. $product['price'] .'">
+                                <input type="hidden" name="image" value="'. $product['image'] .'">
+                                <input type="submit" name="addtocart" value="Add To Cart">
+                            </form>
                         </div>
                     ';
                 }
