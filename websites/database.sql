@@ -208,7 +208,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (8,'Chicken Tikka Masala','Spicy Chicken',5.99,4,'../images/chichen.jpg',70),(9,'Italian Pasta','Italian pasta',4.99,5,'../images/pasta.jpg',6),(10,'Greek Salad with caesar dressing','Greek salad',2.99,7,'../images/menuitem.jpg',5),(11,'Garlic Chicken','Garlic chicken',4.55,4,'../images/garlic chicken.png',2);
+INSERT INTO `products` VALUES (8,'Chicken Tikka Masala','Spicy Chicken',5.99,4,'../images/chichen.jpg',70),(9,'Italian Pasta','Italian pasta',4.99,5,'../images/pasta.jpg',6),(10,'Greek Salad','Greek salad',2.99,7,'../images/menuitem.jpg',5),(11,'Garlic Chicken','Garlic chicken',4.55,4,'../images/garlic chicken.png',2);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,46 +293,3 @@ CREATE TABLE `useraccounts` (
 
 LOCK TABLES `useraccounts` WRITE;
 /*!40000 ALTER TABLE `useraccounts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `useraccounts` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'crazyuser1','iamcrazyuser1@gmail.com','$2y$12$c5K3MEE/.8xwBDZR7yvzdOu/0yw7uCxFp3e8rFDvmaKAC2nffSxZC');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'thehighway'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2025-03-16 21:27:30

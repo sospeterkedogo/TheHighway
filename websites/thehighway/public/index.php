@@ -2,33 +2,27 @@
 session_start();
 
 if (isset($_POST['addtocart'])) {
-    if (isset($_SESSION['cart'])) {
+    $id = $_GET['id'];
 
-        $session_array_id = array_column($_SESSION['cart'], 'id');
-
-        if (!in_array($_GET['id'], $session_array_id)) {
-            $session_array = array(
-                'id' => $_GET['id'],
-                'name' => $_POST['name'],
-                'price' => $_POST['price'],
-                'image' => $_POST['image']
-            );
-    
-            $_SESSION['cart'][] = $session_array;
-        }
+    if (isset($_SESSION['cart'][$id])) {
+        $_SESSION['cart'][$id]['quantity'] += 1;
+        $_SESSION['quantity'] += 1;
 
     } else {
         $session_array = array(
             'id' => $_GET['id'],
             'name' => $_POST['name'],
             'price' => $_POST['price'],
-            'image' => $_POST['image']
+            'image' => $_POST['image'],
+            'quantity' => 1
         );
 
-        $_SESSION['cart'][] = $session_array;
+        $_SESSION['cart'][$id] = $session_array;
+        $_SESSION['quantity'] += 1;
     }
 }
-
+//unset($_SESSION['cart']);
+//unset($_SESSION['quantity']);
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +49,14 @@ if (isset($_POST['addtocart'])) {
             <i class="fa-regular fa-user"></i>
             <div class="cart" id="cart">
                 <i class="fa-solid fa-cart-shopping" ></i>
-                <span>2</span>
+                <span><?php
+                    if(isset($_SESSION['quantity'])) {
+                        echo $_SESSION['quantity'];
+                    } else {
+                        $_SESSION['quantity'] = 0;
+                        echo $_SESSION['quantity'];
+                    }
+                ?></span>
             </div>
             
             <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
@@ -94,25 +95,21 @@ if (isset($_POST['addtocart'])) {
                                     </div>
                                     <div class="quantity">
                                         <span class="minus"><</span>
-                                        <span>1</span>
+                                        <span>'.$value['quantity'].'</span>
                                         <span class="minus">></span>
                                     </div>
                                 </div>
 
                                 ';
-                                $total = $total + $value['price'];
+                                $total = $total + $value['price'] * $value['quantity'];
                             }
                         } else {
                             echo '<p>No items in your cart yet.</p>';
+                            $total = 0;
                         }
-
-                    ?>
-                    
-                    
-                </div>
-                <div>
-                    <?php 
-                        echo '<p>Total: '.$total.'</p>'
+                    echo '</div>
+                        <div>
+                        <p>Total: £'.$total.'</p>';
                     ?>
                 </div>
                 <button onclick="location.href='checkout.php'">Continue to Checkout</button>
