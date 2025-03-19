@@ -11,13 +11,6 @@
     <section class="hero">
         <nav>
                 <img src="images/logo.png" alt="logo" class="logo">
-                <ul id="nav">
-                    <li><a href="./index.php">Home</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="userregister.php">Register</a></li>
-                    <li><a href="userlogin.php">Login</a></li>
-                </ul>
-                <i class="fa-solid fa-cart-shopping cart" id="cart"> £0.00</i>
                 <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
         </nav>
             

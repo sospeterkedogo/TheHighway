@@ -3,33 +3,34 @@ session_start();
 
 require '../database.php';
 
-if (isset($_SESSION['loggedin'])) {
+if (isset($_SESSION['loggedIN'])) {
     if (isset($_POST['submit'])) {
 
         $record = [
-            'firstname' => $_POST['firstname'],
-            'contact' => $_POST['contact'],
-            'email' => $_POST['email'],
             'card' => $_POST['card'],
             'date' => $_POST['date'],
             'cvv' => $_POST['cvv']
         ];
 
-    }
+        $output = "
+        <h3>✨Order Placed Successfully.✨</h3>
+       
+        <p>Click <a href='index.php'>here</a> to go back to home page or <a href='logout.php'>here</a> to log out.</p>
+     
+        ";
+
+    } 
+    elseif (isset($_POST['back'])) {
+        header("Location: index.php#menu");
+
+    } 
     else {
        
         $output = '
-        <h2>Checkout</h2>
+        <div class="centered-div">
         
         <form action="checkout.php" method="POST">
-            <label>Firstname</label>
-            <input type="text" name="name" />
-
-            <label>Contact</label>
-            <input type="text" name="contact" />
-
-            <label>Email</label>
-            <input type="email" name="email" />
+            <label class="formtitle">Checkout</label>
 
             <label>Card Number</label>
             <input type="text" name="card" />
@@ -40,9 +41,11 @@ if (isset($_SESSION['loggedin'])) {
             <label>CVV</label>
             <input type="number" name="cvv" />
             
-            <input type="submit" value="PLACE ORDER AND PAY" name="submit" />
+            <input type="submit" value="PLACE ORDER AND PAY" name="submit" style="margin-bottom: 3vh"/>
             <input type="submit" value="BACK" name="back" />
         </form> 
+
+        </div>
         ';
 
     }

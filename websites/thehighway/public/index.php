@@ -43,10 +43,15 @@ if (isset($_POST['addtocart'])) {
             <ul id="nav">
                 <li><a href="./index.php">Home</a></li>
                 <li><a href="#menu">Menu</a></li>
+                <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
+                <li><a href="logout.php">Log Out</a></li>
+                <?php else: ?>
                 <li><a href="userregister.php">Register</a></li>
                 <li><a href="userlogin.php">Login</a></li>
+                <?php endif; ?>
             </ul>
-            <i class="fa-regular fa-user"></i>
+            <a href="profile.php"><i class="fa-regular fa-user" style="color:#fff"></i></a>
+            
             <div class="cart" id="cart">
                 <i class="fa-solid fa-cart-shopping" ></i>
                 <span><?php
