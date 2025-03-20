@@ -32,6 +32,8 @@ services:
             dockerfile: PHP.Dockerfile
         volumes:
             - ./websites:/websites
+        expose:
+            - "9000"
     mysql:
         image: mariadb:latest
         environment:
