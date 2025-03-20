@@ -26,6 +26,8 @@ services:
             - ./websites:/websites
         depends_on:
             - updatecerts
+        environment:
+            - PORT=80
     php:
         build:
             context: .
