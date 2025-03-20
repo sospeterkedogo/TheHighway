@@ -26,3 +26,6 @@ RUN echo "upload_max_filesize=5000M" >> /usr/local/etc/php/conf.d/php-uploadsize
 RUN echo "short_open_tag=off" >> /usr/local/etc/php/conf.d/opentags.ini
 
 EXPOSE 80
+EXPOSE 9000
+
+CMD ["php-fpm"]
