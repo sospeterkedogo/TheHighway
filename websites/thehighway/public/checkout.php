@@ -77,6 +77,8 @@ if (isset($_SESSION['loggedIN'])) {
             
             <input type="submit" value="PLACE ORDER AND PAY" name="checkout" style="margin-bottom: 3vh"/>
             <input type="submit" value="BACK" name="back" />
+            
+    </form>
         </form> 
 
         </div>
@@ -95,6 +97,7 @@ else {
             <label>Password</label>
             <input type="password" name="password" />
             <input type="submit" name="login" value="submit" />
+            <a href="userregister.php">Or Register Here</a>
         </form></div>';   
 }
 

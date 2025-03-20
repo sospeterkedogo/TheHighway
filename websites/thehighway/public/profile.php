@@ -33,6 +33,8 @@ else {
             <label>Password</label>
             <input type="password" name="password" />
             <input type="submit" name="submit" value="submit" />
+            <a href="userregister.php">Or Register Here</a>
+    </form>
         </form></div>';   
 }
 

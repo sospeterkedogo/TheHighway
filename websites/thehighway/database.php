@@ -1,5 +1,21 @@
 <?php
-$pdo = new PDO('mysql:host=mysql;dbname=thehighway;charset=utf8', 'root', 'v.je');
+$host = getenv('DB_HOST') ?: 'mysql';         // Render DB host or local default
+$dbname = getenv('DB_NAME') ?: 'thehighway';  // Render DB name or local default
+$username = getenv('DB_USER') ?: 'root';      // Render DB user or local default
+$password = getenv('DB_PASS') ?: 'v.je';      // Render DB password or local default
+$charset = getenv('DB_CHARSET') ?: 'utf8';    // Default charset
+
+$dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
+
+try {
+    $pdo = new PDO($dsn, $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
 
 
 class DataBaseTable {
