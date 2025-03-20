@@ -3,8 +3,21 @@ session_start();
 
 require '../database.php';
 
+if(isset($_POST['login'])) {
+ 
+    $userTable = new DataBaseTable($pdo, 'users', 'id');
+    $user = $userTable->find('username', $_POST['username']);
+
+	if (password_verify($_POST['password'], $user['password'])) {
+		$_SESSION['loggedIN'] = true;
+		$_SESSION['username1'] = $user['username'];
+	}
+
+    header('Location: checkout.php');
+} 
+
 if (isset($_SESSION['loggedIN'])) {
-    if (isset($_POST['submit'])) {
+    if (isset($_POST['checkout'])) {
 
         $record = [
             'card' => $_POST['card'],
@@ -19,15 +32,36 @@ if (isset($_SESSION['loggedIN'])) {
      
         ";
 
+        unset($_SESSION['cart']);
+        unset($_SESSION['quantity']);
+
     } 
     elseif (isset($_POST['back'])) {
         header("Location: index.php#menu");
 
     } 
     else {
+
+        $tax = round($_SESSION['total'] * (12 / 100), 2);
+        $subtotal = round($_SESSION['total'] + $tax,2);
        
         $output = '
+        
         <div class="centered-div">
+
+        <form >
+        <label class="formtitle">ORDER SUMMARY</label>
+                <label ><b>Order total</b>:    £'. $_SESSION['total'].'</label>
+                <label ><b>Items</b>: '.$_SESSION['quantity'].'</label>
+
+            <label><b>Shipping:     Free</b></label>
+          
+
+            <label><b>Estimated Tax</b>: £'.$tax.'</label>
+
+            <label ><b>Subtotal</b>: £'.$subtotal.'</label>
+    
+        </form> 
         
         <form action="checkout.php" method="POST">
             <label class="formtitle">Checkout</label>
@@ -41,7 +75,7 @@ if (isset($_SESSION['loggedIN'])) {
             <label>CVV</label>
             <input type="number" name="cvv" />
             
-            <input type="submit" value="PLACE ORDER AND PAY" name="submit" style="margin-bottom: 3vh"/>
+            <input type="submit" value="PLACE ORDER AND PAY" name="checkout" style="margin-bottom: 3vh"/>
             <input type="submit" value="BACK" name="back" />
         </form> 
 
@@ -52,13 +86,16 @@ if (isset($_SESSION['loggedIN'])) {
 }
 else {
     $output = 
-        '<form action="index.php" method="POST">
+        '
+        <div class="centered-div">
+        <form action="checkout.php" method="POST">
+            <label class="formtitle">Please Log in to Continue</label>
             <label>Username</label>                                              
             <input type="text" name="username" /> 
             <label>Password</label>
             <input type="password" name="password" />
-            <input type="submit" name="submit" value="submit" />
-        </form>';   
+            <input type="submit" name="login" value="submit" />
+        </form></div>';   
 }
 
 $title = 'Checkout';

@@ -95,14 +95,37 @@ i:hover {
     margin: 30px 0;
 }
 
+.checked {
+    color: orange;
+}
+
 .header h1{
     font-size: 80px;
     font-weight: 500;
 }
 
 .header p {
-    max-width: 35%;
     font-size: 30px;
+}
+
+.profilepic {
+    display: flex;
+    width: 14vw;
+    height: 30vh;
+    background-color: orange;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 10em;
+}
+
+.profilepic p {
+    font-size: 0.3em;
+}
+
+.headerdescription {
+    max-width: 35%;
 }
 
 .header button a {
@@ -277,6 +300,7 @@ i:hover {
     background-color: #ebebeb;
     width: 22vw;
     min-height: 60vh;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
 }
 
 .menu-item img{
@@ -292,6 +316,11 @@ i:hover {
     top: 5px;
     right: 5px;
     color:#0952ab;
+    
+}
+
+.iteminfo:hover {
+    color: #555;
 }
 
 .addtocart {
@@ -353,7 +382,7 @@ form {
     margin: 50px auto;
     outline: none;
     font-size: 20px;
-    box-shadow: 5px 10px 5px #000;
+    box-shadow: 2px 5px 6px #000;
 }
 
 form label {
@@ -400,7 +429,43 @@ form a {
     color: #fff;
 }
 
+.floating-description {
+    position: absolute;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    width: 250px;
+    z-index: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: red;
+}
+
+.floating-description h3 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.floating-description p {
+    font-size: 14px;
+    color: #666;
+}
+
+
 @media only screen and (max-width: 600px) {
+
+    .centered-div {
+        flex-direction: column;
+    }
 
     body {
         max-width: 100%;

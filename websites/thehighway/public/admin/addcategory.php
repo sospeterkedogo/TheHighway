@@ -14,13 +14,14 @@ if (isset($_SESSION['loggedin'])) {
     }
     else {
         $output = '
-            <h2>Add category</h2>
-
+            <div class="centered-div">
             <form action="addcategory.php" method="POST">
+            <label CLASS="formtitle">ADD CATGEGORY</label>
                 <label>Category name:</label>
                 <input type="text" name="name" />
                 <input type="submit" value="Submit" name="submit" />
             </form>
+            </div>
         ';
     }
 }

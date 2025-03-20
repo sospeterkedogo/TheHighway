@@ -97,7 +97,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (4,'Chicken'),(5,'Pasta'),(6,'Pizza'),(7,'Bowls'),(8,'High-protein');
+INSERT INTO `categories` VALUES (4,'Chicken'),(5,'Pasta'),(6,'Pizza'),(7,'Bowls');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +113,7 @@ CREATE TABLE `employees` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'admin','$2y$12$EWdLNytud.iqsoNqULVYXuezwZlLhv5X3kP0BqiVA4Sxrg.mG6GZe');
+INSERT INTO `employees` VALUES (1,'admin','$2y$12$EWdLNytud.iqsoNqULVYXuezwZlLhv5X3kP0BqiVA4Sxrg.mG6GZe'),(4,'employee1','$2y$12$D.OcPzgtIeq325VCmItFZOQM0oRdc/M5Q20xg0zURl6cNAOBm7jbi');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +199,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`productid`),
   KEY `category_id_idx` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +208,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (8,'Chicken Tikka Masala','Spicy Chicken',5.99,4,'../images/chichen.jpg',70),(9,'Italian Pasta','Italian pasta',4.99,5,'../images/pasta.jpg',6),(10,'Greek Salad','Greek salad',2.99,7,'../images/menuitem.jpg',5),(11,'Garlic Chicken','Garlic chicken',4.55,4,'../images/garlic chicken.png',2);
+INSERT INTO `products` VALUES (8,'Chicken Tikka Masala','Spicy Chicken',5.99,4,'../images/chichen.jpg',70),(9,'Italian Pasta','Italian pasta',4.99,5,'../images/pasta.jpg',6),(10,'Greek Salad','Greek salad',2.99,7,'../images/menuitem.jpg',5),(11,'Garlic Chicken','Garlic chicken',4.55,4,'../images/garlic chicken.png',2),(12,'Chicken Burrito Bowl','Chicken Burrito Bowl',7.99,7,'../images/ChickenBurritoBowl.jpg',30),(13,'Vegetable Pizza','Vegetable Pizza',10.42,6,'../images/bestveggiepizza.jpg',42),(14,'Chicken Bacon Ranch Pizza','Chicken Bacon Ranch Pizza',12.99,6,'../images/chickenbaconranchpizza.jpg',20),(15,'Classic Cheese Pizza','Classic Cheese Pizza',12.99,6,'../images/classiccheesepizza.jpg',12),(16,'Coconut Chicken Rice Bowl','Coconut Chicken Rice Bowl',6.75,7,'../images/CoconutChickenRiceBowl.jpg',20),(17,'Garlic Skillet Chicken','Creamy garlic skillet chicken with spinach',15.00,4,'../images/creamygarlicskilletchickenwithspinach.jpg',10),(18,'Garlic Butter Chicken','Garlic Butter chicken',20.02,4,'../images/GarlicButterChicken.jpg',10),(19,'Greek Pizza','Greek pizza',15.44,6,'../images/greekpizza.jpg',20),(20,'Korean Fried Chicken','Korean Fried Chicken',30.00,4,'../images/koreanfriedchicken.jpg',14),(21,'Margherita Pizza','Margherita Pizza',22.22,6,'../images/margherita.jpg',40),(22,'Mediterranean Veggy Pasta','Mediterranean Veggy Pasta',23.22,5,'../images/mediterraneanveggypasta.jpg',12),(23,'Pasta With Broccoli','Pasta With Broccoli',2.22,5,'../images/PastawithBroccoli.jpg',2),(24,'Vegan Pasta Stir Fry','Vegan Pasta Stir Fry',1.99,5,'../images/quickveganpastavegetablestirfrywithgingerandgarlic.jpg',1),(25,'Sticky Chicken and Fries','Sticky Chicken and Fries',4.99,4,'../images/Stickychickenandfries.jpg',20);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,3 +293,46 @@ CREATE TABLE `useraccounts` (
 
 LOCK TABLES `useraccounts` WRITE;
 /*!40000 ALTER TABLE `useraccounts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `useraccounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'crazyuser1','iamcrazyuser1@gmail.com','$2y$12$c5K3MEE/.8xwBDZR7yvzdOu/0yw7uCxFp3e8rFDvmaKAC2nffSxZC'),(2,'user','user@gmail.com','$2y$12$x4a7r53rKbn9.3t0WI7/c.4uhOAIvkTBDaAwmw0I1dKixiotLZV4W'),(3,'user1','user1@gmail.com','$2y$12$gVqJGvhmTYV4cUK1JqXE2upf.80ugkR/yyF7mSKUVEtHK944zQbei'),(4,'user2','user2@gmail.com','$2y$12$i8FVDy3G4oSERdahqYrodeCe9vFVonWaWcw5tBi27jduttWO5xIeC');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'thehighway'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-03-19  1:41:29

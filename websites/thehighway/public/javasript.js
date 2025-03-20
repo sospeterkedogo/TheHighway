@@ -53,10 +53,24 @@ document.addEventListener('DOMContentLoaded', function(){
 
     navbtn.addEventListener('click', toggleNav);
 
-    for (let index = 0; index < iteminfo.length; index++) {
-        iteminfo[index].addEventListener('click', openPopup);
-    }
+    
     
 });
 
 
+function showDescription(event, description) {
+    let descBox = document.getElementById("floating-description");
+    let descContent = document.getElementById("desc-content");
+
+    descContent.textContent = description;
+
+    // Position the description box near the clicked icon
+    descBox.style.left = event.pageX + "px";
+    descBox.style.top = event.pageY + "px";
+
+    // Show the description box
+    descBox.style.display = "block";
+}
+
+function hideDescription() {
+    document.getElementById("floating-description").style.display = "none"; }

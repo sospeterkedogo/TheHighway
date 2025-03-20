@@ -70,7 +70,7 @@ if (isset($_POST['addtocart'])) {
         <div class="main-header">
             <div class="header">
                 <h1>The Highway</h1>
-                <p>Take your tastebuds to the next level with our delicious meals prepared by world-class chefs.</p>
+                <p class="headerdescription">Take your tastebuds to the next level with our delicious meals prepared by world-class chefs.</p>
                 <button><a href="#menu" class="order">Order now</a></button>
             </div>
         </div>
@@ -107,10 +107,12 @@ if (isset($_POST['addtocart'])) {
 
                                 ';
                                 $total = $total + $value['price'] * $value['quantity'];
+                                $_SESSION['total'] = $total;
                             }
                         } else {
                             echo '<p>No items in your cart yet.</p>';
                             $total = 0;
+                            $_SESSION['total'] = $total;
                         }
                     echo '</div>
                         <div>
@@ -169,18 +171,32 @@ if (isset($_POST['addtocart'])) {
 
                 foreach ($products as $product) {
                     
+                    $randomrating = rand(1, 5);
+                    
+
                     echo '
                         <div class="menu-item">
                             <form method="POST" action="index.php?id='. $product['productid'] .'#menu" style="all: revert">
                                 <div class="image">
                                     <img src="images/' . $product['image'] . '" alt="menu-item">
                                 </div>
-                                <i class="fa-solid fa-circle-info iteminfo"></i>
+                                <i class="fa-solid fa-circle-info iteminfo" onclick="showDescription(event, \'' . htmlspecialchars($product['description'], ENT_QUOTES) . '\')"></i>
                                 <div class="description">
                                     <h3>' . $product['name'] . '</h3>
                                     <p>£' . $product['price'] . '</p>
                                 </div>
+                                
                                 <input type="hidden" name="name" value="'. $product['name'] .'">
+
+
+                                <div class="stars">';
+
+                                for ($i = 1; $i <= 5; $i++){
+                                    $starclass = $i <= $randomrating ? 'fa-star checked' : 'fa-star';
+                                    echo '<span class="fa ' . $starclass . '"></span>';
+                                }
+                            echo '</div>    
+                                
                                 <input type="hidden" name="price" value="'. $product['price'] .'">
                                 <input type="hidden" name="image" value="'. $product['image'] .'">
                                 <input type="submit" name="addtocart" value="Add To Cart">
@@ -188,6 +204,11 @@ if (isset($_POST['addtocart'])) {
                         </div>
                     ';
                 }
+            echo '
+                <div id="floating-description" class="floating-description" style="display: none;">
+                    <span class="close-btn" onclick="hideDescription()">✖</span>
+                    <p id="desc-content"></p>
+                </div>';
             ?>
         </div>
     </section>
