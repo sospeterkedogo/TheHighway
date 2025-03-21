@@ -26,12 +26,16 @@ services:
             - ./websites:/websites
         depends_on:
             - updatecerts
+        environment:
+            - PORT=80
     php:
         build:
             context: .
             dockerfile: PHP.Dockerfile
         volumes:
             - ./websites:/websites
+        expose:
+            - "9000"
     mysql:
         image: mariadb:latest
         environment:
