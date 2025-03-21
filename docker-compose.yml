@@ -18,7 +18,6 @@ services:
     web:
         image: nginx:latest
         ports:
-            - "80:80"
             - "443:443"
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
@@ -26,8 +25,6 @@ services:
             - ./websites:/websites
         depends_on:
             - updatecerts
-        environment:
-            - PORT=80
     php:
         build:
             context: .
