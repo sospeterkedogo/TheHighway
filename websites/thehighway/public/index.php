@@ -35,7 +35,9 @@ if (isset($_POST['addtocart'])) {
     <link rel="stylesheet" href="main.css">
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
     <script src="javasript.js"></script>
+    <script src="//code.tidio.co/xu1xmcvxdsdkp2far3ibkvn3vl7uewut.js" async></script>
 </head>
+
 <body>
     <section class="hero">
         <nav>
