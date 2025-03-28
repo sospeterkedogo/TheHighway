@@ -43,8 +43,10 @@ if (isset($_POST['addtocart'])) {
         <nav>
             <img src="images/logo.png" alt="logo" class="logo">
             <ul id="nav">
-                <li><a href="./index.php">Home</a></li>
                 <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="blog.php">Blog</a></li>
+                <li><a href="#contact">Contact Us</a></li>
                 <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
                 <li><a href="logout.php">Log Out</a></li>
                 <?php else: ?>
@@ -215,7 +217,41 @@ if (isset($_POST['addtocart'])) {
         </div>
     </section>
 
+    <section id="about" style="color:#fff;background-color:darkblue;padding: 25vh 10vw;">
+        <h1>About Us</h1>
+        <h2>Our passion for culinary excellence drives us to create dishes that not only delight the palate but also tell a story.</h2>
+        <p>Whether you're here for a casual lunch or a special dinner, our commitment to exceptional service and unforgettable flavors ensures a memorable experience every time you visit.</p>
+        
+        
+        
+    </section>
 
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Fill in the form below with your details and message and a member of our team will get in touch as soon as possible</p>
+        <div class="centered-div">
+        <div>
+            <i class="fa-solid fa-map-location-dot"></i>
+            <h3>Address</h3>
+            <p>123 Sugar Street</p>
+            <i class="fa-solid fa-phone"></i>
+            <h3>Phone</h3>
+            <p>+44 123 456 7890</p>
+            <i class="fa-solid fa-envelope"></i>
+            <h3>Email</h3>
+            <p>thehighway@gmail.com</p>
+            
+        </div>
+        <form action="index.php">
+            <label class="formtitle">Send Message</label>
+            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Email">
+            <textarea placeholder="Type Your message"></textarea>
+            <input type="submit" value="Send">
+        </form>
+        </div>
+        
+    </section>
     <footer>
         <div class="main-footer">
             <div>
