@@ -25,6 +25,7 @@ a {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    transition: background-image 1s ease-in-out;
 }
 
 
@@ -302,6 +303,20 @@ i:hover {
     min-height: 60vh;
     box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.5);
 }
+
+.none-left {
+    position:absolute;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 22vw;
+    min-height: 68vh;
+}
+
+.none-left-hidden{
+    display: none;
+}
+
+
 
 .menu-item img{
     width: 100%;

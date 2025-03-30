@@ -53,7 +53,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
     navbtn.addEventListener('click', toggleNav);
 
-    
+    var images = ['images/banner-img.jpeg', 'images/margherita.jpg', 'images/17-ice-cream-sundaes-in-a-pink-bowl-with-sprinkles.jpg', 'images/16.jpg'];
+
+    var nextimage = 0;
+    var hero = document.getElementById('hero');
+
+    function doSlideShow(){
+        if (nextimage >= images.length){nextimage=0;}
+        hero.style.backgroundImage = 'url("'+ images[nextimage++] +'")';
+        setTimeout(doSlideShow, 5000);
+        console.log("hello");
+      
+    }
+
+
+    doSlideShow();
     
 });
 
@@ -74,3 +88,5 @@ function showDescription(event, description) {
 
 function hideDescription() {
     document.getElementById("floating-description").style.display = "none"; }
+
+

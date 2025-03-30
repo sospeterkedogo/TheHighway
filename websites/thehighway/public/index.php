@@ -1,6 +1,7 @@
 <?php 
 session_start();
 
+
 if (isset($_POST['addtocart'])) {
     $id = $_GET['id'];
 
@@ -19,7 +20,31 @@ if (isset($_POST['addtocart'])) {
 
         $_SESSION['cart'][$id] = $session_array;
         $_SESSION['quantity'] += 1;
+
     }
+    if (!isset($pdo)) {
+        require '../database.php';
+    }
+
+    $productsTable = new DataBaseTable($pdo, 'products', 'productid');
+
+    $product = $productsTable->find('productid', $id);
+    $currentQuantity = $product['quantity'];
+
+    $newquantity = $currentQuantity - 1;
+
+    if ($newquantity > 0){
+        $record = [
+            'productid' => $id,
+            'quantity' => $newquantity
+        ];
+    } else {
+        $record = [
+            'productid' => $id,
+            'quantity' => 0
+        ];
+    }
+    $productsTable->save($record, $id);
 }
 //unset($_SESSION['cart']);
 //unset($_SESSION['quantity']);
@@ -39,7 +64,7 @@ if (isset($_POST['addtocart'])) {
 </head>
 
 <body>
-    <section class="hero">
+    <section class="hero" id="hero">
         <nav>
             <img src="images/logo.png" alt="logo" class="logo">
             <ul id="nav">
@@ -176,10 +201,14 @@ if (isset($_POST['addtocart'])) {
                 foreach ($products as $product) {
                     
                     $randomrating = rand(1, 5);
-                    
 
+                    $quantity = $product['quantity'];
+                    $noneleftclass = ($quantity == 0) ? 'none-left' : 'none-left-hidden';
+                    
+                    
                     echo '
                         <div class="menu-item">
+                        <div class="'.$noneleftclass.'"><h3 style="text-align:center;color:#fff;padding-top:50%">None left</h3></div>
                             <form method="POST" action="index.php?id='. $product['productid'] .'#menu" style="all: revert">
                                 <div class="image">
                                     <img src="images/' . $product['image'] . '" alt="menu-item">
@@ -200,7 +229,7 @@ if (isset($_POST['addtocart'])) {
                                     echo '<span class="fa ' . $starclass . '"></span>';
                                 }
                             echo '</div>    
-                                
+                                <input type="hidden" name="productquantity" value="'. $product['quantity'] .'">
                                 <input type="hidden" name="price" value="'. $product['price'] .'">
                                 <input type="hidden" name="image" value="'. $product['image'] .'">
                                 <input type="submit" name="addtocart" value="Add To Cart">

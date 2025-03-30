@@ -20,6 +20,7 @@ if(isset($_POST['signup'])) {
     // Auto Login After Sign-up
     $_SESSION['loggedIN'] = true;
 	$_SESSION['username1'] = $_POST['username'];
+    $_SESSION['email'] = $user['email'];
 
     header('Location: index.php');
 
