@@ -15,12 +15,28 @@ if (isset($_SESSION['loggedIN'])) {
         </div>
     
         <p>Hello, '.$_SESSION['username1'].'</p>
-        <p>Order History: None Yet</p>
+        </div>
 
-        <a href="index.php">Click here to go to home page</a>
-
-    </div>
+        <h3>Order History</h3>
     ';
+
+    $ordersTable = new DataBaseTable($pdo, 'orders', 'id');
+    $orders = $ordersTable->findAll('user_id', $_SESSION['uid']);
+
+    if (count($orders) >= 1){
+        foreach($orders as $order) {
+            $output .= "
+                <p> Order ID:".$order['order_id']." </p>
+                <p> Order Status:".$order['order_status']." </p>
+                <p> Total:".$order['total_amount']." </p>
+                <p> Date:".$order['created_at']." </p></br>
+            "; 
+        }
+    } else {
+        $output .= "No orders Yet";
+    }
+
+    
 }
 else {
     $output = 

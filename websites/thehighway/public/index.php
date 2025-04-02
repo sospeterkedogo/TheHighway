@@ -2,13 +2,19 @@
 session_start();
 
 
+if (!isset($pdo)) {
+    require '../database.php';
+}
+
+$productsTable = new DataBaseTable($pdo, 'products', 'productid');
+
+// Add item to cart
 if (isset($_POST['addtocart'])) {
     $id = $_GET['id'];
 
     if (isset($_SESSION['cart'][$id])) {
         $_SESSION['cart'][$id]['quantity'] += 1;
         $_SESSION['quantity'] += 1;
-
     } else {
         $session_array = array(
             'id' => $_GET['id'],
@@ -20,34 +26,59 @@ if (isset($_POST['addtocart'])) {
 
         $_SESSION['cart'][$id] = $session_array;
         $_SESSION['quantity'] += 1;
-
-    }
-    if (!isset($pdo)) {
-        require '../database.php';
     }
 
-    $productsTable = new DataBaseTable($pdo, 'products', 'productid');
-
+    // Reduce product stock in database
     $product = $productsTable->find('productid', $id);
-    $currentQuantity = $product['quantity'];
+    $newquantity = max(0, $product['quantity'] - 1); // Ensure quantity is never negative
 
-    $newquantity = $currentQuantity - 1;
-
-    if ($newquantity > 0){
-        $record = [
-            'productid' => $id,
-            'quantity' => $newquantity
-        ];
-    } else {
-        $record = [
-            'productid' => $id,
-            'quantity' => 0
-        ];
-    }
+    $record = [
+        'productid' => $id,
+        'quantity' => $newquantity
+    ];
     $productsTable->save($record, $id);
 }
-//unset($_SESSION['cart']);
-//unset($_SESSION['quantity']);
+
+// Increase item quantity in cart
+if (isset($_POST['plus'])) {
+    $key = $_POST['item_key'];
+
+    // Get product details from database
+    $product = $productsTable->find('productid', $key);
+
+    if ($product['quantity'] > 0) { // Ensure stock is available before increasing
+        $_SESSION['cart'][$key]['quantity']++;
+
+        // Reduce stock in database
+        $newquantity = $product['quantity'] - 1;
+        $productsTable->save(['productid' => $key, 'quantity' => $newquantity], $key);
+    }
+    $_SESSION['quantity']++;
+}
+
+// Decrease item quantity in cart
+if (isset($_POST['minus'])) {
+    $key = $_POST['item_key'];
+
+    if ($_SESSION['cart'][$key]['quantity'] > 1) {
+        $_SESSION['cart'][$key]['quantity']--;
+
+        // Increase stock in database
+        $product = $productsTable->find('productid', $key);
+        $newquantity = $product['quantity'] + 1;
+        $productsTable->save(['productid' => $key, 'quantity' => $newquantity], $key);
+    } else {
+        // Remove item from cart
+        unset($_SESSION['cart'][$key]);
+
+        // Increase stock in database when item is fully removed
+        $product = $productsTable->find('productid', $key);
+        $newquantity = $product['quantity'] + 1;
+        $productsTable->save(['productid' => $key, 'quantity' => $newquantity], $key);
+    }
+    $_SESSION['quantity']--;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -95,8 +126,15 @@ if (isset($_POST['addtocart'])) {
             
             <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
         </nav>
-        
+        <!-- 
+        <div id="animated-text-strip">
+            <span class="marquee">Order Now and get 20% off your first order!!!&nbsp;</span>
+            <span class="marquee">Order Now and get 20% off your first order!!!&nbsp;</span>
+            <span class="marquee">Order Now and get 20% off your first order!!!&nbsp;</span>
+        </div>
+        -->
         <div class="main-header">
+        
             <div class="header">
                 <h1>The Highway</h1>
                 <p class="headerdescription">Take your tastebuds to the next level with our delicious meals prepared by world-class chefs.</p>
@@ -128,9 +166,15 @@ if (isset($_POST['addtocart'])) {
                                         £'.$value['price'].'
                                     </div>
                                     <div class="quantity">
-                                        <span class="minus"><</span>
+                                        <form method = "POST" action="/#menu" style="all:unset;">
+                                            <input type="hidden" name="item_key" value="'.$key.'">
+                                            <input type="submit" name="minus" value="<" style="all:unset; cursor: pointer;">
+                                        </form>
                                         <span>'.$value['quantity'].'</span>
-                                        <span class="minus">></span>
+                                        <form method = "POST" action="/#menu" style="all:unset;">
+                                            <input type="hidden" name="item_key" value="'.$key.'">
+                                            <input type="submit" name="plus" value=">" style="all:unset; cursor: pointer;">
+                                        </form>
                                     </div>
                                 </div>
 
@@ -165,12 +209,12 @@ if (isset($_POST['addtocart'])) {
                 $stmt = $categoryTable->findAll();
 
                 echo '<li>
-                        <a href="index.php#menu">All</a>
+                        <a href="/#menu">All</a>
                     </li>';
 
                 foreach ($stmt as $category) {
                     echo '<li>
-                            <a href="index.php?category_id=' . $category['category_id'] . '#menu' .'">' . $category['name'] . '</a>
+                            <a href="/?category_id=' . $category['category_id'] . '#menu' .'">' . $category['name'] . '</a>
                         </li>';
                 }
             ?>
@@ -199,8 +243,6 @@ if (isset($_POST['addtocart'])) {
                 }
 
                 foreach ($products as $product) {
-                    
-                    $randomrating = rand(1, 5);
 
                     $quantity = $product['quantity'];
                     $noneleftclass = ($quantity == 0) ? 'none-left' : 'none-left-hidden';
@@ -225,7 +267,7 @@ if (isset($_POST['addtocart'])) {
                                 <div class="stars">';
 
                                 for ($i = 1; $i <= 5; $i++){
-                                    $starclass = $i <= $randomrating ? 'fa-star checked' : 'fa-star';
+                                    $starclass = $i <= $product['rating'] ? 'fa-star checked' : 'fa-star';
                                     echo '<span class="fa ' . $starclass . '"></span>';
                                 }
                             echo '</div>    

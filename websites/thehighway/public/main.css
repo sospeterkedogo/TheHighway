@@ -25,10 +25,42 @@ a {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    transition: background-image 1s ease-in-out;
+    transition: background-image 2s ease-in-out;
 }
 
-
+#animated-text-strip{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    overflow: hidden;
+  }
+  #animated-text-strip .marquee {
+    white-space: nowrap;
+    animation: marquee 9s linear infinite;
+    max-width: none;
+  }
+  
+  @keyframes marquee {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-100%, 0);
+    }
+  }
+  
+  /* Styles for the sake of the demonstration */
+  #animated-text-strip{
+    background:red;
+    padding: 0.5rem 0;
+  }
+  .marquee{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+  }
 
 nav {
     max-width: 100%;

@@ -12,10 +12,24 @@ if(isset($_POST['signup'])) {
         'username' => $_POST['username'], 
         'email' => $_POST['email'],
         'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
-    ]; 
+    ];
 
+    // get the user info and create an account
     $userTable = new DataBaseTable($pdo, 'users', 'id');
     $userTable->save($record);
+
+    $user = $userTable->find('username', $_POST['username']);
+
+    $record1 = [
+        'user_id' => $user['id'],
+        'username' => $user['username'], 
+        'password' => $user['password']
+    ];
+
+
+    $userAccountsTable = new DataBaseTable($pdo, 'useraccounts', 'account_id');
+    $userAccountsTable->save($record1);
+    
 
     // Auto Login After Sign-up
     $_SESSION['loggedIN'] = true;

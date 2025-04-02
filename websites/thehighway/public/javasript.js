@@ -43,12 +43,9 @@ document.addEventListener('DOMContentLoaded', function(){
         
         if (nav.style.left == "-250px"){
             nav.style.left = "0px"; 
-            console.log("opened")
         } else {
             nav.style.left = "-250px"; 
         }
-    
-        console.log("clicked")
     }
 
     navbtn.addEventListener('click', toggleNav);
@@ -62,12 +59,10 @@ document.addEventListener('DOMContentLoaded', function(){
         if (nextimage >= images.length){nextimage=0;}
         hero.style.backgroundImage = 'url("'+ images[nextimage++] +'")';
         setTimeout(doSlideShow, 5000);
-        console.log("hello");
-      
     }
 
 
-    doSlideShow();
+    //doSlideShow();
     
 });
 

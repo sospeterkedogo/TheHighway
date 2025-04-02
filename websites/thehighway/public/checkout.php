@@ -3,28 +3,10 @@ session_start();
 
 require '../database.php';
 
-if(isset($_POST['login'])) {
- 
-    $userTable = new DataBaseTable($pdo, 'users', 'id');
-    $user = $userTable->find('username', $_POST['username']);
-
-	if (password_verify($_POST['password'], $user['password'])) {
-		$_SESSION['loggedIN'] = true;
-		$_SESSION['username1'] = $user['username'];
-        $_SESSION['email'] = $user['email'];
-	}
-
-    header('Location: checkout.php');
-} 
-
 if (isset($_SESSION['loggedIN'])) {
     if (isset($_POST['checkout'])) {
 
-        $record = [
-            'card' => $_POST['card'],
-            'date' => $_POST['date'],
-            'cvv' => $_POST['cvv']
-        ];
+        
 
         $output = "
         <h3>✨Order Placed Successfully.✨</h3>
@@ -32,6 +14,20 @@ if (isset($_SESSION['loggedIN'])) {
         <p>Click <a href='index.php'>here</a> to go back to home page or <a href='logout.php'>here</a> to log out.</p>
      
         ";
+
+        $userTable = new DataBaseTable($pdo, 'users', 'id');
+        $user = $userTable->find('username', $_SESSION['username1']);
+
+        $record = [
+            'user_id' => $user['id'],
+            'order_status' => 'completed',
+            'total_amount' => $_SESSION['subtotal'],
+        ];
+
+        $ordersTable = new DataBaseTable($pdo, 'orders', 'id');
+        $ordersTable->save($record);
+
+
 
         unset($_SESSION['cart']);
         unset($_SESSION['quantity']);
@@ -72,7 +68,7 @@ if (isset($_SESSION['loggedIN'])) {
     else {
 
         $tax = round($_SESSION['total'] * (12 / 100), 2);
-        $subtotal = round($_SESSION['total'] + $tax,2);
+        $_SESSION['subtotal'] = round($_SESSION['total'] + $tax,2);
        
         $output = '
         
@@ -88,7 +84,7 @@ if (isset($_SESSION['loggedIN'])) {
 
             <label><b>Estimated Tax</b>: £'.$tax.'</label>
 
-            <label ><b>Subtotal</b>: £'.$subtotal.'</label>
+            <label ><b>Subtotal</b>: £'.$_SESSION['subtotal'].'</label>
     
         </form> 
         
@@ -104,7 +100,7 @@ if (isset($_SESSION['loggedIN'])) {
             <label>CVV</label>
             <input type="number" name="cvv" />
             <input type="hidden" name="quantity" value="'.$_SESSION['quantity'].'">
-            <input type="hidden" name="subtotal" value="'.$subtotal.'">
+            <input type="hidden" name="subtotal" value="'.$_SESSION['subtotal'].'">
             
             <input type="submit" value="PLACE ORDER AND PAY" name="checkout" style="margin-bottom: 3vh"/>
             <input type="submit" value="BACK" name="back" />
