@@ -13,6 +13,7 @@ if (isset($_SESSION['loggedin'])) {
             'description' => $_POST['description'],
             'category_id' => $_POST['categoryId'],
             'quantity' => $_POST['quantity'],
+            'rating' => $_POST['rating'],
             'productid' => $_POST['id']
         ];
 
@@ -50,6 +51,8 @@ if (isset($_SESSION['loggedin'])) {
                     <input type="text" name="name" value="'.$product['name'].'" />
                     <label>Quantity:</label>
                     <input type="text" name="quantity" value="'.$product['quantity'] .'">
+                    <label>Rating:</label>
+                    <input type="text" name="rating" value="'.$product['rating'] .'">
                     <label>Product description:</label>
                     <textarea name="description">' . $product['description'] . '</textarea>
                     <input type="submit" value="Submit" name="submit" />

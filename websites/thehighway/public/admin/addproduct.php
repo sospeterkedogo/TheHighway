@@ -34,6 +34,7 @@ if (isset($_SESSION['loggedin'])) {
             'price' => $_POST['price'],
             'category_id' => $_POST['category_id'],
             'quantity' => $_POST['quantity'],
+            'rating' => $_POST['rating'],
             'image' => $imagePath // Store image path in the database
         ];
 
@@ -66,6 +67,8 @@ if (isset($_SESSION['loggedin'])) {
             <input type="text" name="price" required />
             <label>Quantity:</label>
             <input type="text" name="quantity" required />
+            <label>Rating:</label>
+            <input type="text" name="rating">
             <label>Product description:</label>
             <textarea name="description" required></textarea>
             <label>Upload Image:</label>

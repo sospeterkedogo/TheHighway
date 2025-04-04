@@ -103,14 +103,17 @@ if (isset($_POST['minus'])) {
                 <li><a href="#about">About Us</a></li>
                 <li><a href="blog.php">Blog</a></li>
                 <li><a href="#contact">Contact Us</a></li>
-                <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
-                <li><a href="logout.php">Log Out</a></li>
-                <?php else: ?>
-                <li><a href="userregister.php">Register</a></li>
-                <li><a href="userlogin.php">Login</a></li>
-                <?php endif; ?>
             </ul>
-            <a href="profile.php"><i class="fa-regular fa-user" style="color:#fff"></i></a>
+            <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
+            <a href="profile.php"><i class="fa-regular fa-user" style="color:#fff">Hello, $_SESSION['']</i></a>
+            <?php else: ?>
+            <div class="signon">
+            <a href="userregister.php">Register</a> 
+            <a href="userlogin.php">Login</a>
+            </div>
+            
+            <?php endif; ?>
+            
             
             <div class="cart" id="cart">
                 <i class="fa-solid fa-cart-shopping" ></i>
