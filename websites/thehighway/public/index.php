@@ -102,10 +102,10 @@ if (isset($_POST['minus'])) {
                 <li><a href="#menu">Menu</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="blog.php">Blog</a></li>
-                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
-            <a href="profile.php"><i class="fa-regular fa-user" style="color:#fff">Hello, $_SESSION['']</i></a>
+            <a href="profile.php"><i class="fa-regular fa-user" style="color:#fff;"> Hello, <?= $_SESSION['username1']?></i></a>
             <?php else: ?>
             <div class="signon">
             <a href="userregister.php">Register</a> 
@@ -223,9 +223,60 @@ if (isset($_POST['minus'])) {
             ?>
         </ul>
     </div>
+    <div class="search-bar">
+            <input type="text" placeholder="Search for a product">
+            <button>Search</button>
+            <button>Filter</button>
+            <button>Sort</button>
+            <button>Clear</button>
+            <button>Reset</button>
+            <button>Apply</button>
+        </div>
+    
+    <section class="deals">
+        
+        <div class="deal-items">
+            <div class="deal-item">
+                <img src="images/deal1.jpg" alt="Deal 1">
+                <h2>Today's Deals</h2>
+            </div>
+            <div class="deal-item">
+                <img src="images/deal2.jpg" alt="Deal 2">
+                <h2>Top Offers</h2>
+            </div>
+            <div class="deal-item">
+                <img src="images/deal3.jpg" alt="Deal 3">
+                <h2>Popular Categories</h2>
+            </div>
+            <div class="deal-item">
+                <img src="images/deal4.jpg" alt="Deal 4">
+                <h2>Best Seller</h2>
+            </div>
+            <div class="deal-item">
+                <img src="images/deal5.jpg" alt="Deal 5">
+            
+        </div>
+    </section>
 
+    <section class="best-sellers">
+        <h2>Best Sellers</h2>
+        <div class="best-seller-items">
+            <div class="best-seller-item">
+                <img src="images/best-seller1.jpg" alt="Best Seller 1">
+                <h3>Best Seller Category1</h3>
+            </div>
+            <div class="best-seller-item">
+                <img src="images/best-seller2.jpg" alt="Best Seller 2">
+                <h3>Best Seller Category 2</h3>
+            </div>
+            <div class="best-seller-item">
+                <img src="images/best-seller3.jpg" alt="Best Seller 3"> 
+            </div>
+        </div>
+    </section>
 
     <section class="menu">
+        
         <div class="menu-items">
             <?php 
                 if (!isset($pdo)) {

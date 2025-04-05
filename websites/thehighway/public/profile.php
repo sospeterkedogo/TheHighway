@@ -26,10 +26,10 @@ if (isset($_SESSION['loggedIN'])) {
     if (count($orders) >= 1){
         foreach($orders as $order) {
             $output .= "
-                <p> Order ID:".$order['order_id']." </p>
-                <p> Order Status:".$order['order_status']." </p>
-                <p> Total:".$order['total_amount']." </p>
-                <p> Date:".$order['created_at']." </p></br>
+                <p> Order Reference: ".$order['order_id']." </p>
+                <p> Order Status: ".$order['order_status']." </p>
+                <p> Total: £".$order['total_amount']." </p>
+                <p> Date: ".$order['created_at']." </p></br>
             "; 
         }
     } else {

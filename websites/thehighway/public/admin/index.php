@@ -30,7 +30,7 @@ if (isset($_SESSION['loggedin'])) {
 	// Admin specific functionality to add and remove users
 	
 	$output .= '
-		<div class="centered-div">
+		<div class="centered-div admin">
 			<a href="products.php">View Products</a>
 			<a href="addproduct.php">Add Product</a>
 			<a href="categories.php">View Categories</a>
@@ -40,7 +40,7 @@ if (isset($_SESSION['loggedin'])) {
 			<a href="#">Communication</a>
 			<a href="#">Reply</a>
 		</div>
-		<form action="index.php" method="POST" style="margin: 0">
+	<form action="index.php" method="POST" style="margin: auto; background: none;border: none;box-shadow: none;">
 		<input type="submit" name="logout" value="Logout" />
 	</form>
 	';

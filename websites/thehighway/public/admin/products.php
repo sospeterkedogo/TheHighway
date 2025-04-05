@@ -9,13 +9,16 @@ if (isset($_SESSION['loggedin'])) {
     $stmt = $productTable->findAll();
 
     $output = '<h2>Products</h2>';
-    $output .= '<table>';
+    $output .= '<table class="products">';
+    $output .= '<tr>
+    <th>Name</th><th>Functions</th>
+    </tr>';
     foreach ($stmt as $product) {
         $output .= '<tr>';
         $output .= '<td>' . $product['name'] . '</td>';
         $output .= '<td><a href="editproduct.php?id=' . $product['productid'] . '">Edit</a></td>';
         $output .= '<td><a href="deleteproduct.php?id=' . $product['productid'] . '">Delete</a></td>';
-        $output .= '</td>';
+        $output .= '</td></tr>';
     }
     $output .= '</table>';
 

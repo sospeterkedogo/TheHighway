@@ -28,7 +28,19 @@ a {
     transition: background-image 2s ease-in-out;
 }
 
+.signon a {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 0.4em;
+    padding: 0.7rem;
+}
 
+.admin a{
+    border: 1px solid #fff;
+    font-size: 0.8em;
+    padding: 0.6em;
+    background-color: #00000062;
+}
 
 nav {
     max-width: 100%;
@@ -195,6 +207,18 @@ i:hover {
 
 .listCart .item:nth-child(even){
     background-color: #eee1;
+}
+
+table{
+    counter-reset: rowNumber;
+}
+
+table tr:not(:first-child)::before{
+    display: table-cell;
+    counter-increment: rowNumber;
+    content:counter(rowNumber) ".";
+    padding-right: 0.3em;
+    text-align: right;
 }
 
 .popup-overlay {

@@ -9,14 +9,15 @@ if (isset($_SESSION['loggedin'])) {
     $stmt = $categoryTable->findAll();
 
     $output = '<h2>Categories</h2>';
-
+    
     $output .= '<table>';
+    $output .= '<tr><th>Name</th><th>Functions</th></tr>';
     foreach ($stmt as $category) {
         $output.= '<tr>';
         $output.= '<td>' . $category['name'] . '</td>';
         $output .= '<td><a href="editcategory.php?id=' . $category['category_id'] . '">Edit</a></td>';
         $output .= '<td><a href="deletecategory.php?id=' . $category['category_id'] . '">Delete</a></td>';
-        $output .= '</td>';
+        $output .= '</td></tr>';
     }
     $output.= '</table>';
 }

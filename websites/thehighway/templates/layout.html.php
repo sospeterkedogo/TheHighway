@@ -12,17 +12,11 @@
     <section class="hero">
         <nav>
             <a href="/admin/index.php"><i class="fa-solid fa-house" style="color:#fff"></i></a>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Menu</a></li>
-            </ul>
-            <i class="fa-solid fa-user-tie"></i>
+            <i class="fa-solid fa-user-tie"><?php if(isset($_SESSION['username'])) echo ' Hello, '.$_SESSION['username']?></i>
         </nav>
         
         <div class="main-header">
-            <div class="header">
-                <?=$output?>
-            </div>
+            <?=$output?>
         </div>
     </section>
 
