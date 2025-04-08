@@ -10,9 +10,7 @@ if (isset($_SESSION['loggedin'])) {
 
     $output = '<h2>Products</h2>';
     $output .= '<table class="products">';
-    $output .= '<tr>
-    <th>Name</th><th>Functions</th>
-    </tr>';
+    $output .= '<tr><th>Name</th><th>Functions</th></tr>';
     foreach ($stmt as $product) {
         $output .= '<tr>';
         $output .= '<td>' . $product['name'] . '</td>';
