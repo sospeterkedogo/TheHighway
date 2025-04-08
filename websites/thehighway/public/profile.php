@@ -9,7 +9,6 @@ if (isset($_SESSION['loggedIN'])) {
     $output = '
 
     <div class="centered-div" style="flex-direction: column; background: rgba(0,0,0,0.5); padding-top: 3vh;">
-
         <div class="profilepic">
             <p>'.$pic.'</p>
         </div>

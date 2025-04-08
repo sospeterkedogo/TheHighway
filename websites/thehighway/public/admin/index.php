@@ -25,31 +25,13 @@ if (isset($_SESSION['loggedin'])) {
 		header('Location: index.php');
 	}
 
-	$output = '<h3 style="text-align: center">Welcome back. Please choose an option to begin</h3>';
 
-	// Admin specific functionality to add and remove users
-	
-	$output .= '
-		<div class="centered-div admin">
-			<a href="products.php">View Products</a>
-			<a href="addproduct.php">Add Product</a>
-			<a href="categories.php">View Categories</a>
-			<a href="addcategory.php">Add Category</a>
-			<a href="adduser.php">Add User</a>
-			<a href="removeuser.php">Remove User</a>
-			<a href="#">Communication</a>
-			<a href="#">Reply</a>
-		</div>
-	<form action="index.php" method="POST" style="margin: auto; background: none;border: none;box-shadow: none;">
-		<input type="submit" name="logout" value="Logout" />
-	</form>
-	';
+	$output = loadTemplate('../../templates/adminindex.html.php', []);
 
 }
 else {
 	$output = '
 	<h3 style="text-align:center;margin: auto;">Please Provide Your Credentials To Log In</h3>	
-	<div class="centered-div">
 		<form action="index.php" method="POST">
 			<label class="formtitle">log in</label>
 			<label>Username</label>                                              
@@ -58,7 +40,6 @@ else {
 			<input type="password" name="password" />
 			<input type="submit" name="submit" value="submit" />
 		</form>
-	</div>
 	';
 }
 	

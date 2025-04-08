@@ -16,8 +16,6 @@ if (isset($_SESSION['loggedin'])) {
     }
 
     $output = '  
-            <div class="centered-div">
-            
                 <form action="adduser.php" method="POST">
                     <label class="formtitle">ADD USER</label> 
                     <label>Username</label>                                              
@@ -26,7 +24,6 @@ if (isset($_SESSION['loggedin'])) {
                     <input type="password" name="password" />
                     <input type="submit" name="submit" value="Add" />  
                 </form> 
-            </div>
         '; 
 }
 

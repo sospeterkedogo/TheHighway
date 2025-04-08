@@ -30,7 +30,6 @@ if (isset($_SESSION['loggedin'])) {
         $categories = $categoriesTable->findAll();
 
         $output .= '
-                <div class="centered-div">
                 <form action="editproduct.php?id="'.$_GET['id'].'" method="POST">
                     <label>Category</label>
                     <select name="categoryId"> 
@@ -56,7 +55,7 @@ if (isset($_SESSION['loggedin'])) {
                     <label>Product description:</label>
                     <textarea name="description">' . $product['description'] . '</textarea>
                     <input type="submit" value="Submit" name="submit" />
-                </form></div>';
+                </form>';
     }
 }
 else {

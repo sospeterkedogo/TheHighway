@@ -10,59 +10,46 @@
 </head>
 <body>
     <section class="hero">
-        <nav>
-            <a href="/admin/index.php"><i class="fa-solid fa-house" style="color:#fff"></i></a>
-            <i class="fa-solid fa-user-tie"><?php if(isset($_SESSION['username'])) echo ' Hello, '.$_SESSION['username']?></i>
-        </nav>
-        
-        <div class="main-header">
+    <div class="panel" style="display: grid; grid-template-columns: 22% 78%;">
+    <div class="sidebar" style="height:100vh; background-color: #02142A; color:#fff;">
+        <div style="display:flex;align-items:center; height: 18vh; background-color: #214162; padding: 20px;">
+            <div style="background-color: orange; width: 13vh; height: 13vh; border-radius: 50%; text-align: center; text-transform: uppercase; font-size: 3em; padding-top: 0.2em;"><?= isset($_SESSION['username']) ? substr($_SESSION['username'], 0, 1) : 'U'; ?></div>
+
+            <div style="padding-left: 0.5em;">
+                <h3><?= $_SESSION['username'] ?? 'User'?></h3>
+                <p style="margin: 0; color: <?= isset($_SESSION['username']) ? '#1ea87b' : 'red'; ?>">
+                    <?= isset($_SESSION['username']) ? 'Online' : 'Offline'; ?>
+                </p>
+                
+            </div>
+        </div>
+        <div class="panel_nav">
+            <a href="index.php"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+            <a href="products.php"><i class="fa-solid fa-list"></i> View Products</a>
+            <a href="addproduct.php"><i class="fa-solid fa-plus"></i> Add Product</a>
+            <a href="categories.php"><i class="fa-solid fa-table-cells"></i> View Categories</a>
+            <a href="addcategory.php"><i class="fa-solid fa-plus"></i> Add Category</a>
+            <a href="adduser.php"><i class="fa-solid fa-user-plus"></i> Add User</a>
+            <a href="removeuser.php"><i class="fa-solid fa-user-minus"></i> Remove User</a>
+            <a href="communication.php"><i class="fa-solid fa-inbox"></i> Communication</a>
+            <a href="index.php"><i class="fa-solid fa-gear"></i> Settings</a>
+        </div>
+            
+            
+        </div>
+
+        <div class="main"style="height:100vh; background-color: #fff; color:#000;">
+            <nav style="background-color: #02142A; height: 12vh; color: #fff" >
+                <a href="/admin/index.php"><i class="fa-solid fa-house" style="color:#fff"></i></a>
+                <i class="fa-solid fa-user-tie"  style="color:#fff"><?php if(isset($_SESSION['username'])) echo ' Hello, '.$_SESSION['username']?></i>
+            </nav>
             <?=$output?>
         </div>
+
+        
+    </div>
+
+        
     </section>
-
-    <footer>
-        <div class="main-footer">
-            <div>
-                <h1>About Us</h1>
-                <a href="#">Our vision, purpose and values</a>
-                <a href="#">Blog</a>
-                <a href="#">Contacts</a>
-                <a href="#">Allergens and nutrition</a>
-                <a href="#">Working for us</a>
-                <a href="#">FAQs</a>
-            </div>
-
-            <div>
-                <h1>Follow us</h1>
-                <ul>
-
-                    <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
-
-                </ul>
-                    <img src="images/logo.png" alt="logo" class="logo">
-                </div>
-
-            <div>
-                <h1>Explore</h1>
-                <a href="#menu">Menu</a>
-                <a href="#">News</a>
-            </div>
-        </div>
-        <div class="otherlinks">
-            <a href="#">Student discount</a> | 
-            <a href="#">The Highway's Deals</a> | 
-            <a href="#">Terms of use </a> | 
-            <a href="#">Terms and Conditions</a> | 
-            <a href="#">Privacy policy</a> | 
-            <a href="#">Copyright and legal</a> | 
-            <a href="#">Marketing Prefrences</a> | 
-            <a href="#">Cookie policy</a> </br> 
-            &copy; 2025 The Highway UK Limited
-        </div>
-    </footer>
 </body>
 </html>

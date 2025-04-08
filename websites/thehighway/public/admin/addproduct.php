@@ -50,7 +50,6 @@ if (isset($_SESSION['loggedin'])) {
         $categories = $categoriesTable->findAll();
        
         $output = '
-        <div class="centered-div">
         <form action="addproduct.php" method="POST" enctype="multipart/form-data">
         <label class="formtitle">ADD PRODUCT</label>
             <label>Category</label>
@@ -74,7 +73,7 @@ if (isset($_SESSION['loggedin'])) {
             <label>Upload Image:</label>
             <input type="file" name="image" accept="image/*" required />
             <input type="submit" value="Submit" name="submit" />
-        </form></div>';
+        </form>';
     }
 } else {
     $output = '
