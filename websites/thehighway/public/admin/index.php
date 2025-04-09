@@ -6,7 +6,6 @@ require '../../database.php';
 // List of available users and their passwords for tests-> admin: letmein, sos: mypass
 
 if (isset($_POST['submit'])) {
-
 	$employeeTable = new DataBaseTable($pdo, 'employees', 'id');
 	$user = $employeeTable->find('username', $_POST['username']);
 
@@ -25,8 +24,27 @@ if (isset($_SESSION['loggedin'])) {
 		header('Location: index.php');
 	}
 
+	$users = new DataBaseTable($pdo, 'users', 'id');
+	$allusers = $users->findAll();
 
-	$output = loadTemplate('../../templates/adminindex.html.php', []);
+	$orders = new DataBaseTable($pdo, 'orders', 'id');
+	$allorders = $orders->findAll();
+
+	$commTable = new DataBaseTable($pdo, 'communication', 'id');
+    $messages = $commTable->findAll();
+
+	$totalAmount = 0;
+	foreach($allorders as $order){
+		$totalAmount += $order['total_amount'];
+	}
+
+	$templateVars = ['allusers' => count($allusers),
+					'allorders' => count($allorders),
+					'total' => $totalAmount,
+					'messages' => $messages
+					];
+
+	$output = loadTemplate('../../templates/adminindex.html.php', $templateVars);
 
 }
 else {

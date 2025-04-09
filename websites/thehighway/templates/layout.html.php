@@ -7,6 +7,9 @@
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../main.css">
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../javasript.js"></script>
+
 </head>
 <body>
     <section class="hero">

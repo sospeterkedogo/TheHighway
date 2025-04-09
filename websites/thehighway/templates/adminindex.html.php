@@ -1,32 +1,54 @@
 <div class="dashboard">
     <div class="card card-sales">
-        <h3>Weekly Sales</h3>
-        <p>£ ...</p>
+        <h3>Monthly Sales</h3>
+        <p>£<?=$total?></p>
         <p>Incr / Decr</p>
     </div>
     <div class="card card-orders">
-    <h3>Weekly orders</h3>
-        <p>£ ...</p>
+    <h3>Total orders</h3>
+        <p><?=$allorders?></p>
         <p>Incr / Decr</p>
     </div>
     <div class="card card-visitors">
     <h3>Users</h3>
-        <p># of Users</p>
+        <p><?=$allusers?> registered Users</p>
         <p>Incr / Decr</p>
     </div>
     <div class="card card-stats">
-        <h3>Visit and Sales Statitics</h3>
-
+        <h3>Sales Statitics</h3>
+        <canvas id="myChart" style="width:100%; max-width: 700px;"></canvas>
     </div>
     <div class="card card-traffic">
-        <h3>Traffic Sources</h3>
+        <h3>Inventory</h3>
+        <canvas id="inventory" style="width: 100%; max-width: 500px;"></canvas>
     </div>
     <div class="card card-tickets">
         <h3>Emails</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Last Update</th>
+            </tr>
+            <?php 
+                foreach($messages as $message){
+                    echo "<tr>
+                    <td>".$message['username']."<td>
+                    <td>".$message['subject']."<td>
+                    <td>".$message['status']."<td>
+                    <td>".$message['date']."<td>
+                    <tr>";
+                }
+            ?>
+        </table>
     </div>
 </div>
 
 <form action="index.php" method="POST" style="margin: auto; background: none;border: none;box-shadow: none;      max-width:80%">
                     <input type="submit" name="logout" value="Logout" />
 </form>
-
+<div id="closePopup"></div>
+<div id="popupOverlay"></div>
+<div id="cart"></div>
+<div id="navbtn"></div>

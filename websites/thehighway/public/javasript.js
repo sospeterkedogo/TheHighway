@@ -63,6 +63,84 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     //doSlideShow();
+
+    const xyValues = [
+        {x: "JAN", y: 97},
+        {x: "FEB", y: 115},
+        {x: "MAR", y: 125},
+        {x: "APR", y: 120},
+        {x: "MAY", y: 127},
+        {x: "JUN", y: 130},
+        {x: "JUL", y: 155},
+        {x: "AUG", y: 240},
+        {x: "SEP", y: 200},
+        {x: "OCT", y: 255},
+        {x: "NOV", y: 138},
+        {x: "DEC", y: 357},
+
+    ]
+
+    new Chart("myChart", {
+        type: "bar",
+        data : {
+            datasets: [{
+                label: "Total Sales",
+                pointRadius: 4,
+                pointBackgroundColor: "rgba(0,0,255,1)",
+                data:xyValues
+            }]
+        },
+        options: {
+            parsing: {
+                xAxisKey: 'x',
+                yAxisKey: 'y'
+            },
+            scales: {
+                x: {
+                    type: 'category',
+                    title: {
+                        display: true,
+                        text: 'Month'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Sales'
+                    }
+                }
+            }
+        }
+    });
+
+    var xValues = ["Chicken", "Pizzas", "Bowls", "Drinks", "Burgers", "Desserts"];
+    var yValues = [55, 49, 44, 24, 15, 27];
+    var barColors = [
+        "#4e79a7", // soft blue
+        "#f28e2b", // orange-yellow
+        "#e15759", // soft red
+        "#76b7b2", // teal
+        "#59a14f", // green
+        "#edc949"  // golden yellow
+      ];
+
+    new Chart("inventory", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Total Inventory"
+            }
+        }
+    });
     
 });
 

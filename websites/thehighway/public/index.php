@@ -79,6 +79,19 @@ if (isset($_POST['minus'])) {
     $_SESSION['quantity']--;
 }
 
+if (isset($_POST['send'])){
+    // Save comm details in the database
+    $record = [
+        'username' => $_POST['username'],
+        'contact' => $_POST['contact'],
+        'subject' => $_POST['subject'],
+        'message' => $_POST['message']
+    ];
+
+    $commsTable = new DataBaseTable($pdo, 'communication', 'id');
+    $commsTable->save($record);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -369,10 +382,11 @@ if (isset($_POST['minus'])) {
         </div>
         <form action="index.php">
             <label class="formtitle">Send Message</label>
-            <input type="text" placeholder="Full Name">
-            <input type="text" placeholder="Email">
-            <textarea placeholder="Type Your message"></textarea>
-            <input type="submit" value="Send">
+            <input type="text" placeholder="Full Name" name="username">
+            <input type="text" placeholder="Email" name="contact">
+            <input type="text" placeholder="Subject" name="subject">
+            <textarea placeholder="Type Your message" name="message"></textarea>
+            <input type="submit" value="Send" name="send">
         </form>
         </div>
         
