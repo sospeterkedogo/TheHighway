@@ -3,47 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="../main.css">
+    <title><?=$title?></title>
+    <link rel="stylesheet" href="main.css">
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <section class="hero">
     <nav>
-            <img src="images/logo.png" alt="logo" class="logo">
-            <ul id="nav">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="settings.php">Settings</a></li>
-                <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
+        <img src="images/logo.png" alt="logo" class="logo">
+        <ul id="nav">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
                 <li><a href="logout.php">Log Out</a></li>
-                <?php else: ?>
+            <?php else: ?>
                 <li><a href="userregister.php">Register</a></li>
                 <li><a href="userlogin.php">Login</a></li>
-                <?php endif; ?>
-            </ul>
-            <a href="profile.php"><i class="fa-regular fa-user" style="color:#fff"></i></a>
-            
-            <div class="cart" id="cart">
-                <i class="fa-solid fa-cart-shopping" ></i>
-                <span><?php
-                    if(isset($_SESSION['quantity'])) {
-                        echo $_SESSION['quantity'];
-                    } else {
-                        $_SESSION['quantity'] = 0;
-                        echo $_SESSION['quantity'];
-                    }
-                ?></span>
-            </div>
-            
-            <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
-        </nav>
-            
+            <?php endif; ?>
+        </ul>
+        <a href="profile.php"><i class="fa-regular fa-user" style="color:#fff"></i></a>
+        
+        <div class="cart" id="cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span><?php
+                if(isset($_SESSION['quantity'])) {
+                    echo $_SESSION['quantity'];
+                } else {
+                    $_SESSION['quantity'] = 0;
+                    echo $_SESSION['quantity'];
+                }
+            ?></span>
+        </div>
+        
+        <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
+    </nav>
+
+    <section class="hero">
         <div class="main-header">
             <div class="header">
                 <?=$output?>
             </div>
         </div>
     </section>
+
+    <main>
+        <?=$content?>
+    </main>
 
     <footer>
         <div class="main-footer">
@@ -60,16 +66,14 @@
             <div>
                 <h1>Follow us</h1>
                 <ul>
-
                     <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
-
                 </ul>
-                    <img src="images/logo.png" alt="logo" class="logo">
-                </div>
+                <img src="images/logo.png" alt="logo" class="logo">
+            </div>
 
             <div>
                 <h1>Explore</h1>

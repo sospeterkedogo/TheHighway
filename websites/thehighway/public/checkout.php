@@ -6,8 +6,6 @@ require '../database.php';
 if (isset($_SESSION['loggedIN'])) {
     if (isset($_POST['checkout'])) {
 
-        
-
         $output = "
         <h3>✨Order Placed Successfully.✨</h3>
        
@@ -70,46 +68,8 @@ if (isset($_SESSION['loggedIN'])) {
         $tax = round($_SESSION['total'] * (12 / 100), 2);
         $_SESSION['subtotal'] = round($_SESSION['total'] + $tax,2);
        
-        $output = '
-        
-        <div class="centered-div">
-
-        <form >
-        <label class="formtitle">ORDER SUMMARY</label>
-                <label ><b>Order total</b>:    £'. $_SESSION['total'].'</label>
-                <label ><b>Items</b>: '.$_SESSION['quantity'].'</label>
-
-            <label><b>Shipping:     Free</b></label>
-          
-
-            <label><b>Estimated Tax</b>: £'.$tax.'</label>
-
-            <label ><b>Subtotal</b>: £'.$_SESSION['subtotal'].'</label>
-    
-        </form> 
-        
-        <form action="checkout.php" method="POST">
-            <label class="formtitle">Checkout</label>
-
-            <label>Card Number</label>
-            <input type="text" name="card" />
-
-            <label>Expiration Date</label>
-            <input type="date" name="date" />
-
-            <label>CVV</label>
-            <input type="number" name="cvv" />
-            <input type="hidden" name="quantity" value="'.$_SESSION['quantity'].'">
-            <input type="hidden" name="subtotal" value="'.$_SESSION['subtotal'].'">
-            
-            <input type="submit" value="PLACE ORDER AND PAY" name="checkout" style="margin-bottom: 3vh"/>
-            <input type="submit" value="BACK" name="back" />
-            
-    </form>
-        </form> 
-
-        </div>
-        ';
+        $templateVars = ['tax' => $tax];
+        $output = loadTemplate('templates/checkout.html.php', $templateVars);
 
     }
 }
@@ -130,7 +90,7 @@ else {
 
 $title = 'Checkout';
 
-require  '../templates/userlayout.html.php';
+require  '../templates/checkout.html.php';
 ?>
 
 

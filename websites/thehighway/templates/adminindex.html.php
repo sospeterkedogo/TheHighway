@@ -48,7 +48,3 @@
 <form action="index.php" method="POST" style="margin: auto; background: none;border: none;box-shadow: none;      max-width:80%">
                     <input type="submit" name="logout" value="Logout" />
 </form>
-<div id="closePopup"></div>
-<div id="popupOverlay"></div>
-<div id="cart"></div>
-<div id="navbtn"></div>

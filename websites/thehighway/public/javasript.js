@@ -1,14 +1,25 @@
-function selectMenuItem(itemnumber) {
-    let listitems = document.getElementById("menuitems").getElementsByTagName("li");
-    var length = listitems.length;
-
-    for(var i=0; i<= length; i++) {
-        listitems[i].className = i+1 == itemnumber ? "selected" : "";
-    }
-}
-
-
 document.addEventListener('DOMContentLoaded', function(){
+    const adminClassList = document.body.classList;
+    const homeClassList = document.body.classList;
+    const checkoutClassList = document.body.classList;
+
+
+    if (adminClassList.contains("admin-page")) {
+        initAdminPage();
+    }
+
+    if (homeClassList.contains("home-page")) {
+        initHomePage();
+    }
+
+    if (checkoutClassList.contains("checkout-page")) {
+        initCheckoutPage();
+    }
+    
+});
+
+
+function initHomePage() {
     const popupOverlay = document.getElementById('popupOverlay');
     const popup = document.getElementById('popup');
     const closePopup = document.getElementById('closePopup');
@@ -61,22 +72,41 @@ document.addEventListener('DOMContentLoaded', function(){
         setTimeout(doSlideShow, 5000);
     }
 
+    
 
-    //doSlideShow();
+    function showDescription(event, description) {
+        let descBox = document.getElementById("floating-description");
+        let descContent = document.getElementById("desc-content");
 
+        descContent.textContent = description;
+
+        // Position the description box near the clicked icon
+        descBox.style.left = event.pageX + "px";
+        descBox.style.top = event.pageY + "px";
+
+        // Show the description box
+        descBox.style.display = "block";
+    }
+
+    function hideDescription() {
+        document.getElementById("floating-description").style.display = "none"; }
+
+}
+
+function initAdminPage() {
     const xyValues = [
         {x: "JAN", y: 97},
         {x: "FEB", y: 115},
         {x: "MAR", y: 125},
         {x: "APR", y: 120},
-        {x: "MAY", y: 127},
-        {x: "JUN", y: 130},
-        {x: "JUL", y: 155},
-        {x: "AUG", y: 240},
-        {x: "SEP", y: 200},
-        {x: "OCT", y: 255},
-        {x: "NOV", y: 138},
-        {x: "DEC", y: 357},
+        {x: "MAY", y: 0},
+        {x: "JUN", y: 0},
+        {x: "JUL", y: 0},
+        {x: "AUG", y: 0},
+        {x: "SEP", y: 0},
+        {x: "OCT", y: 0},
+        {x: "NOV", y: 0},
+        {x: "DEC", y: 0},
 
     ]
 
@@ -141,25 +171,15 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
     });
-    
-});
-
-
-function showDescription(event, description) {
-    let descBox = document.getElementById("floating-description");
-    let descContent = document.getElementById("desc-content");
-
-    descContent.textContent = description;
-
-    // Position the description box near the clicked icon
-    descBox.style.left = event.pageX + "px";
-    descBox.style.top = event.pageY + "px";
-
-    // Show the description box
-    descBox.style.display = "block";
 }
 
-function hideDescription() {
-    document.getElementById("floating-description").style.display = "none"; }
-
-
+function initCheckoutPage() {
+    for (let i = 1; i <= 3; i++) {
+        const button = document.getElementById(`drop${i}`);
+        const section = document.getElementById(`${i}`);
+    
+        button.addEventListener("click", () => {
+            section.classList.toggle("hidden");
+        });
+    }
+}

@@ -11,7 +11,7 @@
     <script src="../javasript.js"></script>
 
 </head>
-<body>
+<body class="admin-page">
     <section class="hero">
     <div class="panel" style="display: grid; grid-template-columns: 22% 78%;">
     <div class="sidebar" style="height:100vh; background-color: #02142A; color:#fff;">
