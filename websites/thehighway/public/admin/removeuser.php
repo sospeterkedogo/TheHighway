@@ -8,11 +8,26 @@ if (isset($_SESSION['loggedin'])) {
     $employeeTable = new DataBaseTable($pdo, 'employees', 'id');
     $employees = $employeeTable->findAll();
 
-    $output = '<h3>Users</h3>';
+    $output = '<h3>Users</h3>
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Username</th>
+            </tr>
+    
+    ';
 
     foreach($employees as $employee){
-        $output .= '<p>ID: ' . $employee['id']. '</br>Name: ' . $employee['username'] . '</p>';
+        $output .= '
+        
+        <tr>
+            <td>' . $employee['id']. '</td>
+            <td>' . $employee['username'] . '</td>
+        </tr>
+        ';
     }
+
+    $output .= '</table>';
 
     if(isset($_POST['submit'])){
         $employeeTable = new DataBaseTable($pdo, 'employees', 'id');

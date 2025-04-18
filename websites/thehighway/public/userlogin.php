@@ -3,17 +3,17 @@ session_start();
 require '../database.php';
 
 $output = '   
-            <div class="centered-div">
-                <form action="userlogin.php" method="POST">
-                    <label class="formtitle">log in</label>
-                    <label>Username</label>
-                    <input type="text" name="username" />
-                    <label>Password</label>
-                    <input type="password" name="password" />
-                    <a href="#">forgot password?</a>
-                    <input type="submit" value="Login" name="login" />
-                </form>
-            </div>
+            
+        <form action="userlogin.php" method="POST">
+            <label class="formtitle">log in</label>
+            <label>Username</label>
+            <input type="text" name="username" />
+            <label>Password</label>
+            <input type="password" name="password" />
+            <a href="#">forgot password?</a>
+            <input type="submit" value="Login" name="login" />
+        </form>
+            
             ';
 
 if(isset($_POST['login'])) {
@@ -50,7 +50,7 @@ elseif(isset($_POST['signup'])) {
             </form>';
 }
 
-$title = 'Northampton News Login page';
+$title = 'The Highway Login page';
 
 require '../templates/userlayout.html.php';
 ?>

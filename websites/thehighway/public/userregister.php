@@ -42,8 +42,6 @@ if(isset($_POST['signup'])) {
 }
 
 $output = '   
-    <div class="centered-div">
-
     <form action="userregister.php" method="POST">
         <label class="formtitle">Register</label>
 
@@ -64,7 +62,7 @@ $output = '
         <a href="userlogin.php">Or login here</a>
     </form>
 
-    </div>
+    
 ';
 
 $title = 'The Highway Sign up page';

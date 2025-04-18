@@ -20,12 +20,12 @@
         <div class="sidebar" style="height: 100%; overflow-y: hidden; background-color: #fff; ">
             <div class="profilepanel_nav ">
                 <a href="dashboard.php"><i class="fa-solid fa-gauge"></i> My Dashboard</a>
-                <a href="products.php"><i class="fa-solid fa-list"></i> Accounts</a>
-                <a href="addproduct.php"><i class="fa-solid fa-phone"></i> Mobile</a>
+                <a href="index.php"><i class="fa-solid fa-list"></i> Accounts</a>
+                <a href="index.php"><i class="fa-solid fa-phone"></i> Mobile</a>
                 <a href="orders.php"><i class="fa-solid fa-cart-shopping"></i> Orders</a>
-                <a href="orders.php"><i class="fa-solid fa-wallet"></i> Payments</a>
-                <a href="categories.php"><i class="fa-solid fa-tools"></i> Settings</a>
-                <a href="categories.php"><i class="fa-solid fa-question"></i> Support</a>
+                <a href="index.php"><i class="fa-solid fa-wallet"></i> Payments</a>
+                <a href="index.php"><i class="fa-solid fa-tools"></i> Settings</a>
+                <a href="index.php#contact"><i class="fa-solid fa-question"></i> Support</a>
                 
             </div>
             

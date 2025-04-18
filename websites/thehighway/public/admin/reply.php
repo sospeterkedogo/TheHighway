@@ -8,6 +8,7 @@ if (isset($_SESSION['loggedin'])) {
 
         $record = [
             'response' => $_POST['response'],
+            'status' => 'completed',
             'id' => $_GET['id']
         ];
 
@@ -17,8 +18,29 @@ if (isset($_SESSION['loggedin'])) {
         $output = 'Message Sent';
     }
     else { 
+
+        $communicationTable = new DataBaseTable($pdo, 'communication', 'id');
+
+        $message = $communicationTable->find('id', $_GET['id']);
         $output = '
         <h2>Reply</h2>
+
+        <table>
+        <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Date</th>
+        </tr>
+
+        <tr>
+        <td>'.$message['username'].'</td>
+        <td>'.$message['subject'].'</td>
+        <td>'.$message['message'].'</td>
+        <td>'.$message['date'].'</td>
+        </tr>
+
+        </table>
         
         <form action="reply.php?id='. $_GET['id'] .' " method="POST">
             <label>Message:</label>

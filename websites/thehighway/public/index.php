@@ -118,7 +118,7 @@ if (isset($_POST['send'])){
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
-            <a href="dashboard.php"><i class="fa-regular fa-user" style="color:#fff;"> Hello, <?= $_SESSION['username1']?></i></a>
+            <a href="dashboard.php"><i class="fa-regular fa-user" style="color:#fff; font-size: 1em;"> <?= $_SESSION['username1']?></i></a>
             <?php else: ?>
             <div class="signon">
             <a href="userregister.php">Register</a> 
@@ -140,7 +140,7 @@ if (isset($_POST['send'])){
                 ?></span>
             </div>
             
-            <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
+            <i class="fa-solid fa-bars menuicon" id="navbtn" ></i>
         </nav>
         <!-- 
         <div id="animated-text-strip">
@@ -281,11 +281,6 @@ if (isset($_POST['send'])){
     <div class="search-bar">
             <input type="text" placeholder="Search for a product">
             <button>Search</button>
-            <button>Filter</button>
-            <button>Sort</button>
-            <button>Clear</button>
-            <button>Reset</button>
-            <button>Apply</button>
         </div>
 
     <section class="menu">
@@ -381,7 +376,7 @@ if (isset($_POST['send'])){
             <p>thehighway@gmail.com</p>
             
         </div>
-        <form action="index.php">
+        <form action="index.php?#contact" method="post" style="margin: 0" >
             <label class="formtitle">Send Message</label>
             <input type="text" placeholder="Full Name" name="username">
             <input type="text" placeholder="Email" name="contact">

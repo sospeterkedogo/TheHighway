@@ -8,13 +8,13 @@
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<section class="hero">
     <nav>
         <img src="images/logo.png" alt="logo" class="logo">
         <ul id="nav">
             <li><a href="index.php">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="index.php#menu">Menu</a></li>
+            <li><a href="index.php#contact">Contact</a></li>
             <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
                 <li><a href="logout.php">Log Out</a></li>
             <?php else: ?>
@@ -38,19 +38,8 @@
         
         <i class="fa-solid fa-bars menuicon" id="navbtn"></i>
     </nav>
-
-    <section class="hero">
-        <div class="main-header">
-            <div class="header">
-                <?=$output?>
-            </div>
-        </div>
+        <?=$output?>
     </section>
-
-    <main>
-        <?=$content?>
-    </main>
-
     <footer>
         <div class="main-footer">
             <div>

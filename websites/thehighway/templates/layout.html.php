@@ -44,7 +44,7 @@
         <div class="main"style="height:100vh; background-color: #fff; color:#000;">
             <nav style="background-color: #02142A; height: 12vh; color: #fff" >
                 <a href="/admin/index.php"><i class="fa-solid fa-house" style="color:#fff"></i></a>
-                <i class="fa-solid fa-user-tie"  style="color:#fff"><?php if(isset($_SESSION['username'])) echo ' Hello, '.$_SESSION['username']?></i>
+                <i class="fa-solid fa-user-tie"  style="color:#fff; font-size: 1em;"> <?php if(isset($_SESSION['username'])) echo $_SESSION['username']?></i>
             </nav>
             <?=$output?>
         </div>

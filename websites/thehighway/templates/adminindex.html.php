@@ -30,6 +30,7 @@
                 <th>Subject</th>
                 <th>Status</th>
                 <th>Last Update</th>
+                <th>Response</th>
             </tr>
             <?php 
                 foreach($messages as $message){
@@ -38,6 +39,13 @@
                     <td>".$message['subject']."<td>
                     <td>".$message['status']."<td>
                     <td>".$message['date']."<td>
+                    ";
+                    if(isset($message['response'])){
+                        echo '<td><i>Replied</i></td>'; 
+                    } else {
+                        echo '<td><a href="reply.php?id='. $message['id'] .' ">Reply</a></td>';
+                    }
+                    "
                     <tr>";
                 }
             ?>
