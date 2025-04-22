@@ -6,29 +6,55 @@ require '../database.php';
 if (isset($_SESSION['loggedIN'])) {
     if (isset($_POST['checkout'])) {
 
-        $output = "
-        <h3>✨Order Placed Successfully.✨</h3>
-       
-        <p>Click <a href='index.php'>here</a> to go back to home page or <a href='logout.php'>here</a> to log out.</p>
-     
-        ";
+    // 1. Get the user from session
+    $userTable = new DataBaseTable($pdo, 'users', 'id');
+    $user = $userTable->find('username', $_SESSION['username1']);
 
-        $userTable = new DataBaseTable($pdo, 'users', 'id');
-        $user = $userTable->find('username', $_SESSION['username1']);
+    // 2. Save the order
+    $record = [
+        'user_id' => $user['id'],
+        'total_amount' => $_SESSION['subtotal']
+    ];
+    $ordersTable = new DataBaseTable($pdo, 'orders', 'id');
+    $ordersTable->save($record);
 
-        $record = [
-            'user_id' => $user['id'],
-            'order_status' => 'completed',
-            'total_amount' => $_SESSION['subtotal'],
+    $latestOrder = $ordersTable->findLatest('user_id', $user['id']); 
+
+    $latestOrderId = $latestOrder['order_id'];
+
+   
+
+    // 3. Save the cart
+    $record1 = [
+        'user_id' => $user['id'],
+        'order_id' => $latestOrderId
+    ];
+    $cartsTable = new DataBaseTable($pdo, 'carts', 'cart_id');
+    $cartsTable->save($record1);
+
+    $order_id = $cartsTable->find('user_id', $latestOrderId);
+
+    // 4. Get the latest cart_id for this user (assuming it's the one just inserted)
+    $cart = $cartsTable->findLatestByPk('user_id', $user['id']);
+    $currentCartId = $cart['cart_id'];
+
+    // 5. Save all cart items into cart_items table
+    $cartItemsTable = new DataBaseTable($pdo, 'cart_items', 'cart_item_id');
+
+    foreach ($_SESSION['cart'] as $item) {
+        $record2 = [
+            'cart_id' => $currentCartId,
+            'product_id' => $item['id'],
+            'quantity' => $item['quantity']
         ];
+        $cartItemsTable->save($record2);
+    }
 
-        $ordersTable = new DataBaseTable($pdo, 'orders', 'id');
-        $ordersTable->save($record);
+    unset($_SESSION['cart']);
+    $_SESSION['quantity'] = 0;
+    $_SESSION['subtotal'] = 0;
 
-
-
-        unset($_SESSION['cart']);
-        unset($_SESSION['quantity']);
+    $output= loadTemplate('templates/order-confirmation.html.php', []);
 
         $msg = "
             <html>
@@ -69,7 +95,7 @@ if (isset($_SESSION['loggedIN'])) {
         $_SESSION['subtotal'] = round($_SESSION['total'] + $tax,2);
        
         $templateVars = ['tax' => $tax];
-        $output = loadTemplate('templates/checkout.html.php', $templateVars);
+        $output = loadTemplate('templates/confirmorder.html.php', $templateVars);
 
     }
 }

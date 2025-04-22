@@ -7,6 +7,7 @@ if (isset($_SESSION['loggedIN'])) {
 
     $ordersTable = new DataBaseTable($pdo, 'orders', 'id');
     $orders = $ordersTable->findAll('user_id', $_SESSION['uid']);
+    
 
 
     $templateVars = ['orders' => $orders];

@@ -232,25 +232,26 @@ if (isset($_POST['send'])){
                 <img src="images/deal4.jpg" alt="Deal 4">
                 <h2>Best Seller</h2>
             </div>
-            <div class="deal-item">
-                <img src="images/deal5.jpg" alt="Deal 5">
             
-        </div>
     </section>
 
     <section class="best-sellers">
         <h2>Best Sellers</h2>
         <div class="best-seller-items">
             <div class="best-seller-item">
+                <img src="images/bestseller.png" alt="Best Seller 1" class="bestseller-tag">
                 <img src="images/best-seller1.jpg" alt="Best Seller 1">
-                <h3>Best Seller Category1</h3>
+                <h3>Margherita Cheese Pizza</h3>
             </div>
             <div class="best-seller-item">
+                <img src="images/bestseller.png" alt="Best Seller 1" class="bestseller-tag">
                 <img src="images/best-seller2.jpg" alt="Best Seller 2">
-                <h3>Best Seller Category 2</h3>
+                <h3>Buffalo Chicken Burger</h3>
             </div>
             <div class="best-seller-item">
-                <img src="images/best-seller3.jpg" alt="Best Seller 3"> 
+                <img src="images/bestseller.png" alt="Best Seller 1" class="bestseller-tag">
+                <img src="images/best-seller3.jpg" alt="Best Seller 3">
+                <h3>Tiramisu Dessert</h3> 
             </div>
         </div>
     </section>
@@ -317,7 +318,9 @@ if (isset($_POST['send'])){
                                 <div class="image">
                                     <img src="images/' . $product['image'] . '" alt="menu-item">
                                 </div>
-                                <i class="fa-solid fa-circle-info iteminfo" onclick="showDescription(event, \'' . htmlspecialchars($product['description'], ENT_QUOTES) . '\')"></i>
+                                    <i class="fa-solid fa-circle-info iteminfo"
+                                    onclick="showDescription(event, \'' . htmlspecialchars($product['description'], ENT_QUOTES) . '\')">
+                                    </i>
                                 <div class="description">
                                     <h3>' . $product['name'] . '</h3>
                                     <p>£' . $product['price'] . '</p>

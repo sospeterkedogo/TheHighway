@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', function(){
-    const adminClassList = document.body.classList;
+    const adminClassList = document.getElementsByTagName('div')[7].classList;
     const homeClassList = document.body.classList;
-    const checkoutClassList = document.body.classList;
+    const dropElement = document.getElementById('drop1');
+    const kitchenClassList = document.getElementsByTagName('h3')[0].classList;
 
+    if (dropElement) {
+        const checkoutClassList = dropElement.classList;
+        if (checkoutClassList.contains("checkout-page")) {
+            initCheckoutPage();
+        }
+    } 
 
     if (adminClassList.contains("admin-page")) {
         initAdminPage();
@@ -12,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function(){
         initHomePage();
     }
 
-    if (checkoutClassList.contains("checkout-page")) {
-        initCheckoutPage();
+    if (kitchenClassList.contains("kitchen")) {
+        initKitchenPage();
     }
     
 });
@@ -182,4 +189,61 @@ function initCheckoutPage() {
             section.classList.toggle("hidden");
         });
     }
+    
+}
+
+function initKitchenPage() {
+    function fetchNotifications() {
+        fetch('notifications.php')
+            .then(response => response.text()) // Get raw response text first
+            .then(text => {
+                if (!text) {
+                    // No response (no new notifications)
+                    return;
+                }
+    
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error('JSON parse error:', e);
+                    return;
+                }
+    
+                if (Array.isArray(data) && data.length > 0) {
+                    data.forEach(order => {
+                        showToast(`New order received: #${order.order_id}`);
+                    });
+                }
+            })
+            .catch(error => console.error('Notification fetch error:', error));
+    }
+    
+
+    // Poll every 10 seconds
+    setInterval(fetchNotifications, 10000);
+
+    // Optional: Fetch immediately on load
+    fetchNotifications();
+
+    function showToast(message) {
+        const container = document.getElementById('notification-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+    
+        toast.innerHTML = `
+            <img src="images/logo.png" alt="Logo" class="toast-icon">
+            <span>${message}</span>
+        `;
+    
+        container.appendChild(toast);
+    
+        const sound = document.getElementById('notification-sound');
+        if (sound) sound.play();
+    
+        setTimeout(() => {
+            toast.remove();
+        }, 5000);
+    }
+
 }

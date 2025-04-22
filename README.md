@@ -1,50 +1,161 @@
-# The Highway - Online Food Store
+# The Highway Restaurant Website
 
-Welcome to **The Highway**, an online restaurant that delivers delicious meals straight to your doorstep. This project provides a full-featured food ordering platform with customer support, order management, and discounts.
+A modern, responsive restaurant website built with PHP, MySQL, and modern web technologies. This platform serves as an online presence for The Highway Restaurant, featuring menu browsing, online ordering, and customer engagement features.
 
 ## Features
-- **Order Management**: Customers can browse the menu, add items to their cart, and place orders.
-- **Custom Orders API**: A backend API to handle orders efficiently.
-- **Delivery Service**: Orders are delivered directly to customers.
-- **Discount System**: Special discounts are available on select orders.
-- **Tidio Chatbot**: Integrated chatbot for customer support.
-- **User Authentication**: Secure login and registration system.
-- **Wishlist & Reviews**: Users can add items to their wishlist and leave reviews.
-- **Admin Dashboard**: Manage products, orders, and user interactions.
 
-## Technologies Used
-- **PHP & MySQL** for backend development
-- **JavaScript** for frontend interactions
-- **Docker & Docker Compose** for containerized deployment
-- **Tidio Chatbot** for real-time customer support
+- **Modern UI/UX Design**
+  - Responsive layout that works on all devices
+  - Clean, professional interface
+  - Smooth animations and transitions
+  - Custom font combinations for optimal readability
 
-## Setup Instructions
+- **Menu Management**
+  - Dynamic menu categories
+  - Product listings with images and descriptions
+  - Real-time stock management
+  - Special deals and best sellers sections
+
+- **Shopping Cart**
+  - Real-time cart updates
+  - Quantity management
+  - Stock validation
+  - Persistent cart sessions
+
+- **User Experience**
+  - Intuitive navigation
+  - Search functionality
+  - Contact form for customer inquiries
+  - Mobile-responsive design
+
+## Technical Stack
+
+- **Backend**
+  - PHP 8.2
+  - MySQL 8.0
+  - Custom MVC-like architecture
+  - PDO for database operations
+
+- **Frontend**
+  - HTML5
+  - CSS3 with modern features (Grid, Flexbox, Variables)
+  - Vanilla JavaScript
+  - Google Fonts integration
+
+- **Infrastructure**
+  - Docker containerization
+  - Nginx web server
+  - PHP-FPM for processing
+  - MySQL for data storage
+
+## Project Structure
+
+```
+websites/thehighway/
+├── public/              # Publicly accessible files
+│   └── index.php       # Main entry point
+├── templates/          # HTML templates
+├── css/               # Stylesheets
+│   └── main.css      # Main stylesheet
+├── config/            # Configuration files
+├── Dockerfile         # Docker configuration
+├── docker-compose.yml # Docker services setup
+└── nginx.conf         # Nginx configuration
+```
+
+## Getting Started
+
 ### Prerequisites
-- Docker & Docker Compose installed
 
-### Running the App with Docker Compose
+- Docker and Docker Compose
+- Git
+- PHP 8.2+
+- MySQL 8.0+
+
+### Installation
+
 1. Clone the repository:
-   ```sh
-   git clone https://github.com/sospeterkedogo/TheHighway.git
-   cd the-highway
+   ```terminal
+   git clone [https://github.com/sospeterkedogo/TheHighway]
+   cd websites/thehighway
    ```
-2. Update environment variables in `.env` (e.g., database credentials, API keys).
+
+2. Configure environment variables:
+   ```terminal
+   cp .env.example .env
+   # Edit .env with your database credentials
+   ```
+
 3. Start the application:
-   ```sh
+   ```terminal
    docker-compose up -d
    ```
-4. Access the application at `http://localhost:8000`
 
-## API Endpoints
-### Orders API
-- **Create Order:** `POST /api/orders`
-- **Get Order by ID:** `GET /api/orders/{id}`
-- **Update Order:** `PUT /api/orders/{id}`
-- **Delete Order:** `DELETE /api/orders/{id}`
+4. Access the application:
+   - Local: http://localhost:8080
+   - Production: [Your domain]
+
+## Development
+
+### Local Development
+
+1. Start the development environment:
+   ```terminal
+   docker-compose up -d
+   ```
+
+2. Make changes to the codebase
+
+3. View changes in real-time at http://localhost:8080
+
+### Database Management
+
+- The application uses MySQL for data storage
+- Database migrations are handled through the application
+- Backup your database regularly
+
+## Deployment
+
+The application can be deployed on various platforms:
+
+1. **Traditional Hosting**
+   - Upload files to web server
+   - Configure MySQL database
+   - Set up Nginx/Apache
+
+2. **Containerized Deployment**
+   - Build Docker image
+   - Deploy to container platform
+   - Configure environment variables
+
+3. **Cloud Platforms**
+   - Google Cloud Platform
+   - AWS
+   - Azure
+   - Render
+
+## Security Considerations
+
+- Input validation on all forms
+- Prepared statements for database queries
+- Session management
+- Secure password handling
+- Regular security updates
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
-For support, open an issue on GitHub.
 
----
-**The Highway** - Bringing good food to your doorstep!
-
+For any queries or support, please contact:
+- Email: [Your Email]
+- Website: [Your Website] 

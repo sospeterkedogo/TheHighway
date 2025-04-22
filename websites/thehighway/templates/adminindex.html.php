@@ -1,4 +1,4 @@
-<div class="dashboard">
+<div class="dashboard admin-page">
     <div class="card card-sales">
         <h3>Monthly Sales</h3>
         <p>£<?=$total?></p>

@@ -84,6 +84,25 @@ class DataBaseTable {
         return $stmt->fetch();
     }
 
+    // find the latest record by 'created_at', optionally filtering by a field (e.g., user_id)
+    function findLatest($filterField = null, $value = null){
+        if ($filterField !== null && $value !== null) {
+            $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $filterField . ' = :value ORDER BY created_at DESC LIMIT 1');
+            $stmt->execute(['value' => $value]);
+        } else {
+            $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' ORDER BY created_at DESC LIMIT 1');
+            $stmt->execute();
+        }
+        return $stmt->fetch();
+    }
+
+    // find latest by PK
+    function findLatestByPk($field, $value) {
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $field . ' = :value ORDER BY ' . $this->primaryKey . ' DESC LIMIT 1');
+        $stmt->execute(['value' => $value]);
+        return $stmt->fetch();
+    }
+
     // find all records from any table by any criteria
     function findAllFrom($field, $value){
         $stmt = $this->pdo->prepare('SELECT * FROM ' .$this->table. ' WHERE ' .$field. '=:value');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin at The Highway</title>
+    <title><?=$title?></title>
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../main.css">
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
@@ -11,7 +11,7 @@
     <script src="../javasript.js"></script>
 
 </head>
-<body class="admin-page">
+<body >
     <section class="hero">
     <div class="panel" style="display: grid; grid-template-columns: 22% 78%;">
     <div class="sidebar" style="height:100vh; background-color: #02142A; color:#fff;">
