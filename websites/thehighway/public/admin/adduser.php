@@ -22,6 +22,7 @@ if (isset($_SESSION['loggedin'])) {
                     <input type="text" name="username" /> 
                     <label>Password</label>
                     <input type="password" name="password" />
+                    <div id="password-feedback"></div>
                     <input type="submit" name="submit" value="Add" />  
                 </form> 
         '; 

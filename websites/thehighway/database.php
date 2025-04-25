@@ -1,9 +1,9 @@
 <?php
-$host = getenv('DB_HOST') ?: 'mysql';         // Render DB host or local default
-$dbname = getenv('DB_NAME') ?: 'thehighway';  // Render DB name or local default
-$username = getenv('DB_USER') ?: 'root';      // Render DB user or local default
-$password = getenv('DB_PASS') ?: 'v.je';      // Render DB password or local default
-$charset = getenv('DB_CHARSET') ?: 'utf8';    // Default charset
+$host = 'mysql';         
+$dbname =  'thehighway';  
+$username =  'root';      
+$password =  'v.je';      
+$charset =  'utf8';   
 
 $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
 

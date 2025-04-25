@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="main.css">
     <script src="https://kit.fontawesome.com/5b8fb5fe8f.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="register">
 <section class="hero">
     <nav>
         <img src="images/logo.png" alt="logo" class="logo">

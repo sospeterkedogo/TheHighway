@@ -10,6 +10,31 @@ if (isset($_SESSION['loggedIN'])) {
     $userTable = new DataBaseTable($pdo, 'users', 'id');
     $user = $userTable->find('username', $_SESSION['username1']);
 
+    $addressTable = new DataBaseTable($pdo, 'addresses', 'id');
+
+    // save the address if its not on db
+    if (empty($user['address'])){
+        $record = [
+            'user_id' => $user['id'],
+            'address_line1' => $_POST['street'],
+            'address_line2' => $_POST['apt'],
+            'city' => $_POST['city'],
+            'country' => $_POST['country'],
+            'postcode' => $_POST['postcode']
+        ];
+
+        $addressTable->save($record);
+
+        $useraddress = $addressTable->find('user_id', $user['id']);
+        $useraddressID = $useraddress['id'];
+
+        $record1 = [
+            'id' => $user['id'],
+            'address' => $useraddressID
+        ];
+        $userTable->save($record1);
+    }
+
     // 2. Save the order
     $record = [
         'user_id' => $user['id'],
@@ -19,10 +44,7 @@ if (isset($_SESSION['loggedIN'])) {
     $ordersTable->save($record);
 
     $latestOrder = $ordersTable->findLatest('user_id', $user['id']); 
-
     $latestOrderId = $latestOrder['order_id'];
-
-   
 
     // 3. Save the cart
     $record1 = [
@@ -34,7 +56,7 @@ if (isset($_SESSION['loggedIN'])) {
 
     $order_id = $cartsTable->find('user_id', $latestOrderId);
 
-    // 4. Get the latest cart_id for this user (assuming it's the one just inserted)
+    // 4. Get the latest cart_id for this user
     $cart = $cartsTable->findLatestByPk('user_id', $user['id']);
     $currentCartId = $cart['cart_id'];
 
@@ -50,10 +72,31 @@ if (isset($_SESSION['loggedIN'])) {
         $cartItemsTable->save($record2);
     }
 
+    // 6. Save payment in payment in the payments table
+    $paymentsTable = new DataBaseTable($pdo,'payments', 'payment_id');
+    $record3 = [
+        'order_id' => $latestOrderId,
+        'payment_status' => 'Completed',
+        'amount' => $_POST['subtotal']
+    ];
+    $paymentsTable->save($record3);
+
+    // 7. Save the transaction into transactions table
+    $transactionsTable = new DataBaseTable($pdo, 'transactions', 'transaction_id');
+    $latestPayment = $paymentsTable->findLatestByPk('order_id', $latestOrderId);
+    $latestPaymentId = $latestPayment['payment_id'];
+    $record4 = [
+        'payment_id' => $latestPaymentId,
+        'status' => 'Success'
+    ];
+    $transactionsTable->save($record4);
+
+
     unset($_SESSION['cart']);
     $_SESSION['quantity'] = 0;
     $_SESSION['subtotal'] = 0;
 
+    
     $output= loadTemplate('templates/order-confirmation.html.php', []);
 
         $msg = "
@@ -93,8 +136,19 @@ if (isset($_SESSION['loggedIN'])) {
 
         $tax = round($_SESSION['total'] * (12 / 100), 2);
         $_SESSION['subtotal'] = round($_SESSION['total'] + $tax,2);
-       
-        $templateVars = ['tax' => $tax];
+
+        $userTable = new DataBaseTable($pdo, 'users', 'id');
+        $user = $userTable->find('username', $_SESSION['username1']);
+
+        $addressTable = new DataBaseTable($pdo, 'addresses', 'id');
+        $userAddress = $addressTable->find('user_id', $user['id']);
+
+        $templateVars = [
+            'address' => $userAddress,
+            'user' => $user,
+            'tax' => $tax
+        ];
+
         $output = loadTemplate('templates/confirmorder.html.php', $templateVars);
 
     }

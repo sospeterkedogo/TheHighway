@@ -24,6 +24,37 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `thehighway` /*!40100 DEFAULT CHARACTER
 USE `thehighway`;
 
 --
+-- Table structure for table `addresses`
+--
+
+DROP TABLE IF EXISTS `addresses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `addresses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `address_line1` varchar(255) DEFAULT NULL,
+  `address_line2` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `postcode` varchar(20) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id_idx` (`user_id`),
+  CONSTRAINT `user_idx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `addresses`
+--
+
+LOCK TABLES `addresses` WRITE;
+/*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
+INSERT INTO `addresses` VALUES (1,7,'31','Connaught Street','Northampton','NN1 3BP','UK'),(3,3,'22','Brampton Street','Northampton','NN2 4AQ','UK'),(4,2,'','','','','');
+/*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cart_items`
 --
 
@@ -40,7 +71,7 @@ CREATE TABLE `cart_items` (
   KEY `product_id_idx` (`product_id`),
   CONSTRAINT `cart_id` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`cart_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`productid`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +80,7 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` VALUES (1,1,9,1),(2,1,13,1),(3,1,9,1),(4,1,14,1),(5,1,19,1),(6,1,13,1),(7,1,33,1),(8,1,33,1),(9,1,22,1),(10,1,21,1),(11,1,21,1),(12,1,23,1),(13,1,15,1),(14,1,26,1),(15,1,17,1),(16,1,25,1),(17,1,21,1),(18,13,31,1),(19,14,21,1),(20,15,26,1),(21,16,37,1),(22,16,12,1),(23,16,27,1),(24,16,35,1),(25,17,13,1),(26,18,43,1),(27,20,9,1),(28,23,9,1),(29,24,12,5),(30,25,14,1),(31,26,14,1),(32,27,15,1),(33,28,17,1),(34,29,44,1);
+INSERT INTO `cart_items` VALUES (1,1,9,1),(2,1,13,1),(3,1,9,1),(4,1,14,1),(5,1,19,1),(6,1,13,1),(7,1,33,1),(8,1,33,1),(9,1,22,1),(10,1,21,1),(11,1,21,1),(12,1,23,1),(13,1,15,1),(14,1,26,1),(15,1,17,1),(16,1,25,1),(17,1,21,1),(18,13,31,1),(19,14,21,1),(20,15,26,1),(21,16,37,1),(22,16,12,1),(23,16,27,1),(24,16,35,1),(25,17,13,1),(26,18,43,1),(27,20,9,1),(28,23,9,1),(29,24,12,5),(30,25,14,1),(31,26,14,1),(32,27,15,1),(33,28,17,1),(34,29,44,1),(35,30,14,1),(36,30,15,1),(37,31,22,1),(38,31,9,1),(39,31,8,1),(40,32,14,1),(41,33,29,1),(42,34,18,1),(43,34,11,1),(44,35,21,1),(45,36,19,1),(46,37,17,1),(47,38,17,1),(48,39,15,1),(49,40,9,1);
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +98,7 @@ CREATE TABLE `carts` (
   PRIMARY KEY (`cart_id`),
   KEY `user_idz` (`user_id`),
   CONSTRAINT `user_idz` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +107,7 @@ CREATE TABLE `carts` (
 
 LOCK TABLES `carts` WRITE;
 /*!40000 ALTER TABLE `carts` DISABLE KEYS */;
-INSERT INTO `carts` VALUES (1,7,NULL),(7,7,NULL),(8,7,NULL),(9,7,95),(10,7,96),(11,7,97),(12,7,98),(13,7,99),(14,7,100),(15,7,101),(16,7,102),(17,7,103),(18,7,104),(19,7,105),(20,7,106),(21,7,107),(22,7,108),(23,7,109),(24,7,110),(25,7,111),(26,7,112),(27,7,113),(28,7,114),(29,7,115);
+INSERT INTO `carts` VALUES (1,7,NULL),(7,7,NULL),(8,7,NULL),(9,7,95),(10,7,96),(11,7,97),(12,7,98),(13,7,99),(14,7,100),(15,7,101),(16,7,102),(17,7,103),(18,7,104),(19,7,105),(20,7,106),(21,7,107),(22,7,108),(23,7,109),(24,7,110),(25,7,111),(26,7,112),(27,7,113),(28,7,114),(29,7,115),(30,7,116),(31,7,117),(32,7,118),(33,7,119),(34,3,120),(35,3,121),(36,3,122),(37,3,123),(38,3,124),(39,3,125),(40,2,126);
 /*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +152,7 @@ CREATE TABLE `communication` (
   `date` timestamp NULL DEFAULT current_timestamp(),
   `response` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,8 +161,33 @@ CREATE TABLE `communication` (
 
 LOCK TABLES `communication` WRITE;
 /*!40000 ALTER TABLE `communication` DISABLE KEYS */;
-INSERT INTO `communication` VALUES (1,'Pete','Hi, I need help cancelling a duplicate order','kedogosospeter36@gmail.com','Duplicate Order Cancellation','pending','2025-04-17 23:00:04',NULL),(2,'Jill','I need a FULL REFUND ASAP for the food i ordered which got delivered on time and I ate it.','j@mail.com','Refund, NOW!!!','completed','2025-04-18 00:43:56','We cannot do that sir!!!'),(3,'Jill','I need a FULL REFUND ASAP for the food i ordered which got delivered on time and I ate it.','j@mail.com','Refund, NOW!!!','pending','2025-04-18 01:31:55',NULL);
+INSERT INTO `communication` VALUES (1,'Pete','Hi, I need help cancelling a duplicate order','kedogosospeter36@gmail.com','Duplicate Order Cancellation','pending','2025-04-17 23:00:04',NULL),(2,'Jill','I need a FULL REFUND ASAP for the food i ordered which got delivered on time and I ate it.','j@mail.com','Refund, NOW!!!','completed','2025-04-18 00:43:56','We cannot do that sir!!!'),(3,'Jill','I need a FULL REFUND ASAP for the food i ordered which got delivered on time and I ate it.','j@mail.com','Refund, NOW!!!','pending','2025-04-18 01:31:55',NULL),(4,'pete','I need help making an order please!!!','p@gmail.com','Need Help!!!','completed','2025-04-22 16:54:39','Sorry mate, no help here!');
 /*!40000 ALTER TABLE `communication` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `deliveries`
+--
+
+DROP TABLE IF EXISTS `deliveries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `deliveries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `driver_id` int(11) NOT NULL,
+  `time` timestamp NULL DEFAULT current_timestamp(),
+  `status` varchar(45) DEFAULT 'Success',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `deliveries`
+--
+
+LOCK TABLES `deliveries` WRITE;
+/*!40000 ALTER TABLE `deliveries` DISABLE KEYS */;
+/*!40000 ALTER TABLE `deliveries` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -146,7 +202,7 @@ CREATE TABLE `employees` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,8 +211,33 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'admin','$2y$12$EWdLNytud.iqsoNqULVYXuezwZlLhv5X3kP0BqiVA4Sxrg.mG6GZe'),(4,'employee1','$2y$12$D.OcPzgtIeq325VCmItFZOQM0oRdc/M5Q20xg0zURl6cNAOBm7jbi');
+INSERT INTO `employees` VALUES (1,'admin','$2y$12$EWdLNytud.iqsoNqULVYXuezwZlLhv5X3kP0BqiVA4Sxrg.mG6GZe'),(5,'Abdul','$2y$12$Q0hPM3ZqBeUzDx/uQP.sMuKNLSpB5JwBtuhYEbZefYL6zouLbGwjG');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ingredients`
+--
+
+DROP TABLE IF EXISTS `ingredients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ingredients` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL,
+  `type` enum('base','protein','vegetable','sauce') DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ingredients`
+--
+
+LOCK TABLES `ingredients` WRITE;
+/*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
+INSERT INTO `ingredients` VALUES (1,'Steamed Rice','base'),(2,'Beef Strips','protein'),(3,'Pasta','base'),(4,'Fries','base'),(5,'Pizza Dough','base'),(6,'Carrots','vegetable'),(7,'Grilled Chicken','protein'),(8,'Fish Fillet','protein'),(9,'Broccoli','vegetable'),(10,'Carrots','vegetable'),(11,'Teriyaki','sauce'),(12,'Curry','sauce'),(13,'Garlic Butter','sauce'),(14,'Bell peppers','vegetable'),(15,'Tomatoes','vegetable'),(16,'Onions','vegetable'),(17,'Curry','sauce');
+/*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -176,7 +257,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`order_id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `user_idy` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +266,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,2,'Completed',15.66,'2025-04-09 00:59:30','1'),(2,2,'Completed',6.71,'2025-04-09 01:00:18','1'),(3,2,'Completed',20.13,'2025-04-09 14:48:40','1'),(4,2,'Completed',58.63,'2025-04-09 14:49:53','1'),(5,7,'Completed',31.84,'2025-04-11 21:56:20','1'),(6,7,'Completed',46.22,'2025-04-18 02:16:12','1'),(7,7,'Completed',46.22,'2025-04-18 02:21:30','1'),(8,7,'Completed',46.22,'2025-04-18 02:21:38','1'),(9,7,'Completed',46.22,'2025-04-18 02:24:33','1'),(10,7,'Completed',5.59,'2025-04-18 02:29:26','1'),(11,7,'Completed',5.59,'2025-04-18 02:32:55','1'),(12,7,'Completed',5.59,'2025-04-18 02:33:38','1'),(13,7,'Completed',5.59,'2025-04-18 02:34:09','1'),(14,7,'Completed',0.00,'2025-04-18 02:34:34','1'),(15,7,'Completed',0.00,'2025-04-18 02:34:47','1'),(16,7,'Completed',0.00,'2025-04-18 02:35:30','1'),(17,7,'Completed',0.00,'2025-04-18 02:42:43','1'),(18,7,'Completed',0.00,'2025-04-18 02:44:14','1'),(19,7,'Completed',0.00,'2025-04-18 02:44:18','1'),(20,7,'Completed',0.00,'2025-04-18 02:45:10','1'),(21,7,'Completed',0.00,'2025-04-18 02:45:14','1'),(22,7,'Completed',0.00,'2025-04-18 02:45:25','1'),(23,7,'Completed',0.00,'2025-04-18 02:45:36','1'),(24,7,'Completed',0.00,'2025-04-18 17:13:13','1'),(25,7,'Completed',0.00,'2025-04-18 17:14:48','1'),(26,7,'Completed',2.49,'2025-04-18 17:20:33','1'),(27,7,'Completed',2.49,'2025-04-18 17:21:58','1'),(28,7,'Completed',2.49,'2025-04-18 17:24:13','1'),(29,7,'Completed',2.49,'2025-04-18 17:25:35','1'),(30,7,'Completed',2.49,'2025-04-18 17:26:06','1'),(31,7,'Completed',2.49,'2025-04-18 17:26:35','1'),(32,7,'Completed',2.49,'2025-04-18 17:27:11','1'),(33,7,'Completed',2.49,'2025-04-18 17:27:21','1'),(34,7,'Completed',2.49,'2025-04-18 17:27:34','1'),(35,7,'Completed',2.49,'2025-04-18 17:28:02','1'),(36,7,'Completed',2.49,'2025-04-18 17:28:46','1'),(37,7,'Completed',2.49,'2025-04-18 17:29:05','1'),(38,7,'Completed',2.49,'2025-04-18 17:30:12','1'),(39,7,'Completed',2.49,'2025-04-18 17:31:55','1'),(40,7,'Completed',2.49,'2025-04-18 17:36:19','1'),(41,7,'Completed',2.49,'2025-04-18 17:37:18','1'),(42,7,'Completed',2.49,'2025-04-18 17:37:56','1'),(43,7,'Completed',2.49,'2025-04-18 17:39:00','1'),(44,7,'Completed',2.49,'2025-04-18 17:39:40','1'),(45,7,'Completed',2.49,'2025-04-18 17:39:45','1'),(46,7,'Completed',2.49,'2025-04-18 17:39:59','1'),(47,7,'Completed',2.49,'2025-04-18 17:40:14','1'),(48,7,'Completed',2.49,'2025-04-18 17:40:54','1'),(49,7,'Completed',2.49,'2025-04-18 17:41:47','1'),(50,7,'Completed',2.49,'2025-04-18 17:42:03','1'),(51,7,'Completed',2.49,'2025-04-18 17:42:13','1'),(52,7,'Completed',2.49,'2025-04-18 17:43:13','1'),(53,7,'Completed',2.49,'2025-04-18 17:43:31','1'),(54,7,'Completed',2.49,'2025-04-18 17:43:56','1'),(55,7,'Completed',2.49,'2025-04-18 17:45:20','1'),(56,7,'Completed',2.49,'2025-04-18 17:56:39','1'),(57,7,'Completed',2.49,'2025-04-18 17:57:30','1'),(58,7,'Completed',11.67,'2025-04-18 18:18:28','1'),(59,7,'Completed',11.67,'2025-04-18 18:19:06','1'),(60,7,'Completed',11.67,'2025-04-18 18:19:24','1'),(61,7,'Completed',11.67,'2025-04-18 18:19:36','1'),(62,7,'Completed',11.67,'2025-04-18 18:20:12','1'),(63,7,'Completed',11.67,'2025-04-18 18:20:24','1'),(64,7,'Completed',11.67,'2025-04-18 18:20:46','1'),(65,7,'Completed',11.67,'2025-04-18 18:21:06','1'),(66,7,'Completed',11.67,'2025-04-18 18:21:22','1'),(67,7,'completed',5.59,'2025-04-18 18:43:44','1'),(68,7,'completed',5.59,'2025-04-18 18:45:33','1'),(69,7,'completed',11.67,'2025-04-18 18:46:56','1'),(70,7,'completed',2.23,'2025-04-20 18:29:08','1'),(71,7,'completed',26.32,'2025-04-20 19:40:54','1'),(72,7,'completed',17.26,'2025-04-20 20:28:00','1'),(73,7,'completed',0.00,'2025-04-20 20:29:23','1'),(74,7,'completed',0.00,'2025-04-20 20:29:57','1'),(75,7,'completed',0.00,'2025-04-20 20:30:32','1'),(76,7,'completed',5.59,'2025-04-20 20:34:18','1'),(77,7,'completed',31.84,'2025-04-20 20:41:05','1'),(78,7,'completed',0.00,'2025-04-20 20:42:47','1'),(79,7,'completed',11.67,'2025-04-20 20:44:00','1'),(80,7,'completed',1.50,'2025-04-20 20:50:33','1'),(81,7,'completed',1.50,'2025-04-20 20:51:10','1'),(82,7,'completed',1.50,'2025-04-20 20:53:30','1'),(83,7,'completed',1.50,'2025-04-20 20:53:59','1'),(84,7,'completed',0.00,'2025-04-20 20:55:45','1'),(85,7,'completed',0.00,'2025-04-20 20:56:47','1'),(86,7,'completed',26.01,'2025-04-20 20:57:48','1'),(87,7,'completed',24.89,'2025-04-20 21:03:16','1'),(88,7,'completed',24.89,'2025-04-20 21:06:06','1'),(89,7,'completed',24.89,'2025-04-20 21:06:19','1'),(90,7,'completed',2.49,'2025-04-20 21:09:47','1'),(91,7,'completed',0.00,'2025-04-21 17:37:35','1'),(92,7,'completed',14.55,'2025-04-21 17:46:09','1'),(93,7,'completed',0.00,'2025-04-21 17:59:08','1'),(94,7,'completed',0.00,'2025-04-21 18:00:40','1'),(95,7,'completed',2.23,'2025-04-21 18:06:50','1'),(96,7,'completed',16.80,'2025-04-21 18:09:45','1'),(97,7,'completed',22.39,'2025-04-21 18:10:56','1'),(98,7,'completed',47.28,'2025-04-21 18:11:24','1'),(99,7,'completed',0.62,'2025-04-21 18:18:57','1'),(100,7,'completed',24.89,'2025-04-21 23:18:59','1'),(101,7,'completed',2.23,'2025-04-21 23:19:52','1'),(102,7,'completed',15.85,'2025-04-21 23:57:03','1'),(103,7,'out for delivery',11.67,'2025-04-22 00:16:56','1'),(104,7,'out for delivery',0.56,'2025-04-22 00:53:13','1'),(105,7,'out for delivery',0.00,'2025-04-22 00:56:47','1'),(106,7,'ready for pick up',5.59,'2025-04-22 01:01:23','1'),(107,7,'out for delivery',0.00,'2025-04-22 01:03:47','1'),(108,7,'ready for pick up',0.00,'2025-04-22 01:04:14','1'),(109,7,'ready for pick up',5.59,'2025-04-22 01:04:33','1'),(110,7,'ready for pick up',44.74,'2025-04-22 01:28:52','1'),(111,7,'ready for pick up',14.55,'2025-04-22 01:41:46','1'),(112,7,'ready for pick up',14.55,'2025-04-22 01:44:38','1'),(113,7,'ready for pick up',14.55,'2025-04-22 01:45:22','1'),(114,7,'ready for pick up',16.80,'2025-04-22 01:46:41','1'),(115,7,'ready for pick up',2.23,'2025-04-22 02:16:32','1');
+INSERT INTO `orders` VALUES (100,7,'completed',24.89,'2025-04-21 23:18:59','1'),(101,7,'completed',2.23,'2025-04-21 23:19:52','1'),(102,7,'completed',15.85,'2025-04-21 23:57:03','1'),(103,7,'completed',11.67,'2025-04-22 00:16:56','1'),(104,7,'completed',0.56,'2025-04-22 00:53:13','1'),(106,7,'completed',5.59,'2025-04-22 01:01:23','1'),(109,7,'completed',5.59,'2025-04-22 01:04:33','1'),(110,7,'completed',44.74,'2025-04-22 01:28:52','1'),(111,7,'completed',14.55,'2025-04-22 01:41:46','1'),(112,7,'completed',14.55,'2025-04-22 01:44:38','1'),(113,7,'completed',14.55,'2025-04-22 01:45:22','1'),(114,7,'completed',16.80,'2025-04-22 01:46:41','1'),(115,7,'completed',2.23,'2025-04-22 02:16:32','1'),(116,7,'pending',29.10,'2025-04-22 16:48:52','1'),(117,7,'completed',38.30,'2025-04-22 16:50:52','1'),(118,7,'pending',14.55,'2025-04-22 18:45:16','1'),(119,7,'pending',3.85,'2025-04-22 18:49:48','1'),(120,3,'ready for pick up',27.52,'2025-04-22 19:22:24','1'),(121,3,'completed',24.89,'2025-04-23 03:04:07','1'),(122,3,'completed',17.29,'2025-04-23 03:06:31','1'),(123,3,'pending',16.80,'2025-04-23 03:13:34','1'),(124,3,'pending',16.80,'2025-04-23 03:15:53','1'),(125,3,'pending',14.55,'2025-04-23 03:18:12','1'),(126,2,'completed',5.59,'2025-04-24 22:54:14','1');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,7 +285,7 @@ CREATE TABLE `payments` (
   PRIMARY KEY (`payment_id`),
   UNIQUE KEY `order_id_UNIQUE` (`order_id`),
   CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,6 +294,7 @@ CREATE TABLE `payments` (
 
 LOCK TABLES `payments` WRITE;
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+INSERT INTO `payments` VALUES (1,122,'Completed',17.29),(2,123,'Completed',16.80),(3,124,'Completed',16.80),(4,125,'Completed',14.55),(5,126,'Completed',5.59);
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +326,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (8,'Chicken Tikka','Tender, marinated chicken pieces are grilled to perfection and simmered in a rich, creamy tomato sauce infused with aromatic spices, garlic, and a hint of smoky paprika. Served with fragrant basmati rice and warm buttered naan, this dish offers a perfect balance of bold flavors and creamy indulgence.',5.99,4,'../images/chichen.jpg',58,NULL),(9,'Classic Italian Pasta','A timeless classic, our Italian pasta is made with the finest durum wheat and crafted to perfection. Served with your choice of rich tomato sauce, creamy Alfredo, or a flavorful pesto, each bite is a harmonious blend of tradition and taste. Topped with fresh herbs, grated Parmesan, and a drizzle of olive oil, this dish delivers an authentic taste of Italy in every mouthful.',4.99,5,'../images/pasta.jpg',31,''),(10,'Fresh Greek Salad','A refreshing and vibrant blend of crisp cucumbers, juicy tomatoes, Kalamata olives, and red onions, topped with creamy feta cheese and drizzled with aromatic extra virgin olive oil. Finished with a sprinkle of dried oregano and a splash of lemon, this light and flavorful salad offers a true taste of Greece, perfect as a side or a light meal.',2.99,7,'../images/menuitem.jpg',0,NULL),(11,'Garlic Herb Chicken','Succulent chicken breasts marinated in a fragrant blend of garlic, olive oil, and fresh herbs, then seared to perfection. Served with a rich, savory garlic sauce that complements the tender chicken, this dish is both aromatic and flavorful. Paired with your choice of sides, it’s a simple yet satisfying meal for garlic lovers.',4.55,4,'../images/garlic chicken.png',22,''),(12,'Chicken Burrito Bowl','A hearty and flavorful dish featuring tender grilled chicken served over a bed of fluffy rice, fresh black beans, and crisp lettuce. Topped with vibrant salsa, creamy guacamole, and a sprinkle of shredded cheese, this bowl is a perfect combination of bold flavors and satisfying textures. Drizzled with a zesty lime dressing, it’s a delicious and customizable meal that brings the taste of Mexican comfort food to your table.',7.99,7,'../images/ChickenBurritoBowl.jpg',23,NULL),(13,'Vegetable Pizza Slice','A delicious and healthy option, our vegetable pizza is topped with a colorful array of fresh, seasonal vegetables including bell peppers, mushrooms, red onions, olives, and spinach. Layered with rich tomato sauce, melted mozzarella cheese, and a sprinkle of aromatic herbs, this pizza offers a perfect balance of flavors and textures in every bite. A satisfying choice for vegetarians and pizza lovers alike.',10.42,NULL,'../images/bestveggiepizza.jpg',35,NULL),(14,'Chicken Bacon Ranch Pizza','A mouthwatering combination of tender grilled chicken, crispy bacon, and melted mozzarella cheese, all drizzled with a creamy ranch dressing. This pizza is topped with fresh tomatoes and a hint of herbs, creating a perfect balance of savory, smoky, and creamy flavors. Whether you\'re craving a hearty meal or a comfort food fix, this pizza is sure to satisfy.',12.99,6,'../images/chickenbaconranchpizza.jpg',16,NULL),(15,'Classic Cheese Pizza','A timeless favorite, our Classic Cheese Pizza features a perfectly baked, golden crust topped with rich tomato sauce and a generous layer of melted mozzarella cheese. Simple yet satisfying, this pizza is a celebration of bold, cheesy goodness with every bite. Ideal for any occasion, it’s the perfect choice for cheese lovers.',12.99,6,'../images/classiccheesepizza.jpg',8,NULL),(16,'Coconut Chicken Rice Bowl','A flavorful and creamy dish featuring tender chicken marinated in a coconut milk blend, then grilled to perfection. Served over a bed of fluffy jasmine rice, this bowl is complemented by a light coconut sauce and a hint of lime for added freshness. Topped with fresh cilantro and a sprinkle of toasted sesame seeds, this dish offers a perfect balance of creamy, savory, and aromatic flavors.',6.75,7,'../images/CoconutChickenRiceBowl.jpg',20,NULL),(17,'Garlic Skillet Chicken','Tender chicken breasts cooked to perfection in a rich and savory garlic butter sauce. Infused with aromatic garlic, fresh herbs, and a hint of lemon, this dish is a delicious balance of creamy, buttery flavors with a touch of zest. Served with your choice of sides, it’s a comforting and flavorful meal that will satisfy your cravings with every bite.perfection in a sizzling skillet, infused with rich garlic butter and fresh herbs. Each bite is bursting with savory, aromatic flavors, complemented by a touch of lemon for added brightness. Served with your choice of sides, this dish is simple yet full of bold, comforting taste. Perfect for garlic lovers and anyone seeking a deliciously satisfying meal.',15.00,4,'../images/creamygarlicskilletchickenwithspinach.jpg',4,NULL),(18,'Garlic Butter Chicken','Garlic Butter chicken',20.02,4,'../images/GarlicButterChicken.jpg',9,NULL),(19,'Greek Vegetable Pizza','A Mediterranean-inspired delight, our Greek pizza features a crispy crust topped with tangy tomato sauce, creamy feta cheese, Kalamata olives, and a medley of fresh vegetables including cucumbers, red onions, and ripe tomatoes. Finished with a sprinkle of oregano and a drizzle of extra virgin olive oil, this pizza offers a perfect balance of bold, savory, and refreshing flavors. A must-try for those who enjoy vibrant and unique tastes.',15.44,NULL,'../images/greekpizza.jpg',13,NULL),(20,'Korean Fried Chicken','Crispy, golden fried chicken coated in a sweet and spicy Korean glaze. Each piece is perfectly crunchy on the outside, while tender and juicy on the inside. The glaze, made with a blend of soy sauce, garlic, ginger, and a touch of heat, adds a bold and irresistible flavor. Served with pickled vegetables or your choice of sides, this dish brings the bold and vibrant flavors of Korea to your plate.',30.00,4,'../images/koreanfriedchicken.jpg',14,NULL),(21,'Margherita Cheese Pizza','A classic Italian favorite, our Margherita pizza features a perfectly thin, crispy crust topped with rich tomato sauce, fresh mozzarella cheese, and a handful of aromatic basil leaves. Drizzled with a touch of extra virgin olive oil, this simple yet delicious pizza highlights the freshest ingredients and offers a perfect balance of flavors. A true representation of Italian tradition in every bite.',22.22,6,'../images/margherita.jpg',35,NULL),(22,'Mediterranean Veggy Pasta','A vibrant and flavorful pasta dish featuring al dente noodles tossed with a colorful mix of Mediterranean vegetables such as bell peppers, zucchini, cherry tomatoes, and olives. Tossed in a light, garlicky olive oil dressing and topped with crumbled feta cheese, this dish is bursting with fresh, earthy flavors. A sprinkle of oregano and a squeeze of lemon bring it all together, making this a satisfying and healthy choice for vegetable lovers.',23.22,5,'../images/mediterraneanveggypasta.jpg',11,NULL),(23,'Broccoli Pasta Dish','A simple yet delicious dish featuring al dente pasta tossed with tender broccoli florets, garlic, and a light olive oil or butter sauce. Finished with a sprinkle of Parmesan cheese and a touch of lemon zest, this dish offers a perfect balance of savory flavors and fresh, vibrant vegetables. It’s a comforting, wholesome meal that’s both satisfying and full of flavor.',2.22,5,'../images/PastawithBroccoli.jpg',0,NULL),(24,'Vegan Stir-fry Pasta','A vibrant and healthy stir fry featuring al dente pasta tossed with a medley of crisp, colorful vegetables like bell peppers, broccoli, and snap peas. Stir-fried in a savory soy-based sauce with garlic, ginger, and a hint of sesame oil, this dish is packed with bold flavors and wholesome goodness. Topped with sesame seeds and fresh herbs, it’s a delicious, plant-based meal that’s both satisfying and full of flavor.',1.99,5,'../images/quickveganpastavegetablestirfrywithgingerandgarlic.jpg',0,NULL),(25,'Sticky Chicken and Fries','Juicy, tender chicken pieces glazed in a sweet and savory sticky sauce, perfectly paired with crispy golden fries. The rich, flavorful glaze combines hints of honey, soy sauce, and spices, creating a deliciously irresistible coating. Served with a side of crispy fries, this dish offers a comforting and satisfying combination of savory, sweet, and crunchy. Perfect for a casual meal that’s both hearty and full of flavor.',4.99,4,'../images/Stickychickenandfries.jpg',19,NULL),(26,'Small Fries','Small Fries',1.99,10,'../images/2.jpeg',8,NULL),(27,'Chocolate Chip Cookies','Chocolate Chip Cookies',0.50,10,'../images/3.jpg',19,NULL),(28,'Chocolate Cookies','Chocolate Cookies',0.20,10,'../images/4.jpg',5,NULL),(29,'Sphagetti Meatballs','Sphagetti Meatballs',3.44,5,'../images/6.jpg',10,NULL),(30,'Vanilla Milkshake','Vanilla Milkshake',1.22,13,'../images/7.jpg',0,NULL),(31,'Fanta','carbonated soft drink',0.55,13,'../images/8.jpg',49,NULL),(32,'7 Up','carbonated soft drink',0.89,13,'../images/9.jpg',33,NULL),(33,'Lipton Peach Flavour','Lipton Peach Flavour',1.34,4,'../images/12.jpeg',2,NULL),(34,'Chocolate Milkshake','Chocolate Milkshake',2.22,13,'../images/13.jpg',0,NULL),(35,'Tropicana orange Juice','Tropicana orange Juice',1.22,13,'../images/14.jpg',0,NULL),(36,'Red Velvet Slice','Red Velvet Slice',3.56,14,'../images/16.jpg',9,''),(37,'Ice Cream Sundae','Ice Cream Sundae',4.44,14,'../images/17-ice-cream-sundaes-in-a-pink-bowl-with-sprinkles.jpg',9,NULL),(38,'Beef Burger','Beef Burger',3.45,15,'../images/21.jpg',11,NULL),(39,'Buffalo Chicken Burger','Buffalo Chicken Burger',3.99,15,'../images/22-Buffalo-Chicken-Burger-square-FS-2.jpg',33,'5'),(40,'Veggie Burger','Veggie Burger',1.55,15,'../images/23-veggie-burgers-6.jpg',30,'3'),(41,'Chocolate Cake','Chocolate Cake',3.30,14,'../images/banner-img.jpeg',20,'5'),(42,'Caramelized Onion Bacon Cheeseburger','Caramelized Onion Bacon Cheeseburger',3.19,15,'../images/25Caramelized-Onion-Bacon-Cheeseburger-Recipe-768x1024.jpg',9,'5'),(43,'Churros','churros',0.50,14,'../images/19-churros.jpg',39,'4'),(44,'Tiramisu Dessert','Tiramisu Dessert',1.99,14,'../images/20-tiramisu-dessert-easy-vegan.jpg',28,'4');
+INSERT INTO `products` VALUES (8,'Chicken Tikka','Tender, marinated chicken pieces are grilled to perfection and simmered in a rich, creamy tomato sauce infused with aromatic spices, garlic, and a hint of smoky paprika. Served with fragrant basmati rice and warm buttered naan, this dish offers a perfect balance of bold flavors and creamy indulgence.',5.99,4,'../images/chichen.jpg',57,'5'),(9,'Classic Italian Pasta','A timeless classic, our Italian pasta is made with the finest durum wheat and crafted to perfection. Served with your choice of rich tomato sauce, creamy Alfredo, or a flavorful pesto, each bite is a harmonious blend of tradition and taste. Topped with fresh herbs, grated Parmesan, and a drizzle of olive oil, this dish delivers an authentic taste of Italy in every mouthful.',4.99,5,'../images/pasta.jpg',17,'3'),(10,'Fresh Greek Salad','A refreshing and vibrant blend of crisp cucumbers, juicy tomatoes, Kalamata olives, and red onions, topped with creamy feta cheese and drizzled with aromatic extra virgin olive oil. Finished with a sprinkle of dried oregano and a splash of lemon, this light and flavorful salad offers a true taste of Greece, perfect as a side or a light meal.',2.99,7,'../images/menuitem.jpg',10,'4'),(11,'Garlic Herb Chicken','Succulent chicken breasts marinated in a fragrant blend of garlic, olive oil, and fresh herbs, then seared to perfection. Served with a rich, savory garlic sauce that complements the tender chicken, this dish is both aromatic and flavorful. Paired with your choice of sides, it’s a simple yet satisfying meal for garlic lovers.',4.55,4,'../images/garlic chicken.png',19,'5'),(12,'Chicken Burrito Bowl','A hearty and flavorful dish featuring tender grilled chicken served over a bed of fluffy rice, fresh black beans, and crisp lettuce. Topped with vibrant salsa, creamy guacamole, and a sprinkle of shredded cheese, this bowl is a perfect combination of bold flavors and satisfying textures. Drizzled with a zesty lime dressing, it’s a delicious and customizable meal that brings the taste of Mexican comfort food to your table.',7.99,7,'../images/ChickenBurritoBowl.jpg',23,'5'),(13,'Vegetable Pizza Slice','A delicious and healthy option, our vegetable pizza is topped with a colorful array of fresh, seasonal vegetables including bell peppers, mushrooms, red onions, olives, and spinach. Layered with rich tomato sauce, melted mozzarella cheese, and a sprinkle of aromatic herbs, this pizza offers a perfect balance of flavors and textures in every bite. A satisfying choice for vegetarians and pizza lovers alike.',10.42,6,'../images/bestveggiepizza.jpg',22,'5'),(14,'Chicken Bacon Ranch Pizza','A mouthwatering combination of tender grilled chicken, crispy bacon, and melted mozzarella cheese, all drizzled with a creamy ranch dressing. This pizza is topped with fresh tomatoes and a hint of herbs, creating a perfect balance of savory, smoky, and creamy flavors. Whether you\'re craving a hearty meal or a comfort food fix, this pizza is sure to satisfy.',12.99,6,'../images/chickenbaconranchpizza.jpg',10,'5'),(15,'Classic Cheese Pizza','A timeless favorite, our Classic Cheese Pizza features a perfectly baked, golden crust topped with rich tomato sauce and a generous layer of melted mozzarella cheese. Simple yet satisfying, this pizza is a celebration of bold, cheesy goodness with every bite. Ideal for any occasion, it’s the perfect choice for cheese lovers.',12.99,6,'../images/classiccheesepizza.jpg',5,'4'),(16,'Coconut Chicken Rice Bowl','A flavorful and creamy dish featuring tender chicken marinated in a coconut milk blend, then grilled to perfection. Served over a bed of fluffy jasmine rice, this bowl is complemented by a light coconut sauce and a hint of lime for added freshness. Topped with fresh cilantro and a sprinkle of toasted sesame seeds, this dish offers a perfect balance of creamy, savory, and aromatic flavors.',6.75,7,'../images/CoconutChickenRiceBowl.jpg',19,'3'),(17,'Garlic Skillet Chicken','Tender chicken breasts cooked to perfection in a rich and savory garlic butter sauce. Infused with aromatic garlic, fresh herbs, and a hint of lemon, this dish is a delicious balance of creamy, buttery flavors with a touch of zest. Served with your choice of sides, it’s a comforting and flavorful meal that will satisfy your cravings with every bite.perfection in a sizzling skillet, infused with rich garlic butter and fresh herbs. Each bite is bursting with savory, aromatic flavors, complemented by a touch of lemon for added brightness. Served with your choice of sides, this dish is simple yet full of bold, comforting taste. Perfect for garlic lovers and anyone seeking a deliciously satisfying meal.',15.00,4,'../images/creamygarlicskilletchickenwithspinach.jpg',1,'4'),(18,'Garlic Butter Chicken','Garlic Butter chicken',20.02,4,'../images/GarlicButterChicken.jpg',5,'2'),(19,'Greek Vegetable Pizza','A Mediterranean-inspired delight, our Greek pizza features a crispy crust topped with tangy tomato sauce, creamy feta cheese, Kalamata olives, and a medley of fresh vegetables including cucumbers, red onions, and ripe tomatoes. Finished with a sprinkle of oregano and a drizzle of extra virgin olive oil, this pizza offers a perfect balance of bold, savory, and refreshing flavors. A must-try for those who enjoy vibrant and unique tastes.',15.44,NULL,'../images/greekpizza.jpg',8,'4'),(20,'Korean Fried Chicken','Crispy, golden fried chicken coated in a sweet and spicy Korean glaze. Each piece is perfectly crunchy on the outside, while tender and juicy on the inside. The glaze, made with a blend of soy sauce, garlic, ginger, and a touch of heat, adds a bold and irresistible flavor. Served with pickled vegetables or your choice of sides, this dish brings the bold and vibrant flavors of Korea to your plate.',30.00,4,'../images/koreanfriedchicken.jpg',14,'5'),(21,'Margherita Cheese Pizza','A classic Italian favorite, our Margherita pizza features a perfectly thin, crispy crust topped with rich tomato sauce, fresh mozzarella cheese, and a handful of aromatic basil leaves. Drizzled with a touch of extra virgin olive oil, this simple yet delicious pizza highlights the freshest ingredients and offers a perfect balance of flavors. A true representation of Italian tradition in every bite.',22.22,6,'../images/margherita.jpg',32,'4'),(22,'Mediterranean Veggy Pasta','A vibrant and flavorful pasta dish featuring al dente noodles tossed with a colorful mix of Mediterranean vegetables such as bell peppers, zucchini, cherry tomatoes, and olives. Tossed in a light, garlicky olive oil dressing and topped with crumbled feta cheese, this dish is bursting with fresh, earthy flavors. A sprinkle of oregano and a squeeze of lemon bring it all together, making this a satisfying and healthy choice for vegetable lovers.',23.22,5,'../images/mediterraneanveggypasta.jpg',5,'3'),(23,'Broccoli Pasta Dish','A simple yet delicious dish featuring al dente pasta tossed with tender broccoli florets, garlic, and a light olive oil or butter sauce. Finished with a sprinkle of Parmesan cheese and a touch of lemon zest, this dish offers a perfect balance of savory flavors and fresh, vibrant vegetables. It’s a comforting, wholesome meal that’s both satisfying and full of flavor.',2.22,5,'../images/PastawithBroccoli.jpg',10,'4'),(24,'Vegan Stir-fry Pasta','A vibrant and healthy stir fry featuring al dente pasta tossed with a medley of crisp, colorful vegetables like bell peppers, broccoli, and snap peas. Stir-fried in a savory soy-based sauce with garlic, ginger, and a hint of sesame oil, this dish is packed with bold flavors and wholesome goodness. Topped with sesame seeds and fresh herbs, it’s a delicious, plant-based meal that’s both satisfying and full of flavor.',1.99,5,'../images/quickveganpastavegetablestirfrywithgingerandgarlic.jpg',10,'2'),(25,'Sticky Chicken and Fries','Juicy, tender chicken pieces glazed in a sweet and savory sticky sauce, perfectly paired with crispy golden fries. The rich, flavorful glaze combines hints of honey, soy sauce, and spices, creating a deliciously irresistible coating. Served with a side of crispy fries, this dish offers a comforting and satisfying combination of savory, sweet, and crunchy. Perfect for a casual meal that’s both hearty and full of flavor.',4.99,4,'../images/Stickychickenandfries.jpg',13,'3'),(26,'Small Fries','Small Fries',1.99,10,'../images/2.jpeg',8,'1'),(27,'Chocolate Chip Cookies','Chocolate Chip Cookies',0.50,10,'../images/3.jpg',18,'5'),(28,'Chocolate Cookies','Chocolate Cookies',0.20,10,'../images/4.jpg',5,'5'),(29,'Sphagetti Meatballs','Sphagetti Meatballs',3.44,5,'../images/6.jpg',7,'5'),(30,'Vanilla Milkshake','Vanilla Milkshake',1.22,13,'../images/7.jpg',10,'2'),(31,'Fanta','carbonated soft drink',0.55,13,'../images/8.jpg',49,'3'),(32,'7 Up','carbonated soft drink',0.89,13,'../images/9.jpg',32,'4'),(33,'Lipton Peach Flavour','Lipton Peach Flavour',1.34,4,'../images/12.jpeg',10,'5'),(34,'Chocolate Milkshake','Chocolate Milkshake',2.22,13,'../images/13.jpg',10,'5'),(35,'Tropicana orange Juice','Tropicana orange Juice',1.22,13,'../images/14.jpg',10,'5'),(36,'Red Velvet Slice','Red Velvet Slice',3.56,14,'../images/16.jpg',8,'3'),(37,'Ice Cream Sundae','Ice Cream Sundae',4.44,14,'../images/17-ice-cream-sundaes-in-a-pink-bowl-with-sprinkles.jpg',9,'2'),(38,'Beef Burger','Beef Burger',3.45,15,'../images/21.jpg',11,'4'),(39,'Buffalo Chicken Burger','Buffalo Chicken Burger',3.99,15,'../images/22-Buffalo-Chicken-Burger-square-FS-2.jpg',32,'5'),(40,'Veggie Burger','Veggie Burger',1.55,15,'../images/23-veggie-burgers-6.jpg',30,'3'),(41,'Chocolate Cake','Chocolate Cake',3.30,14,'../images/banner-img.jpeg',20,'5'),(42,'Bacon Cheeseburger','Caramelized Onion Bacon Cheeseburger',3.19,15,'../images/25Caramelized-Onion-Bacon-Cheeseburger-Recipe-768x1024.jpg',5,'5'),(43,'Churros','churros',0.50,14,'../images/19-churros.jpg',0,'4'),(44,'Tiramisu Dessert','Tiramisu Dessert',1.99,14,'../images/20-tiramisu-dessert-easy-vegan.jpg',27,'4');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,12 +342,12 @@ CREATE TABLE `shippings` (
   `order_id` int(11) DEFAULT NULL,
   `address` varchar(255) NOT NULL,
   `tracking_number` varchar(255) DEFAULT NULL,
-  `shipped_at` timestamp NULL DEFAULT NULL,
+  `shipped_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`shipping_id`),
   UNIQUE KEY `order_id_UNIQUE` (`order_id`),
   UNIQUE KEY `tracking_number_UNIQUE` (`tracking_number`),
   CONSTRAINT `order_idy` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,6 +356,7 @@ CREATE TABLE `shippings` (
 
 LOCK TABLES `shippings` WRITE;
 /*!40000 ALTER TABLE `shippings` DISABLE KEYS */;
+INSERT INTO `shippings` VALUES (2,106,'31 Connaught Street, Northampton, NN1 3BP UK','106',NULL),(6,121,'22 Brampton Street, Northampton, NN2 4AQ UK','121','2025-04-23 03:05:34'),(7,122,'22 Brampton Street, Northampton, NN2 4AQ UK','122','2025-04-23 03:06:53'),(9,109,'31 Connaught Street, Northampton, NN1 3BP UK','109','2025-04-23 03:19:11'),(10,110,'31 Connaught Street, Northampton, NN1 3BP UK','110','2025-04-23 03:19:16'),(11,126,' , ,  ','126','2025-04-25 01:04:17');
 /*!40000 ALTER TABLE `shippings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +375,7 @@ CREATE TABLE `transactions` (
   PRIMARY KEY (`transaction_id`),
   UNIQUE KEY `payment_id_UNIQUE` (`payment_id`),
   CONSTRAINT `payment_id` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`payment_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,6 +384,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+INSERT INTO `transactions` VALUES (1,4,'2025-04-23 03:18:12','Success'),(2,5,'2025-04-24 22:54:14','Success');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,7 +404,7 @@ CREATE TABLE `useraccounts` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -329,6 +413,7 @@ CREATE TABLE `useraccounts` (
 
 LOCK TABLES `useraccounts` WRITE;
 /*!40000 ALTER TABLE `useraccounts` DISABLE KEYS */;
+INSERT INTO `useraccounts` VALUES (2,9,'','$2y$12$Q0VR2wLCwk3KZrFbprcEWOqvM29WqBj8IpzvfGQhiRb763/UoCXdS');
 /*!40000 ALTER TABLE `useraccounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,8 +429,12 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  `address` int(11) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +443,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'crazyuser1','iamcrazyuser1@gmail.com','$2y$12$c5K3MEE/.8xwBDZR7yvzdOu/0yw7uCxFp3e8rFDvmaKAC2nffSxZC'),(2,'user','user@gmail.com','$2y$12$x4a7r53rKbn9.3t0WI7/c.4uhOAIvkTBDaAwmw0I1dKixiotLZV4W'),(3,'user1','user1@gmail.com','$2y$12$gVqJGvhmTYV4cUK1JqXE2upf.80ugkR/yyF7mSKUVEtHK944zQbei'),(4,'user2','user2@gmail.com','$2y$12$i8FVDy3G4oSERdahqYrodeCe9vFVonWaWcw5tBi27jduttWO5xIeC'),(5,'ess','ess@gmail.com','$2y$12$eSRDctk.Mr91xJT8b8z5z.46hA3FbBX/KaXCDwT8OJrQPQhsTC3OG'),(6,'peter','k@gmail.com','$2y$12$9/bDdZHzoAITRuBss.LmWuCXQXEsI8SEFsTcBPrYqAK24pfyjaR6i'),(7,'pete','kedogosospeter36@gmail.com','$2y$12$CZFSg9EvmGejYkF9tc.UFuFIiOHTW5gpqRVA32jLZ3mMezodKMvSS');
+INSERT INTO `users` VALUES (1,'crazyuser1','iamcrazyuser1@gmail.com','$2y$12$c5K3MEE/.8xwBDZR7yvzdOu/0yw7uCxFp3e8rFDvmaKAC2nffSxZC',NULL,NULL,NULL),(2,'user','user@gmail.com','$2y$12$x4a7r53rKbn9.3t0WI7/c.4uhOAIvkTBDaAwmw0I1dKixiotLZV4W',4,NULL,NULL),(3,'user1','user1@gmail.com','$2y$12$gVqJGvhmTYV4cUK1JqXE2upf.80ugkR/yyF7mSKUVEtHK944zQbei',3,'user','one'),(4,'user2','user2@gmail.com','$2y$12$i8FVDy3G4oSERdahqYrodeCe9vFVonWaWcw5tBi27jduttWO5xIeC',NULL,NULL,NULL),(5,'ess','ess@gmail.com','$2y$12$eSRDctk.Mr91xJT8b8z5z.46hA3FbBX/KaXCDwT8OJrQPQhsTC3OG',NULL,NULL,NULL),(6,'peter','k@gmail.com','$2y$12$9/bDdZHzoAITRuBss.LmWuCXQXEsI8SEFsTcBPrYqAK24pfyjaR6i',NULL,NULL,NULL),(7,'pete','kedogosospeter36@gmail.com','$2y$12$CZFSg9EvmGejYkF9tc.UFuFIiOHTW5gpqRVA32jLZ3mMezodKMvSS',1,'sospeter','kedogo'),(9,'','','$2y$12$Q0VR2wLCwk3KZrFbprcEWOqvM29WqBj8IpzvfGQhiRb763/UoCXdS',NULL,'','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,4 +460,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-22 16:44:16
+-- Dump completed on 2025-04-25  1:36:45

@@ -6,6 +6,7 @@
       SHIPPING ADDRESS 
       <i id="drop1" class="fa-solid fa-angle-down toggle-icon dropbtn checkout-page"></i>
     </label>
+    <?php if (empty($address)): ?>
     <div class="dropdown hidden" id="1">
       <label>Country</label>
       <input type="text" name="country" placeholder="United Kingdom" />
@@ -28,16 +29,23 @@
       <label>City</label>
       <input type="text" name="city" />
 
-      <label>State</label>
-      <input type="text" name="state" />
-
       <label>Phone Number</label>
       <input type="text" name="phone" />
 
       <label>Email</label>
       <input type="text" name="email" placeholder="To receive order confirmation" />
     </div>
-
+    <?php else: ?>
+  <div class="dropdown hidden" id="1">
+    <p><?= htmlspecialchars($address['address_line1']) ?></p>
+    <?php if (!empty($address['address_line2'])): ?>
+      <p><?= htmlspecialchars($address['address_line2']) ?></p>
+    <?php endif; ?>
+    <p><?= htmlspecialchars($address['city']) ?>, <?= htmlspecialchars($address['postcode']) ?></p>
+    <p><?= htmlspecialchars($address['country']) ?></p>
+    <a href="#">Change?</a>
+  </div>
+<?php endif; ?>
     <hr />
 
     <!-- PAYMENT -->

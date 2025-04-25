@@ -10,6 +10,7 @@ $productsTable = new DataBaseTable($pdo, 'products', 'productid');
 
 // Add item to cart
 if (isset($_POST['addtocart'])) {
+
     $id = $_POST['id'];
 
     if (isset($_SESSION['cart'][$id])) {
@@ -37,6 +38,32 @@ if (isset($_POST['addtocart'])) {
         'quantity' => $newquantity
     ];
     $productsTable->save($record, $id);
+}
+
+// Handle custom meal order
+if (isset($_POST['add_custom_meal'])) {
+    $customMeal = [
+        'id' => uniqid('custom_'),
+        'name' => 'Custom Meal',
+        'base' => $_POST['base'] ?? '',
+        'proteins' => isset($_POST['proteins']) ? implode(', ', $_POST['proteins']) : '',
+        'vegetables' => isset($_POST['vegetables']) ? implode(', ', $_POST['vegetables']) : '',
+        'sauce' => $_POST['sauce'] ?? '',
+        'special_instructions' => $_POST['special_instructions'] ?? '',
+        'quantity' => intval($_POST['quantity']) ?? 1,
+        'price' => 12.99 * (intval($_POST['quantity']) ?? 1),
+        'type' => 'custom'
+    ];
+
+    $_SESSION['cart'][$customMeal['id']] = $customMeal;
+
+    if (!isset($_SESSION['quantity'])) {
+        $_SESSION['quantity'] = 0;
+    }
+
+    $_SESSION['quantity'] += $customMeal['quantity'];
+
+    echo "<script>alert('Custom meal added to cart!');</script>";
 }
 
 // Increase item quantity in cart
@@ -165,74 +192,204 @@ if (isset($_POST['send'])){
             <div class="popup-content">
                 <h3>Your Cart</h3>
                 <div class="listCart">
-
                     <?php 
-                        if (!empty($_SESSION['cart'])) {
-                            $total = 0;
-                            foreach ($_SESSION['cart'] as $key => $value) {
-                                echo '
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="images/'.$value['image'].'" alt="" style="width: 50px">
-                                    </div>
-                                    <div class="name">
-                                        '.$value['name'].'
-                                    </div>
-                                    <div class="totalPrice">
-                                        £'.$value['price'].'
-                                    </div>
-                                    <div class="quantity">
-                                        <form method = "POST" action="/#menu" style="all:unset;">
-                                            <input type="hidden" name="item_key" value="'.$key.'">
-                                            <input type="submit" name="minus" value="<" style="all:unset; cursor: pointer;">
-                                        </form>
-                                        <span>'.$value['quantity'].'</span>
-                                        <form method = "POST" action="/#menu" style="all:unset;">
-                                            <input type="hidden" name="item_key" value="'.$key.'">
-                                            <input type="submit" name="plus" value=">" style="all:unset; cursor: pointer;">
-                                        </form>
-                                    </div>
-                                </div>
+                    if (!empty($_SESSION['cart'])) {
+                        $total = 0;
 
-                                ';
-                                $total = $total + $value['price'] * $value['quantity'];
-                                $_SESSION['total'] = $total;
+                        foreach ($_SESSION['cart'] as $key => $item) {
+                            echo '<div class="item">';
+                            // Item name and description
+                            echo '<div class="name">';
+                            echo htmlspecialchars($item['name'] ?? '');
+
+                            // Show additional info for custom items
+                            if (isset($item['type']) && $item['type'] === 'custom') {
+                                echo '<div style="font-size: 12px; margin-top: 4px;">';
+                                echo 'Base: ' . htmlspecialchars($item['base']) . '<br>';
+                                echo 'Proteins: ' . htmlspecialchars($item['proteins']) . '<br>';
+                                echo 'Vegetables: ' . htmlspecialchars($item['vegetables']) . '<br>';
+                                echo 'Sauce: ' . htmlspecialchars($item['sauce']) . '<br>';
+                                if (!empty($item['special_instructions'])) {
+                                    echo 'Note: ' . htmlspecialchars($item['special_instructions']);
+                                }
+                                echo '</div>';
                             }
-                        } else {
-                            echo '<p>No items in your cart yet.</p>';
-                            $total = 0;
-                            $_SESSION['total'] = $total;
+
+                            echo '</div>';
+
+                            // Price
+                            echo '<div class="totalPrice">£' . number_format($item['price'], 2) . '</div>';
+
+                            // Quantity controls
+                            echo '<div class="quantity">
+                                    <form method="POST" action="/#menu" style="all:unset;">
+                                        <input type="hidden" name="item_key" value="' . $key . '">
+                                        <input type="submit" name="minus" value="<" style="all:unset; cursor: pointer;">
+                                    </form>
+                                    <span>' . $item['quantity'] . '</span>
+                                    <form method="POST" action="/#menu" style="all:unset;">
+                                        <input type="hidden" name="item_key" value="' . $key . '">
+                                        <input type="submit" name="plus" value=">" style="all:unset; cursor: pointer;">
+                                    </form>
+                                </div>';
+
+                            echo '</div>'; // end .item
+
+                            // Calculate total
+                            $total += $item['price'];
                         }
-                    echo '</div>
-                        <div>
-                        <p>Total: £'.$total.'</p>';
+
+                        $_SESSION['total'] = $total;
+                    } else {
+                        echo '<p>No items in your cart yet.</p>';
+                        $_SESSION['total'] = 0;
+                    }
                     ?>
+                </div>
+                <div>
+                    <p>Total: £<?= number_format($_SESSION['total'], 2) ?></p>
                 </div>
                 <button onclick="location.href='checkout.php'">Continue to Checkout</button>
             </div>
+
         </div>
     </div>
 
     <section class="deals">
         
         <div class="deal-items">
+            
             <div class="deal-item">
                 <img src="images/deal1.jpg" alt="Deal 1">
                 <h2>Today's Deals</h2>
             </div>
+        
             <div class="deal-item">
                 <img src="images/deal2.jpg" alt="Deal 2">
                 <h2>Top Offers</h2>
             </div>
+           
             <div class="deal-item">
                 <img src="images/deal3.jpg" alt="Deal 3">
                 <h2>Popular Categories</h2>
             </div>
-            <div class="deal-item">
+            
+            <div class="deal-item" id="create-meal">
                 <img src="images/deal4.jpg" alt="Deal 4">
-                <h2>Best Seller</h2>
+                <h2>Make your own meal</h2>
             </div>
             
+            
+    </section>
+
+    <section class="create-meal" id="create-meal-section">
+    <?php 
+        if (!isset($pdo)) {
+            require '../database.php';
+        } 
+
+        $ingredientsTable = new DataBaseTable($pdo, 'ingredients', 'id');
+        $bases = $ingredientsTable->findAllFrom('type', 'base');
+        $proteins = $ingredientsTable->findAllFrom('type', 'protein');
+        $vegetables = $ingredientsTable->findAllFrom('type', 'vegetable');
+        $sauces = $ingredientsTable->findAllFrom('type', 'sauce');
+
+    ?>
+        <h2>Create Your Own Meal</h2>
+        <span id="close-create-meal">&times;</span>
+        <div class="custom-meal-builder">
+            <form method="POST" action="index.php#create-meal-section" class="meal-form">
+                <div class="ingredient-section">
+                    <h3>Base (Choose one)</h3>
+                    <select name="base" required>
+                        <option value="">Select a base</option>
+                        <?php foreach ($bases as $base): ?>
+                            <option value="<?= htmlspecialchars($base['name']) ?>">
+                                <?= htmlspecialchars($base['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <h3>Proteins (Choose up to 2)</h3>
+                    <div class="checkbox-group">
+                        <?php foreach ($proteins as $protein): ?>
+                            <label>
+                                <input type="checkbox" name="proteins[]" value="<?= htmlspecialchars($protein['name']) ?>">
+                                <?= htmlspecialchars($protein['name']) ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <h3>Vegetables (Choose up to 4)</h3>
+                    <div class="checkbox-group">
+                        <?php foreach ($vegetables as $veg): ?>
+                            <label>
+                                <input type="checkbox" name="vegetables[]" value="<?= htmlspecialchars($veg['name']) ?>">
+                                <?= htmlspecialchars($veg['name']) ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <h3>Sauce (Choose one)</h3>
+                    <select name="sauce" required>
+                        <option value="">Select a sauce</option>
+                        <?php foreach ($sauces as $sauce): ?>
+                            <option value="<?= htmlspecialchars($sauce['name']) ?>">
+                                <?= htmlspecialchars($sauce['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <h3>Special Instructions</h3>
+                    <textarea name="special_instructions" placeholder="Any specific preparation instructions or allergies we should know about?" rows="3"></textarea>
+
+                    <div class="quantity-price">
+                        <div class="quantity">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1" max="10">
+                        </div>
+                        <div class="price">
+                            <span>Price: £12.99</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" name="add_custom_meal" class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </form>
+        </div>
+
+        <style>
+            
+        </style>
+
+        <?php
+        if(isset($_POST['add_custom_meal'])) {
+            $customMeal = [
+                'base' => $_POST['base'] ?? '',
+                'proteins' => isset($_POST['proteins']) ? implode(', ', $_POST['proteins']) : '',
+                'vegetables' => isset($_POST['vegetables']) ? implode(', ', $_POST['vegetables']) : '',
+                'sauce' => $_POST['sauce'] ?? '',
+                'special_instructions' => $_POST['special_instructions'] ?? '',
+                'quantity' => $_POST['quantity'] ?? 1,
+                'price' => 12.99,
+                'type' => 'custom'
+            ];
+
+            if(!isset($_SESSION['cart'])) {
+                $_SESSION['cart'] = [];
+            }
+
+            $customMealKey = uniqid('custom_');
+            $_SESSION['cart'][$customMealKey] = $customMeal;
+            
+            if(!isset($_SESSION['quantity'])) {
+                $_SESSION['quantity'] = 0;
+            }
+            $_SESSION['quantity'] += $customMeal['quantity'];
+
+            echo "<script>alert('Custom meal added to cart!'); window.location.href='#cart';</script>";
+        }
+        ?>
     </section>
 
     <section class="best-sellers">
@@ -248,6 +405,7 @@ if (isset($_POST['send'])){
                 <img src="images/best-seller2.jpg" alt="Best Seller 2">
                 <h3>Buffalo Chicken Burger</h3>
             </div>
+            
             <div class="best-seller-item">
                 <img src="images/bestseller.png" alt="Best Seller 1" class="bestseller-tag">
                 <img src="images/best-seller3.jpg" alt="Best Seller 3">
@@ -309,6 +467,7 @@ if (isset($_POST['send'])){
 
                     $quantity = $product['quantity'];
                     $noneleftclass = ($quantity == 0) ? 'none-left' : 'none-left-hidden';
+                    $isNew = $quantity <= 6; 
                     
                     
                     echo '
@@ -318,6 +477,12 @@ if (isset($_POST['send'])){
                                 <div class="image">
                                     <img src="images/' . $product['image'] . '" alt="menu-item">
                                 </div>
+                                ';
+                                
+                                if ($isNew) {
+                                    echo '<img src="images/new.png" alt="new item" class="new-tag">';
+                                };
+                    echo '
                                     <i class="fa-solid fa-circle-info iteminfo"
                                     onclick="showDescription(event, \'' . htmlspecialchars($product['description'], ENT_QUOTES) . '\')">
                                     </i>
@@ -340,7 +505,7 @@ if (isset($_POST['send'])){
                                 <input type="hidden" name="price" value="'. $product['price'] .'">
                                 <input type="hidden" name="image" value="'. $product['image'] .'">
                                 <input type="hidden" name="id" value="'. $product['productid'] .'">
-                                <input type="submit" name="addtocart" value="Add To Cart">
+                                <input type="submit" name="addtocart" class="addtocart" id = "addtocart" value="Add To Cart">
                             </form>
                         </div>
                     ';
@@ -356,16 +521,13 @@ if (isset($_POST['send'])){
 
     <section id="about" style="color:#fff;background-color:darkblue;padding: 25vh 10vw;">
         <h1>About Us</h1>
-        <h2>Our passion for culinary excellence drives us to create dishes that not only delight the palate but also tell a story.</h2>
-        <p>Whether you're here for a casual lunch or a special dinner, our commitment to exceptional service and unforgettable flavors ensures a memorable experience every time you visit.</p>
-        
-        
-        
+        <h2>At The Highway, we're passionate about delivering your favorite dishes hot, fresh, and right to your doorstep, fast and hassle-free. </h2>
+        <p>Whether it's a family pizza night or a quick snack craving, our easy-to-use platform connects you with delicious, restaurant-quality meals anytime, anywhere.</p>
     </section>
 
     <section id="contact">
         <h2>Contact Us</h2>
-        <p>Fill in the form below with your details and message and a member of our team will get in touch as soon as possible</p>
+        <p>Simply fill out the form below with your details and message, and one of our friendly team members will reach out to you promptly to assist!</p>
         <div class="centered-div">
         <div>
             <i class="fa-solid fa-map-location-dot"></i>
@@ -389,6 +551,30 @@ if (isset($_POST['send'])){
         </form>
         </div>
         
+    </section>
+    <section id="about" style="color:#fff;background-color:darkblue;padding: 25vh 10vw;">
+        <h1>Frequently Asked Questions (FAQs)</h1>
+        <h3>How do I place an order?</h3>
+        <p>Simply browse our menu, select your favorite items, customize if needed, and add them to your cart. When you're ready, proceed to checkout and enter your delivery details.</p>
+        <h3>What are your delivery hours?</h3>
+        <p>We deliver daily from 6.00am to 11.00pm. Check our website for any special holiday hours or updates.</p>
+        <h3>Do you deliver to my area?</h3>
+        <p>Enter your address at checkout to see if we deliver to your location. We're constantly expanding our delivery zones!
+        </p>
+        <h3>How long will my order take to arrive?</h3>
+        <p>Typical delivery times range from 30 to 45 minutes, depending on your location and order volume.</p>
+        <h3>Can I track my order?</h3>
+        <p>Yes! Once your order is confirmed, you'll receive a tracking link to follow your meal's journey in real-time.
+        </p>
+        <h3>What payment methods do you accept?</h3>
+        <p>We accept all major credit/debit cards, PayPal, and contactless payment options for a smooth checkout experience.
+        </p>
+        <h3>Can I modify or cancel my order after placing it?</h3>
+        <p>Please contact our support team as soon as possible. We'll do our best to accommodate changes or cancellations before the order is prepared.
+        </p>
+        <h3>Do you offer any discounts or promotions?</h3>
+        <p>    Yes! Check our homepage or sign up for our newsletter to stay updated on exclusive deals and special offers.
+        </p>
     </section>
     <footer>
         <div class="main-footer">

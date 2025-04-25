@@ -10,6 +10,9 @@ $cartID = $cart['cart_id'];
 $ordersTable = new DataBaseTable($pdo, 'orders', 'order_id');
 $order = $ordersTable->find('order_id', $_GET['id']);
 
+$usersTable = new DataBaseTable($pdo, 'users', 'id');
+$user = $usersTable->find('id', $order['user_id']);
+
 $cartItemsTable = new DataBaseTable($pdo, 'cart_items', 'cart_item_id');
 $cartItems = $cartItemsTable->findAllFrom('cart_id', $cartID);
 
@@ -41,6 +44,7 @@ foreach($cartItems as $cartItem) {
 <body>
     <h3>Order <?=$_GET['id']?></h3>
     <p>Status: <?=$order['order_status']?></p>
+    <p>Customer: <?= $user['username'] ?></p>
       <table>
         <tr>
           <th>Item(s)</th>

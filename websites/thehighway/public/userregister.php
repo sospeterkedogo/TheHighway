@@ -11,7 +11,9 @@ if(isset($_POST['signup'])) {
     $record = [
         'username' => $_POST['username'], 
         'email' => $_POST['email'],
-        'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+        'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+        'firstname' => $_POST['firstname'],
+        'lastname' => $_POST['lastname']
     ];
 
     // get the user info and create an account
@@ -46,16 +48,23 @@ $output = '
         <label class="formtitle">Register</label>
 
         <label>Username</label>
-        <input type="text" name="username" />
+        <input type="text" name="username" required />
+
+        <label>Firstname</label>
+        <input type="text" name="firstname" required />
+
+        <label>Lastname</label>
+        <input type="text" name="lastname" required />
 
         <label>Email</label>
-        <input type="email" name="email" />
+        <input type="email" name="email" required />
 
         <label>Password</label>
-        <input type="password" name="password" />
+        <input type="password" name="password" required />
 
         <label>Confirm Password</label>
         <input type="password" name="confirm_password"/>
+        <div id="password-feedback"></div>
 
         <input type="submit" value="Sign Up" name="signup" />
 

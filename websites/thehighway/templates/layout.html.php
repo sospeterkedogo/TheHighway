@@ -15,6 +15,7 @@
     <section class="hero">
     <div class="panel" style="display: grid; grid-template-columns: 22% 78%;">
     <div class="sidebar" style="height:100vh; background-color: #02142A; color:#fff;">
+    <?php if (isset($_SESSION['username']) && $_SESSION['username'] === 'admin'): ?>
         <div style="display:flex;align-items:center; height: 18vh; background-color: #214162; padding: 20px;">
             <div style="background-color: orange; width: 13vh; height: 13vh; border-radius: 50%; text-align: center; text-transform: uppercase; font-size: 3em; padding-top: 0.2em;"><?= isset($_SESSION['username']) ? substr($_SESSION['username'], 0, 1) : 'U'; ?></div>
 
@@ -26,7 +27,9 @@
                 
             </div>
         </div>
+            <?php endif; ?>
         <div class="panel_nav">
+            <?php if (isset($_SESSION['username']) && $_SESSION['username'] === 'admin'): ?>
             <a href="index.php"><i class="fa-solid fa-gauge"></i> Dashboard</a>
             <a href="products.php"><i class="fa-solid fa-list"></i> View Products</a>
             <a href="addproduct.php"><i class="fa-solid fa-plus"></i> Add Product</a>
@@ -36,6 +39,9 @@
             <a href="removeuser.php"><i class="fa-solid fa-user-minus"></i> Remove User</a>
             <a href="communication.php"><i class="fa-solid fa-inbox"></i> Communication</a>
             <a href="index.php"><i class="fa-solid fa-gear"></i> Settings</a>
+            <?php else: ?>
+                <a href="orders.php"><i class="fa-solid fa-box"></i>All Orders</a>
+            <?php endif; ?>
         </div>
             
             

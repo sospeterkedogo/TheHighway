@@ -57,10 +57,9 @@ a {
 }
 
 .signon a {
-    color: #02142A;
-    background: #fff;
-    border: none;
-    border-radius: 4em;
+    color: #e2e2e2;
+    background: none;
+    border: 1px solid #e2e2e2;
     padding: 0.75rem 1.5rem;
     font-size: 1em;
     font-weight: bold;
@@ -244,6 +243,10 @@ i:hover {
     background-color: #eee1;
 }
 
+.create-meal {
+    display: none;
+}
+
 /* Deals section */
 .deals {
     padding: 4rem 0;
@@ -296,6 +299,8 @@ i:hover {
     font-size: 1.5rem;
 }
 
+
+
 /* Best sellers section */
 .best-sellers {
     padding: 4rem 0;
@@ -303,7 +308,7 @@ i:hover {
     background-color: var(--background-light);
 }
 
-.best-sellers h2 {
+.best-sellers h2, #create-meal-section h2 {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     color: var(--primary-color);
@@ -312,7 +317,7 @@ i:hover {
     display: inline-block;
 }
 
-.best-sellers h2::after {
+.best-sellers h2::after , #create-meal-section h2::after {
     content: '';
     position: absolute;
     bottom: -10px;
@@ -322,6 +327,8 @@ i:hover {
     height: 3px;
     background: var(--secondary-color);
 }
+
+
 
 .best-seller-items {
     display: grid;
@@ -369,6 +376,101 @@ i:hover {
     font-size: 1.3rem;
 }
 
+/* create meal section */
+
+#create-meal-section {
+    position: relative;
+}
+#create-meal-section h2 {
+    text-align: center !important;
+    padding-top: 3rem;
+    left: 35%;
+    
+}
+
+#close-create-meal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+    background-color: red;
+    padding: 0 0.9rem;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.custom-meal-builder {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.meal-form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 80%;
+}
+
+.ingredient-section {
+    margin-bottom: 20px;
+}
+
+.ingredient-section h3 {
+    margin: 15px 0 10px;
+    color: #333;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.quantity input {
+    width: 60px;
+    padding: 5px;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #45a049;
+}
+
 .popup-overlay {
     display: none;
     position: fixed;
@@ -390,6 +492,8 @@ i:hover {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow-y: scroll;
+    max-height: 90%;
 }
 
 .popup .close{
@@ -560,6 +664,15 @@ i:hover {
     border-bottom: 1px solid #ccc;
 }
 
+.new-tag{
+    width: 100px !important;
+    height: 100px !important;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+
+}
+
 .iteminfo {
     position: absolute;
     font-size: 1.9rem;
@@ -570,26 +683,31 @@ i:hover {
     border-radius: 5px;
 }
 
+
 .iteminfo:hover {
     color: #555;
 }
 
 .addtocart {
-    font-size: 25px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #0952ab;
-    color: #fff;
-    padding:10px 15px;
-    border-radius: 50% 0 0 0;
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.addtocart:hover {
+    background-color: #45a049;
 }
 
 /* About section */
 #about {
     text-align: center;
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, var(--primary-color), #1a252f);
+    background: linear-gradient(135deg, var(--primary-color), #02142A);
     color: var(--white);
 }
 
@@ -598,6 +716,18 @@ i:hover {
     font-size: 3rem;
     margin-bottom: 2rem;
     font-weight: var(--font-bold);
+    position: relative;
+}
+
+#about h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #fff;
 }
 
 #about h2 {
@@ -614,6 +744,7 @@ i:hover {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.8;
+    margin-bottom: 2rem;
 }
 
 /* Contact section */
@@ -623,7 +754,7 @@ i:hover {
     background-color: var(--white);
 }
 
-#contact h2 {
+#contact h2{
     font-family: var(--font-heading);
     font-size: 2.5rem;
     color: var(--primary-color);
@@ -631,6 +762,7 @@ i:hover {
     position: relative;
     display: inline-block;
 }
+
 
 #contact h2::after {
     content: '';
@@ -644,6 +776,7 @@ i:hover {
 }
 
 footer {
+    border-top: 2px solid #0952ab;
     background-color: #02142A;
     color: #fff;
     font-family: 'Segoe UI', sans-serif;
@@ -778,7 +911,7 @@ form textarea{
 }
 
 form input[type=submit] {
-    background-color: rgb(56, 56, 255);
+    background-color: #4CAF50;
     color: #fff;
     margin-bottom: 0;
 }
@@ -823,6 +956,10 @@ form a {
 
 .hidden {
     display: none;
+}
+
+.visible {
+    display: block;
 }
 
 .floating-description h3 {

@@ -3,7 +3,7 @@ session_start();
 
 require '../database.php';
 
-if (isset($_SESSION['loggedIN'])) {
+// if (isset($_SESSION['loggedIN'])) {
 	if (isset($_POST['logout'])) { 	
 		header('Location: logout.php');
 	}
@@ -42,6 +42,7 @@ if (isset($_SESSION['loggedIN'])) {
         $output = '<h3 style="text-align:center; margin-top: 2em;" id="kitchen" class="kitchen">No pending orders at the moment.</h3>';
     }
 
+/*
 }
 else {
 	$output = '
@@ -56,6 +57,8 @@ else {
 		</form>
 	';
 }
+
+*/
 	
 $title = 'The Highway Kitchen';
 
