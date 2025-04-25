@@ -98,34 +98,8 @@ if (isset($_SESSION['loggedIN'])) {
 
     
     $output= loadTemplate('templates/order-confirmation.html.php', []);
-
-        $msg = "
-            <html>
-                <head>
-                    <title>Order Confirmation</title>
-                </head>
-                <body>
-                    <p>Thank you for your order, <strong>".$_SESSION['username1']."</strong>!</p>
-                    <p>Your Order is on the way.</p>
-                    <h3>Order Details</h3>
-                    <p><strong>Total:</strong>£".$_SESSION['total']."</p>
-                    <p><strong>Items:</strong>£".$_POST['quantity']."</p>
-                    <p><strong>Subtotal:</strong>£".$_POST['subtotal']."</p>
-                </body>
-            </html>
-        ";
-
-        $headers = "From: The Highway <thehighway@online.com>\r\n";
-        $headers .= "Reply-To: thehighway@online.com\r\n";
-        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-        $headers  .= 'MIME-Version: 1.0' . "\r\n";
-
-        // send email
-        if(mail("".$_SESSION['email']."", "The Highway: Order Successful!", $msg, $headers)) {
-            $output .= "<p>Confirmation Email Sent!</p>";
-        } else {
-            $output .= "<p>Confirmation Email Send failed!</p>";
-        }
+    $output .= '<a href="send_receipt_email.php?order_id='.$latestOrderId.'" target="_blank">View Receipt</a>';
+    
 
     } 
     elseif (isset($_POST['back'])) {
@@ -152,6 +126,7 @@ if (isset($_SESSION['loggedIN'])) {
         $output = loadTemplate('templates/confirmorder.html.php', $templateVars);
 
     }
+    
 }
 else {
     $output = 
