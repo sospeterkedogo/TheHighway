@@ -37,10 +37,12 @@
             <a href="addcategory.php"><i class="fa-solid fa-plus"></i> Add Category</a>
             <a href="adduser.php"><i class="fa-solid fa-user-plus"></i> Add User</a>
             <a href="removeuser.php"><i class="fa-solid fa-user-minus"></i> Remove User</a>
-            <a href="communication.php"><i class="fa-solid fa-inbox"></i> Communication</a>
             <a href="index.php"><i class="fa-solid fa-gear"></i> Settings</a>
-            <?php else: ?>
-                <a href="orders.php"><i class="fa-solid fa-box"></i>All Orders</a>
+            <?php elseif (isset($_SESSION['username3']) || isset($_SESSION['username4'])): ?>
+                <a href="orders.php"><i class="fa-solid fa-box"></i> All Orders</a>
+            <form action="" method="POST" style="margin: auto; background: none; box-shadow: none; max-width: 100%;">
+                <input type="submit" name="loggingout" value="Log Out">
+            </form>
             <?php endif; ?>
         </div>
             

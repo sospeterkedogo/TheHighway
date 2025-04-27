@@ -39,14 +39,73 @@ foreach($cartItems as $cartItem) {
 
 // Generate the PDF
 function generateReceiptPDF($order, $items) {
-    $html = "<h2>Order Receipt - #{$order['order_id']}</h2>";
-    $html .= "<p>Date: {$order['created_at']}</p><hr>";
+    $html = '
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            color: #333;
+            font-size: 14px;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+            color: #4CAF50;
+        }
+        .order-info {
+            margin-bottom: 20px;
+        }
+        .order-info p {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        table th {
+            background-color: #f4f4f4;
+        }
+        .total {
+            text-align: right;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
 
+    <div class="header">
+        <h2>Order Receipt</h2>
+        <p>Order #'.$order['order_id'].'</p>
+    </div>
+
+    <div class="order-info">
+        <p><strong>Date:</strong> '.$order['created_at'].'</p>
+    </div>
+
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+        </tr>';
+    
     foreach ($items as $item) {
-        $html .= "<p>{$item['name']} x {$item['quantity']} </p>";
+        $html .= '<tr>
+                    <td>'.htmlspecialchars($item['name']).'</td>
+                    <td>'.$item['quantity'].'</td>
+                  </tr>';
     }
 
-    $html .= "<hr><p><strong>Total:</strong> \$" . number_format($order['total_amount'], 2) . "</p>";
+    $html .= '</table>
+              <p class="total">Total: $'.number_format($order['total_amount'], 2).'</p>';
 
     $dompdf = new Dompdf();
     $dompdf->loadHtml($html);
@@ -55,6 +114,7 @@ function generateReceiptPDF($order, $items) {
 
     return $dompdf->output();
 }
+
 
 $pdf = generateReceiptPDF($order, $items);
 

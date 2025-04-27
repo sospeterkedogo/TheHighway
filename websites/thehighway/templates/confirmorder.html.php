@@ -7,34 +7,34 @@
       <i id="drop1" class="fa-solid fa-angle-down toggle-icon dropbtn checkout-page"></i>
     </label>
     <?php if (empty($address)): ?>
-    <div class="dropdown hidden" id="1">
-      <label>Country</label>
-      <input type="text" name="country" placeholder="United Kingdom" />
+      <div class="dropdown hidden" id="1">
+        <label>Country</label>
+        <input type="text" name="country" placeholder="United Kingdom" />
 
-      <label>First Name</label>
-      <input type="text" name="fname" />
+        <label>First Name</label>
+        <input type="text" name="fname" />
 
-      <label>Last Name</label>
-      <input type="text" name="lname" />
+        <label>Last Name</label>
+        <input type="text" name="lname" />
 
-      <label>Address 1</label>
-      <input type="text" name="street" placeholder="Street Address" />
+        <label>Address 1</label>
+        <input type="text" name="street" placeholder="Street Address" />
 
-      <label>Address 2</label>
-      <input type="text" name="apt" placeholder="Apartment, Suite, Unit, Floor" />
+        <label>Address 2</label>
+        <input type="text" name="apt" placeholder="Apartment, Suite, Unit, Floor" />
 
-      <label>Post Code</label>
-      <input type="text" name="postcode" placeholder="NN1 1AQ" />
+        <label>Post Code</label>
+        <input type="text" name="postcode" placeholder="NN1 1AQ" />
 
-      <label>City</label>
-      <input type="text" name="city" />
+        <label>City</label>
+        <input type="text" name="city" />
 
-      <label>Phone Number</label>
-      <input type="text" name="phone" />
+        <label>Phone Number</label>
+        <input type="text" name="phone" />
 
-      <label>Email</label>
-      <input type="text" name="email" placeholder="To receive order confirmation" />
-    </div>
+        <label>Email</label>
+        <input type="text" name="email" placeholder="To receive order confirmation" />
+      </div>
     <?php else: ?>
   <div class="dropdown hidden" id="1">
     <p><?= htmlspecialchars($address['address_line1']) ?></p>
@@ -84,17 +84,21 @@
           <th>Total</th>
         </tr>
         <?php
-          foreach ($_SESSION['cart'] as $item){
-            $total = $item["price"] * $item["quantity"];
-
-            echo '
-            <tr>
-              <td>'.$item["name"].'</td>
-              <td>£ '.$item["price"].' </td>
-              <td>'.$item["quantity"].'</td>
-              <td>£ '.$total.'</td>
-            </tr>
-            ';
+          $totalCart = 0;
+          foreach ($_SESSION['cart'] as $item) {
+              if (!isset($item["price"], $item["quantity"])) continue; // skip any weird broken items
+              
+              $total = $item["price"] * $item["quantity"];
+              $totalCart += $total;
+          
+              echo '
+              <tr>
+                <td>'.htmlspecialchars($item["name"]).'</td>
+                <td>£ '.number_format($item["price"], 2).' </td>
+                <td>'.$item["quantity"].'</td>
+                <td>£ '.number_format($total, 2).'</td>
+              </tr>
+              ';
           }
         ?>
       </table>

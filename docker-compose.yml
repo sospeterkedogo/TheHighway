@@ -61,7 +61,7 @@ services:
         build:
             context: .
             dockerfile: PHP.Dockerfile
-        working_dir: /websites/default
+        working_dir: /websites/thehighway/public
         entrypoint: /usr/bin/composer
         volumes:
             - ./websites:/websites

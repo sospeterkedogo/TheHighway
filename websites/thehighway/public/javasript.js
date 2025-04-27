@@ -61,6 +61,21 @@ function initHomePage() {
     const createMealSection = document.getElementById('create-meal-section');
     const closeCreateMeal = document.getElementById('close-create-meal');
     const createMealItems = document.querySelectorAll('.create-meal-item');
+    const searchInput = document.getElementById('searchInput');
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        menuItems.forEach(item => {
+            const name = item.getAttribute('data-name');
+            if (name.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 
     openCreateMealBtn.addEventListener('click', function() {
         createMealSection.style.display = 'block';  

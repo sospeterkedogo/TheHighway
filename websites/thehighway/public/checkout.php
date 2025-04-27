@@ -66,9 +66,17 @@ if (isset($_SESSION['loggedIN'])) {
     foreach ($_SESSION['cart'] as $item) {
         $record2 = [
             'cart_id' => $currentCartId,
-            'product_id' => $item['id'],
             'quantity' => $item['quantity']
         ];
+    
+        if (strpos($item['id'], 'custom_') === 0) {
+            // It's a custom meal
+            $record2['custom_name'] = $item['name'];
+            $record2['custom_price'] = $item['price'] / $item['quantity']; // Price per meal
+        } else {
+            // It's a normal product
+            $record2['product_id'] = $item['id'];
+        }
         $cartItemsTable->save($record2);
     }
 
@@ -132,15 +140,7 @@ else {
     $output = 
         '
         <div class="centered-div">
-        <form action="checkout.php" method="POST">
-            <label class="formtitle">Please Log in to Continue</label>
-            <label>Username</label>                                              
-            <input type="text" name="username" /> 
-            <label>Password</label>
-            <input type="password" name="password" />
-            <input type="submit" name="login" value="submit" />
-            <a href="userregister.php">Or Register Here</a>
-        </form></div>';   
+        Click <a href="userlogin.php" style="color: #000;">Here</a> to To Log in</div>';   
 }
 
 $title = 'Checkout';

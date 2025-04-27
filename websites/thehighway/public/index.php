@@ -40,6 +40,11 @@ if (isset($_POST['addtocart'])) {
     $productsTable->save($record, $id);
 }
 
+if (isset($_SESSION['message'])) {
+    echo "<script>alert('".$_SESSION['message']."');</script>";
+    unset($_SESSION['message']);
+}
+
 // Handle custom meal order
 if (isset($_POST['add_custom_meal'])) {
     $customMeal = [
@@ -55,6 +60,11 @@ if (isset($_POST['add_custom_meal'])) {
         'type' => 'custom'
     ];
 
+    // Force fallback name if missing (super safe)
+    if (empty($customMeal['name'])) {
+        $customMeal['name'] = 'Custom Meal';
+    }
+
     $_SESSION['cart'][$customMeal['id']] = $customMeal;
 
     if (!isset($_SESSION['quantity'])) {
@@ -63,7 +73,9 @@ if (isset($_POST['add_custom_meal'])) {
 
     $_SESSION['quantity'] += $customMeal['quantity'];
 
-    echo "<script>alert('Custom meal added to cart!');</script>";
+    $_SESSION['message'] = "Custom meal added to cart!";
+    header("Location: index.php#menu");
+    exit();
 }
 
 // Increase item quantity in cart
@@ -117,6 +129,7 @@ if (isset($_POST['send'])){
 
     $commsTable = new DataBaseTable($pdo, 'communication', 'id');
     $commsTable->save($record);
+    echo '<script>alert("Message sent, a member of out team will be back to you shortly.")</script>';
 }
 
 ?>
@@ -141,7 +154,7 @@ if (isset($_POST['send'])){
             <ul id="nav">
                 <li><a href="#menu">Menu</a></li>
                 <li><a href="#about">About Us</a></li>
-                <li><a href="blog.php">Blog</a></li>
+                <li><a href="article.php">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <?php if(isset($_SESSION['loggedIN']) && $_SESSION['loggedIN'] === true): ?>
@@ -278,7 +291,6 @@ if (isset($_POST['send'])){
                 <img src="images/deal4.jpg" alt="Deal 4">
                 <h2>Make your own meal</h2>
             </div>
-            
             
     </section>
 
@@ -437,10 +449,10 @@ if (isset($_POST['send'])){
             ?>
         </ul>
     </div>
-    <div class="search-bar">
-            <input type="text" placeholder="Search for a product">
-            <button>Search</button>
-        </div>
+    <div class="search-bar" >
+        <input type="text" placeholder="Search for a product" id="searchInput">
+        <button>Search</button>
+    </div>
 
     <section class="menu">
         
@@ -471,7 +483,7 @@ if (isset($_POST['send'])){
                     
                     
                     echo '
-                        <div class="menu-item" id="menu-item">
+                        <div class="menu-item" id="menu-item" data-name="'. htmlspecialchars(strtolower($product["name"])).'">
                         <div class="'.$noneleftclass.'"><h3 style="text-align:center;color:#fff;padding-top:50%">None left</h3></div>
                             <form method="POST" action="index.php?#menu-item" style="all: revert">
                                 <div class="image">

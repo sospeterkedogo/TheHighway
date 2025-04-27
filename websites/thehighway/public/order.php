@@ -18,18 +18,31 @@ $cartItems = $cartItemsTable->findAllFrom('cart_id', $cartID);
 
 $productsTable = new DataBaseTable($pdo, 'products', 'productid');
 
-$products = [];
+$productsWithQuantities = [];
 
 foreach($cartItems as $cartItem) {
-    $product = $productsTable->find('productid', $cartItem['product_id']);
-
-    if ($product) {
+    if (!empty($cartItem['product_id'])) {
+        // Normal product
+        $product = $productsTable->find('productid', $cartItem['product_id']);
+        
+        if ($product) {
+            $productsWithQuantities[] = [
+                'name' => $product['name'],
+                'price' => $product['price'],
+                'quantity' => $cartItem['quantity']
+            ];
+        }
+    } 
+    elseif (!empty($cartItem['custom_name'])) {
+        // Custom meal
         $productsWithQuantities[] = [
-            'product' => $product,
+            'name' => $cartItem['custom_name'],
+            'price' => $cartItem['custom_price'],
             'quantity' => $cartItem['quantity']
         ];
     }
 }
+
 
 ?>
 
@@ -54,17 +67,17 @@ foreach($cartItems as $cartItem) {
         </tr>
         <?php
           foreach ($productsWithQuantities as $item){
-            $total = $item["product"]["price"] * $item["quantity"];
-
+            $total = $item["price"] * $item["quantity"];
+        
             echo '
             <tr>
-              <td>'.$item["product"]["name"].'</td>
-              <td>£ '.$item["product"]["price"].' </td>
+              <td>'.$item["name"].'</td>
+              <td>£ '.number_format($item["price"], 2).' </td>
               <td>'.$item["quantity"].'</td>
-              <td>£ '.$total.'</td>
+              <td>£ '.number_format($total, 2).'</td>
             </tr>
             ';
-          }
+        }
         ?>
       </table>
 

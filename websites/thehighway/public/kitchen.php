@@ -3,10 +3,24 @@ session_start();
 
 require '../database.php';
 
-// if (isset($_SESSION['loggedIN'])) {
-	if (isset($_POST['logout'])) { 	
-		header('Location: logout.php');
+if (isset($_POST['login'])) {
+	$employeeTable = new DataBaseTable($pdo, 'users', 'id');
+	$user = $employeeTable->find('username', $_POST['username4']);
+
+	// verify username and password
+	if (password_verify($_POST['password'], $user['password'])) {
+		$_SESSION['login'] = true;
+		$_SESSION['username4'] = $user['username'];
 	}
+}
+
+
+ if (isset($_SESSION['login'])) {
+    if (isset($_POST['loggingout'])) {
+        unset($_SESSION['login']);
+        unset($_SESSION['username4']);
+        header("Location: kitchen.php");
+    }
 
 	$orders = new DataBaseTable($pdo, 'orders', 'order_id');
 
@@ -42,23 +56,23 @@ require '../database.php';
         $output = '<h3 style="text-align:center; margin-top: 2em;" id="kitchen" class="kitchen">No pending orders at the moment.</h3>';
     }
 
-/*
+
 }
 else {
 	$output = '
 	<h3 style="text-align:center;margin: auto;">Please Provide Your Credentials To Log In</h3>	
-		<form action="index.php" method="POST">
+		<form action="kitchen.php" method="POST">
 			<label class="formtitle">log in</label>
 			<label>Username</label>                                              
-			<input type="text" name="username" /> 
+			<input type="text" name="username4" /> 
 			<label>Password</label>
 			<input type="password" name="password" />
-			<input type="submit" name="submit" value="submit" />
+			<input type="submit" name="login" value="submit" />
 		</form>
 	';
 }
 
-*/
+
 	
 $title = 'The Highway Kitchen';
 
