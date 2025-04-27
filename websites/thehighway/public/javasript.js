@@ -144,17 +144,24 @@ function initHomePage() {
 }
 
 function initRegisterPage() {
-    document.getElementById('password').addEventListener('input', function() {
-        const password = this.value;
-        const feedback = document.getElementById('password-feedback');
-        
+    const passwordInput = document.getElementById('password');
+    const feedback = document.getElementById('password-feedback');
+    const form = document.getElementById('register-form'); // assuming your form has this ID
+
+    function validatePassword(password) {
         const lengthValid = password.length >= 8;
         const uppercaseValid = /[A-Z]/.test(password);
         const lowercaseValid = /[a-z]/.test(password);
         const numberValid = /\d/.test(password);
         const specialCharValid = /[\W_]/.test(password); // non-word character or underscore
-    
-        if (lengthValid && uppercaseValid && lowercaseValid && numberValid && specialCharValid) {
+
+        return lengthValid && uppercaseValid && lowercaseValid && numberValid && specialCharValid;
+    }
+
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        
+        if (validatePassword(password)) {
             feedback.textContent = "✅ Strong password";
             feedback.style.color = "green";
         } else {
@@ -165,8 +172,17 @@ function initRegisterPage() {
             feedback.style.color = "red";
         }
     });
-    
+
+    form.addEventListener('submit', function(event) {
+        const password = passwordInput.value;
+
+        if (!validatePassword(password)) {
+            event.preventDefault(); // 👈 BLOCK form submission
+            alert('Password is not strong enough!');
+        }
+    });
 }
+
 function initAdminPage() {
     const xyValues = [
         {x: "JAN", y: 97},
